@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "347417592146",
+    "project_id": "hello-al-bab",
+    "storage_bucket": "hello-al-bab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347417592146:android:90d0ac4be7d59f5aad3a8b",
+        "android_client_info": {
+          "package_name": "com.hab.hello_al_bab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347417592146-5ptcit67kjdip3rhvhm1otr6h4sge4cv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFo5r8wpa7Up-xdEa6z9cjp8oRrgQEpDU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347417592146-5ptcit67kjdip3rhvhm1otr6h4sge4cv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

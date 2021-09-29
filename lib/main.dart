@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_al_bab/screens/onboarding.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const Text( 'Hello Al Bab'),
+      home: const OnBoardingScreen(),
     );
   }
 }
