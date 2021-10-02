@@ -4,19 +4,17 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final List<String> imagesList = [
-  'https://cdn.pixabay.com/photo/2020/11/01/23/22/breakfast-5705180_1280.jpg',
-  'https://cdn.pixabay.com/photo/2016/11/18/19/00/breads-1836411_1280.jpg',
+  'https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+  'https://images.pexels.com/photos/3178818/pexels-photo-3178818.jpeg',
   'https://cdn.pixabay.com/photo/2019/01/14/17/25/gelato-3932596_1280.jpg',
-  'https://cdn.pixabay.com/photo/2017/04/04/18/07/ice-cream-2202561_1280.jpg',
 ];
 
 final List<String> titles = [
-  ' Coffee ',
-  ' Bread ',
-  ' Gelato ',
-  ' Ice Cream ',
+  ' Search ',
+  ' Book ',
+  ' Go ',
 ];
-final List<String> details =['detail1','detail2','detail3','detail4'];
+final List<String> details =['Effortlessly filter and compare 3300 workspaces based on location, type and amenities.','Pay for the space you need, as long as you need, and nothing more.','Get useful directions to your workspace - it’ll be ready from the moment you arrive'];
 
 class OnBoardingScreen extends StatefulWidget {
   @override
@@ -34,7 +32,7 @@ class _MyAppState extends State<OnBoardingScreen> {
             children: [
               SizedBox(height: MediaQuery.of(context).size.height*0.1,),
               CarouselSlider(
-                options: CarouselOptions(height: 350,
+                options: CarouselOptions(height: 420,
                   autoPlay: true,
                    enlargeCenterPage: true,
                   //scrollDirection: Axis.vertical,
@@ -52,10 +50,13 @@ class _MyAppState extends State<OnBoardingScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: 
                         Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             CircleAvatar(radius: 100.0,
                               foregroundImage: NetworkImage(item),
                             ),
+                            const SizedBox(height: 10,),
                             Text(titles[imagesList.indexOf(item)], style:GoogleFonts.poppins(fontSize: 20, fontWeight:FontWeight.bold)),
                             const SizedBox(height: 10,),
                             Text(details[imagesList.indexOf(item)],style:GoogleFonts.poppins(fontSize: 16,)),
@@ -117,49 +118,49 @@ class _MyAppState extends State<OnBoardingScreen> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: _currentIndex == index
-                          ? const Color.fromRGBO(0, 0, 0, 0.8)
-                          : const Color.fromRGBO(0, 0, 0, 0.3),
+                          ? const Color(0xffE8BD71)
+                          : const Color(0xffC4C4C4),
                     ),
                   );
                 }).toList(),
               ),
-              Spacer(),
-              Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  margin: EdgeInsets.all(10),
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ))),
-                      onPressed: () {},
-                      child: Text(
-                        "Register",
-                        style: GoogleFonts.poppins(),
-                      ))),
+              //Spacer(),
+              // Container(
+              //     width: MediaQuery.of(context).size.width * 0.8,
+              //     margin: EdgeInsets.all(10),
+              //     child: ElevatedButton(
+              //         style: ButtonStyle(
+              //             shape:
+              //                 MaterialStateProperty.all<RoundedRectangleBorder>(
+              //                     RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(18.0),
+              //         ))),
+              //         onPressed: () {},
+              //         child: Text(
+              //           "Register",
+              //           style: GoogleFonts.poppins(),
+              //         ))),
                       
-              const SizedBox(
-                height: 5,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                margin: EdgeInsets.all(10),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ))),
-                  onPressed: () {},
-                  child: Text(
-                    "Login",
-                    style: GoogleFonts.poppins(color: Colors.black),
-                  ),
-                ),
-              ),
+              // const SizedBox(
+              //   height: 5,
+              // ),
+              // Container(
+              //   width: MediaQuery.of(context).size.width * 0.8,
+              //   margin: EdgeInsets.all(10),
+              //   child: ElevatedButton(
+              //     style: ButtonStyle(
+              //         backgroundColor: MaterialStateProperty.all(Colors.white),
+              //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              //             RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(18.0),
+              //         ))),
+              //     onPressed: () {},
+              //     child: Text(
+              //       "Login",
+              //       style: GoogleFonts.poppins(color: Colors.black),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

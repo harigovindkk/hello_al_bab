@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/screens/home.dart';
 import 'package:hello_al_bab/screens/onboarding.dart';
+import 'package:hello_al_bab/screens/workspace_detail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         
       ),
-      home:  Home(),
+      home:  WorkSpaceDetail(),
     );
   }
 }
