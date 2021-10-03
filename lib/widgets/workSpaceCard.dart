@@ -65,7 +65,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                       height: 10,
                     ),
                     Text(
-                      "leeds Weelington Place",
+                      " Weelington Place",
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                     ),

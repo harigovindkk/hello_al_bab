@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/widgets/workSpaceCard.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,6 +9,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(123);
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc()
+        .set(
+          {
+            'email': 'amjadpanjeeri@gmail.com',
+          },
+        )
+        .whenComplete(() => print(123))
+        .onError((error, stackTrace) => print(error));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,13 +55,14 @@ class _HomePageState extends State<HomePage> {
               width: MediaQuery.of(context).size.width * 0.8,
               margin: EdgeInsets.all(10),
               child: ElevatedButton(
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ))),
-                  onPressed: () {},
-                  child: Text("Your Search Criteria")))
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ))),
+                child: Text("Your Search Criteria"),
+                onPressed: () {},
+              ))
         ],
       ),
     );

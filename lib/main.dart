@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/screens/home.dart';
 import 'package:hello_al_bab/screens/onboarding.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -15,10 +20,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        
       ),
-      home:  Home(),
+      home: Home(),
     );
   }
 }
-
