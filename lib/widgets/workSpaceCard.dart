@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hello_al_bab/constants/colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class WorkSpaceCard extends StatefulWidget {
   @override
@@ -6,19 +8,20 @@ class WorkSpaceCard extends StatefulWidget {
 }
 
 class _WorkSpaceCardState extends State<WorkSpaceCard> {
+  bool liked = true;
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(bottom:10),
+      padding: EdgeInsets.only(bottom: 10),
       // height:MediaQuery.of(context).size.height*0.3 ,
       child: Stack(
         overflow: Overflow.visible,
         children: [
           Container(
-            margin: EdgeInsets.all(20),
-            
-            width: MediaQuery.of(context).size.width * 0.35,
+            margin: EdgeInsets.all(25),
+
+            width: MediaQuery.of(context).size.width * 0.3,
             // height: MediaQuery.of(context).size.width * 0.35,
             // decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
             child: ClipRRect(
@@ -26,35 +29,19 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
               child: Image.network(
                 'https://www.oyorooms.com/blog/wp-content/uploads/2018/03/fe-32-1024x683.jpg',
                 fit: BoxFit.fill,
-                height: MediaQuery.of(context).size.width * 0.35,
+                height: MediaQuery.of(context).size.width * 0.3,
               ),
             ),
           ),
           Positioned(
             right: 20,
-            top: 20,
-            width: MediaQuery.of(context).size.width * 0.6,
+            top: 30,
+            width: MediaQuery.of(context).size.width * 0.65,
             child: Container(
               margin: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade300,
-                    offset: const Offset(
-                      5.0,
-                      5.0,
-                    ),
-                    blurRadius: 10.0,
-                    spreadRadius: 2.0,
-                  ), //BoxShadow
-                  BoxShadow(
-                    color: Colors.white,
-                    offset: const Offset(0.0, 0.0),
-                    blurRadius: 0.0,
-                    spreadRadius: 0.0,
-                  ), //BoxShadow
-                ],
+                color: boxColor,
               ),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -66,26 +53,17 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                     ),
                     Text(
                       " Weelington Place",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                      style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          color: primary),
                     ),
                     SizedBox(
                       height: 5,
                     ),
                     Text(
-                      "Organising a conference might not seem so much of challenging .",
-                      style: TextStyle(
-                          fontWeight: FontWeight.normal, color: Colors.grey),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "0.8 kilometers",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15,
-                          color: Colors.deepPurple),
+                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fames praesent porttitor eu.",
+                      style: GoogleFonts.poppins(color: Colors.white,fontSize: 12),
                     ),
                     SizedBox(
                       height: 5,
@@ -102,16 +80,17 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
             height: 40,
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Colors.white,
+                borderRadius: BorderRadius.circular(40),
+                border: Border.all(color: boxColor),
+                color: boxColor,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.shade300,
+                    color: Colors.black,
                     offset: const Offset(
                       0.0,
                       0.0,
                     ),
-                    blurRadius: 10.0,
+                    blurRadius: 5.0,
                     spreadRadius: 2.0,
                   ), //BoxShadow
                   BoxShadow(
@@ -124,10 +103,22 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
               ),
               child: IconButton(
                 icon: Icon(
-                  Icons.favorite_outline,
-                  color: Colors.deepPurple,
+                  liked
+                      ? Icons.favorite_outline_rounded
+                      : Icons.favorite_rounded,
+                  color: primary,
+                  size: 24,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    liked = !liked;
+                  });
+                  if(liked){
+
+                  }else{
+                    
+                  }
+                },
               ),
             ),
           ),
