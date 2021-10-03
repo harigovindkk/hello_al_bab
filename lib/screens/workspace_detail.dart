@@ -45,7 +45,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
               child: Padding(
-                padding: const EdgeInsets.only(top :15.0, left: 20, right: 20 ),
+                padding: const EdgeInsets.only(top: 15.0, left: 20, right: 20),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +54,9 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                       Text(
                         'Workspace Name',
                         style: GoogleFonts.poppins(
-                            fontSize: 20, fontWeight: FontWeight.bold, color: primary),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: primary),
                       ),
                       const SizedBox(
                         height: 10,
@@ -80,7 +82,9 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                       Text(
                         'Opening Timings',
                         style: GoogleFonts.poppins(
-                            fontSize: 16, fontWeight: FontWeight.bold, color: primary),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: primary),
                       ),
                       const SizedBox(
                         height: 10,
@@ -90,62 +94,96 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('Monday', style: GoogleFonts.poppins(color: Colors.white),),
-                               Text('8.30 -17.30',style: GoogleFonts.poppins(color: Colors.white),),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
                               Text(
-                                'Tuesday',style: GoogleFonts.poppins(color: Colors.white),
+                                'Monday',
+                                style: GoogleFonts.poppins(color: Colors.white),
                               ),
-                              Text('8.30 -17.30',style: GoogleFonts.poppins(color: Colors.white),),
+                              Text(
+                                '8.30 -17.30',
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Wednesday',style: GoogleFonts.poppins(color: Colors.white),),
-                              Text('8.30 -17.30',style: GoogleFonts.poppins(color: Colors.white),),
+                                'Tuesday',
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
+                              Text(
+                                '8.30 -17.30',
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Thursday',style: GoogleFonts.poppins(color: Colors.white),),
-                              Text('8.30 -17.30',style: GoogleFonts.poppins(color: Colors.white),),
+                                'Wednesday',
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
+                              Text(
+                                '8.30 -17.30',
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Friday',style: GoogleFonts.poppins(color: Colors.white),),
-                              Text('8.30 -17.30',style: GoogleFonts.poppins(color: Colors.white),),
+                                'Thursday',
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
+                              Text(
+                                '8.30 -17.30',
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Saturday',style: GoogleFonts.poppins(color: Colors.white),),
-                              Text('8.30 -17.30',style: GoogleFonts.poppins(color: Colors.white),),
+                                'Friday',
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
+                              Text(
+                                '8.30 -17.30',
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Sunday',style: GoogleFonts.poppins(color: Colors.white),),
-                              Text('8.30 -17.30',style: GoogleFonts.poppins(color: Colors.white),),
+                                'Saturday',
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
+                              Text(
+                                '8.30 -17.30',
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Sunday',
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
+                              Text(
+                                '8.30 -17.30',
+                                style: GoogleFonts.poppins(color: Colors.white),
+                              ),
                             ],
                           ),
                         ],
                       ),
-                     
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -154,17 +192,22 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                               margin: EdgeInsets.all(10),
                               child: ElevatedButton(
                                   style: ButtonStyle(
-                                    backgroundColor:MaterialStateProperty.all( primary),
-                                    foregroundColor: MaterialStateProperty.all(Colors.black),
+                                      backgroundColor:
+                                          MaterialStateProperty.all(primary),
+                                      foregroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.black),
                                       shape: MaterialStateProperty.all<
                                               RoundedRectangleBorder>(
                                           RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                  ))),
+                                        borderRadius:
+                                            BorderRadius.circular(18.0),
+                                      ))),
                                   onPressed: () {},
                                   child: Text(
                                     "Book Now",
-                                    style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+                                    style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w500),
                                   ))),
                         ],
                       ),
