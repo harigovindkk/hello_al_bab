@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/screens/searchCriteria.dart';
 import 'package:hello_al_bab/widgets/workSpaceCard.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,7 +29,9 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 50.0, left: 20, bottom: 20),
+                padding: const EdgeInsets.only(
+                  top: 50.0,
+                ),
                 child: Text(
                   "Search",
                   style: GoogleFonts.poppins(
@@ -60,9 +63,15 @@ class _HomePageState extends State<HomePage> {
                     ))),
                 child: Text(
                   "Your Search Criteria",
-                  style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w600),
+                  style: GoogleFonts.poppins(
+                      color: Colors.black, fontWeight: FontWeight.w600),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SearchCriteria()),
+                  );
+                },
               ))
         ],
       ),

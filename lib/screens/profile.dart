@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/screens/bookings.dart';
+import 'package:hello_al_bab/screens/wishlist.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -54,12 +56,17 @@ class _ProfilePageState extends State<ProfilePage> {
             height: 15,
           ),
           Padding(
-            padding: const EdgeInsets.only(left :50.0, right: 50),
+            padding: const EdgeInsets.only(left: 50.0, right: 50),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyBookings()),
+                    );
+                  },
                   child: Text('Bookings',
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold, color: primary)),
@@ -67,7 +74,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       primary: Colors.black, side: BorderSide(color: primary)),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyWishlist()),
+                    );
+                  },
                   child: Text('Wishlist',
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.bold, color: primary)),

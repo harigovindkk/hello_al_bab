@@ -114,9 +114,9 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                     liked = !liked;
                   });
                   if(liked){
-
+                    //item added to wishlist
                   }else{
-                    
+                    //item removed from wishlist
                   }
                 },
               ),
