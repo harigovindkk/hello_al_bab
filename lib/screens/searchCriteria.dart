@@ -24,18 +24,28 @@ class _SearchCriteriaState extends State<SearchCriteria> {
   DateTime selectedToDate = DateTime.now();
   String? _selectedFromTime;
   String? _selectedToTime;
+  int guests = 0;
+  bool singleDay = false;
 
   Future<void> _showFromTime() async {
     final TimeOfDay? result = await showTimePicker(
         context: context,
         initialTime: TimeOfDay.now(),
+        helpText: "Select from time",
         builder: (context, child) {
-          return MediaQuery(
-              data: MediaQuery.of(context).copyWith(
-                  // Using 12-Hour format
-                  alwaysUse24HourFormat: false),
-              // If you want 24-Hour format, just change alwaysUse24HourFormat to true
-              child: child!);
+          return Theme(
+            data: ThemeData.dark().copyWith(
+              primaryColor: primary,
+              accentColor: lightprimary,
+              colorScheme: ColorScheme.dark(
+                primary: primary,
+                onPrimary: lightprimary,
+                // surface: primary,
+                onSurface: Colors.white,
+              ),
+            ),
+            child: child!,
+          );
         });
     if (result != null) {
       setState(() {
@@ -48,13 +58,21 @@ class _SearchCriteriaState extends State<SearchCriteria> {
     final TimeOfDay? result = await showTimePicker(
         context: context,
         initialTime: TimeOfDay.now(),
+        helpText: "Select to time",
         builder: (context, child) {
-          return MediaQuery(
-              data: MediaQuery.of(context).copyWith(
-                  // Using 12-Hour format
-                  alwaysUse24HourFormat: false),
-              // If you want 24-Hour format, just change alwaysUse24HourFormat to true
-              child: child!);
+          return Theme(
+            data: ThemeData.dark().copyWith(
+              primaryColor: primary,
+              accentColor: lightprimary,
+              colorScheme: ColorScheme.dark(
+                primary: primary,
+                onPrimary: lightprimary,
+                // surface: primary,
+                onSurface: Colors.white,
+              ),
+            ),
+            child: child!,
+          );
         });
     if (result != null) {
       setState(() {
@@ -74,10 +92,10 @@ class _SearchCriteriaState extends State<SearchCriteria> {
         return Theme(
           data: ThemeData.dark().copyWith(
             primaryColor: primary,
-            
             accentColor: lightprimary,
-            colorScheme: ColorScheme.dark(primary: primary,
-            onPrimary: lightprimary,
+            colorScheme: ColorScheme.dark(
+              primary: primary,
+              onPrimary: lightprimary,
               surface: primary,
               onSurface: Colors.white,
             ),
@@ -104,10 +122,12 @@ class _SearchCriteriaState extends State<SearchCriteria> {
           data: ThemeData.dark().copyWith(
             primaryColor: primary,
             accentColor: lightprimary,
-            colorScheme: ColorScheme.dark(primary: primary,
-            onPrimary: lightprimary,
+            colorScheme: ColorScheme.dark(
+              primary: primary,
+              onPrimary: lightprimary,
               surface: primary,
-              onSurface: Colors.white,),
+              onSurface: Colors.white,
+            ),
           ),
           child: child!,
         );
@@ -399,11 +419,69 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                 ),
               ],
             ),
-             Row(
+            Row(
               children: [
                 Text("Number of guests",
                     style:
                         GoogleFonts.poppins(fontSize: 10, color: Colors.white))
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(left: 8),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: primary, // red as border color
+                        ),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Guests",
+                          style: GoogleFonts.poppins(color: primary),
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              padding: EdgeInsets.all(0),
+                              onPressed: () {
+                                setState(() {
+                                  guests--;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.remove,
+                                color: primary,
+                                size: 15,
+                              ),
+                            ),
+                            Container(
+                              color: primary,
+                              child: guests < 0 ? Text("0") : Text("$guests"),
+                              padding: EdgeInsets.all(16),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  guests++;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.add,
+                                color: primary,
+                                size: 15,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
             Spacer(),
@@ -423,10 +501,11 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                       color: Colors.black, fontWeight: FontWeight.w600),
                 ),
                 onPressed: () {
-                   Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LocationAvailable()),
-                    );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => LocationAvailable()),
+                  );
                 },
               ),
             ),

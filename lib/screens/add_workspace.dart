@@ -18,12 +18,12 @@ class _AddWorkspaceState extends State<AddWorkspace> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(Icons.arrow_back_ios, color: primary),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {
+        //     Navigator.of(context).pop();
+        //   },
+        //   icon: const Icon(Icons.arrow_back_ios, color: primary),
+        // ),
         centerTitle: true,
         title: Text('Add Workspace',
             style: GoogleFonts.poppins(
