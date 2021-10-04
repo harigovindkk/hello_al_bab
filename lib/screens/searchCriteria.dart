@@ -72,10 +72,15 @@ class _SearchCriteriaState extends State<SearchCriteria> {
       helpText: 'Select from date',
       builder: (context, child) {
         return Theme(
-          data: ThemeData.light().copyWith(
+          data: ThemeData.dark().copyWith(
             primaryColor: primary,
+            
             accentColor: lightprimary,
-            colorScheme: ColorScheme.light(primary: primary),
+            colorScheme: ColorScheme.dark(primary: primary,
+            onPrimary: lightprimary,
+              surface: primary,
+              onSurface: Colors.white,
+            ),
           ),
           child: child!,
         );
@@ -96,10 +101,13 @@ class _SearchCriteriaState extends State<SearchCriteria> {
       helpText: 'Select to date',
       builder: (context, child) {
         return Theme(
-          data: ThemeData.light().copyWith(
+          data: ThemeData.dark().copyWith(
             primaryColor: primary,
             accentColor: lightprimary,
-            colorScheme: ColorScheme.light(primary: primary),
+            colorScheme: ColorScheme.dark(primary: primary,
+            onPrimary: lightprimary,
+              surface: primary,
+              onSurface: Colors.white,),
           ),
           child: child!,
         );
