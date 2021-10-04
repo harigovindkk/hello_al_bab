@@ -5,6 +5,7 @@ import 'package:hello_al_bab/widgets/workSpaceCard.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class LocationAvailable extends StatefulWidget {
   @override
@@ -18,6 +19,8 @@ class _LocationAvailableState extends State<LocationAvailable> {
     super.initState();
     print(123);
   }
+
+  bool checked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +56,24 @@ class _LocationAvailableState extends State<LocationAvailable> {
               padding: const EdgeInsets.all(20.0),
               child: Row(
                 children: [
-                  Checkbox(
-                    value: true,
-                    onChanged: null,
-                    activeColor: primary,
-                    checkColor: primary,
+                  Theme(
+                    data: ThemeData(unselectedWidgetColor: primary),
+                    child: Checkbox(
+                      value: checked,
+                      onChanged: (newValue) {
+                        setState(() {
+                          checked = newValue!;
+                        });
+                      },
+                      tristate: false,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(2),
+                          side: BorderSide(color: Colors.white)),
+// tristate: true,
+                      // shape: CircleBorder(),
+                      activeColor: boxColor,
+                      checkColor: primary,
+                    ),
                   ),
                   Text(
                     "Agree to the terms and conditions",

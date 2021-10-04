@@ -52,27 +52,28 @@ class _HomePageState extends State<HomePage> {
           ),
           Spacer(),
           Container(
-              width: MediaQuery.of(context).size.width * 0.8,
-              margin: EdgeInsets.all(10),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: primary,
-                    padding: EdgeInsets.all(10),
-                    shape: (RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ))),
-                child: Text(
-                  "Your Search Criteria",
-                  style: GoogleFonts.poppins(
-                      color: Colors.black, fontWeight: FontWeight.w600),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SearchCriteria()),
-                  );
-                },
-              ))
+            width: MediaQuery.of(context).size.width * 0.8,
+            margin: EdgeInsets.all(10),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  primary: primary,
+                  padding: EdgeInsets.all(10),
+                  shape: (RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ))),
+              child: Text(
+                "Your Search Criteria",
+                style: GoogleFonts.poppins(
+                    color: Colors.black, fontWeight: FontWeight.w600),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SearchCriteria()),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
