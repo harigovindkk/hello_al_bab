@@ -31,61 +31,61 @@ class _AddWorkspaceState extends State<AddWorkspace> {
         backgroundColor: Colors.black,
       ),
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-             Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'images/success.JPG',
-                fit: BoxFit.fill,
-                height: MediaQuery.of(context).size.width * 0.5,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'images/success.JPG',
+                    fit: BoxFit.fill,
+                    height: MediaQuery.of(context).size.width * 0.5,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Thank you for your interest.\nOur team will contact you via email with\n instructions to add a listing',
+                    style: GoogleFonts.poppins(color: primary),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0)),
+                      primary: primary,
+                      padding: const EdgeInsets.all(15),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      "Continue to Bookings",
+                      style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
-           const SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Thank you for your interest.\nOur team will contact you via email with\n instructions to add a listing',
-                  style: GoogleFonts.poppins(color: primary),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0)),
-                    primary: primary,
-                    padding: const EdgeInsets.all(15),
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    "Continue to Bookings",
-                    style: GoogleFonts.poppins(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ),
-            ),
-          
-          ],
         ),
       ),
     );
