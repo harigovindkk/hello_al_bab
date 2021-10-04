@@ -14,7 +14,11 @@ final List<String> titles = [
   ' Book ',
   ' Go ',
 ];
-final List<String> details =['Effortlessly filter and compare 3300 workspaces based on location, type and amenities.','Pay for the space you need, as long as you need, and nothing more.','Get useful directions to your workspace - it’ll be ready from the moment you arrive'];
+final List<String> details = [
+  'Effortlessly filter and compare 3300 workspaces based on location, type and amenities.',
+  'Pay for the space you need, as long as you need, and nothing more.',
+  'Get useful directions to your workspace - it’ll be ready from the moment you arrive'
+];
 
 class OnBoardingScreen extends StatefulWidget {
   @override
@@ -27,144 +31,153 @@ class _MyAppState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-          child: Column(
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height*0.1,),
-              CarouselSlider(
-                options: CarouselOptions(height: 420,
-                  autoPlay: true,
-                   enlargeCenterPage: true,
-                  //scrollDirection: Axis.vertical,
-                  onPageChanged: (index, reason) {
-                    setState(
-                      () {
-                        _currentIndex = index;
-                      },
-                    );
-                  },
-                ),
-                items: imagesList
-                    .map(
-                      (item) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: 
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CircleAvatar(radius: 100.0,
-                              foregroundImage: NetworkImage(item),
-                            ),
-                            const SizedBox(height: 10,),
-                            Text(titles[imagesList.indexOf(item)], style:GoogleFonts.poppins(fontSize: 20, fontWeight:FontWeight.bold)),
-                            const SizedBox(height: 10,),
-                            Text(details[imagesList.indexOf(item)],style:GoogleFonts.poppins(fontSize: 16,)),
-
-                          ],
-                        ),
-
-
-                        //  Card(
-                        //   margin: const EdgeInsets.only(
-                        //     top: 10.0,
-                        //     bottom: 10.0,
-                        //   ),
-                        //   elevation: 6.0,
-                        //   shadowColor: Colors.grey,
-                        //   shape: RoundedRectangleBorder(
-                        //     borderRadius: BorderRadius.circular(100.0),
-                        //   ),
-                        //   child: ClipRRect(
-                        //     borderRadius: const BorderRadius.all(
-                        //       Radius.circular(100.0),
-                        //     ),
-                        //     child:
-                        // Image.network(
-                        //       item,
-                        //       fit: BoxFit.cover,
-                        //       width: double.infinity,
-                        //     ),
-                        //   ),
-                        // ),
-
-                        // Card(
-                        //   margin: const EdgeInsets.only(
-                        //     top: 10.0,
-                        //     bottom: 10.0,
-                        //   ),
-                        //   elevation: 6.0,
-                        //   shadowColor: Colors.grey,
-                        //   shape: RoundedRectangleBorder(
-                        //     borderRadius: BorderRadius.circular(100.0),
-                        //   ),
-                        //   child: CircleAvatar(radius: 100.0,
-                        //       foregroundImage: NetworkImage(item),
-                        //     ),
-                        // ),
-                      ),
-                    )
-                    .toList(),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: imagesList.map((urlOfItem) {
-                  int index = imagesList.indexOf(urlOfItem);
-                  return Container(
-                    width: 10.0,
-                    height: 10.0,
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 2.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _currentIndex == index
-                          ? const Color(0xffE8BD71)
-                          : const Color(0xffC4C4C4),
-                    ),
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
+            CarouselSlider(
+              options: CarouselOptions(
+                height: 420,
+                autoPlay: true,
+                enlargeCenterPage: true,
+                //scrollDirection: Axis.vertical,
+                onPageChanged: (index, reason) {
+                  setState(
+                    () {
+                      _currentIndex = index;
+                    },
                   );
-                }).toList(),
+                },
               ),
-              //Spacer(),
-              // Container(
-              //     width: MediaQuery.of(context).size.width * 0.8,
-              //     margin: EdgeInsets.all(10),
-              //     child: ElevatedButton(
-              //         style: ButtonStyle(
-              //             shape:
-              //                 MaterialStateProperty.all<RoundedRectangleBorder>(
-              //                     RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(18.0),
-              //         ))),
-              //         onPressed: () {},
-              //         child: Text(
-              //           "Register",
-              //           style: GoogleFonts.poppins(),
-              //         ))),
-                      
-              // const SizedBox(
-              //   height: 5,
-              // ),
-              // Container(
-              //   width: MediaQuery.of(context).size.width * 0.8,
-              //   margin: EdgeInsets.all(10),
-              //   child: ElevatedButton(
-              //     style: ButtonStyle(
-              //         backgroundColor: MaterialStateProperty.all(Colors.white),
-              //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              //             RoundedRectangleBorder(
-              //           borderRadius: BorderRadius.circular(18.0),
-              //         ))),
-              //     onPressed: () {},
-              //     child: Text(
-              //       "Login",
-              //       style: GoogleFonts.poppins(color: Colors.black),
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
+              items: imagesList
+                  .map(
+                    (item) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            radius: 100.0,
+                            foregroundImage: NetworkImage(item),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(titles[imagesList.indexOf(item)],
+                              style: GoogleFonts.poppins(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(details[imagesList.indexOf(item)],
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                              )),
+                        ],
+                      ),
+
+                      //  Card(
+                      //   margin: const EdgeInsets.only(
+                      //     top: 10.0,
+                      //     bottom: 10.0,
+                      //   ),
+                      //   elevation: 6.0,
+                      //   shadowColor: Colors.grey,
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(100.0),
+                      //   ),
+                      //   child: ClipRRect(
+                      //     borderRadius: const BorderRadius.all(
+                      //       Radius.circular(100.0),
+                      //     ),
+                      //     child:
+                      // Image.network(
+                      //       item,
+                      //       fit: BoxFit.cover,
+                      //       width: double.infinity,
+                      //     ),
+                      //   ),
+                      // ),
+
+                      // Card(
+                      //   margin: const EdgeInsets.only(
+                      //     top: 10.0,
+                      //     bottom: 10.0,
+                      //   ),
+                      //   elevation: 6.0,
+                      //   shadowColor: Colors.grey,
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(100.0),
+                      //   ),
+                      //   child: CircleAvatar(radius: 100.0,
+                      //       foregroundImage: NetworkImage(item),
+                      //     ),
+                      // ),
+                    ),
+                  )
+                  .toList(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: imagesList.map((urlOfItem) {
+                int index = imagesList.indexOf(urlOfItem);
+                return Container(
+                  width: 10.0,
+                  height: 10.0,
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 2.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _currentIndex == index
+                        ? const Color(0xffE8BD71)
+                        : const Color(0xffC4C4C4),
+                  ),
+                );
+              }).toList(),
+            ),
+            //Spacer(),
+            // Container(
+            //     width: MediaQuery.of(context).size.width * 0.8,
+            //     margin: EdgeInsets.all(10),
+            //     child: ElevatedButton(
+            //         style: ButtonStyle(
+            //             shape:
+            //                 MaterialStateProperty.all<RoundedRectangleBorder>(
+            //                     RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(18.0),
+            //         ))),
+            //         onPressed: () {},
+            //         child: Text(
+            //           "Register",
+            //           style: GoogleFonts.poppins(),
+            //         ))),
+
+            // const SizedBox(
+            //   height: 5,
+            // ),
+            // Container(
+            //   width: MediaQuery.of(context).size.width * 0.8,
+            //   margin: EdgeInsets.all(10),
+            //   child: ElevatedButton(
+            //     style: ButtonStyle(
+            //         backgroundColor: MaterialStateProperty.all(Colors.white),
+            //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            //             RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(18.0),
+            //         ))),
+            //     onPressed: () {},
+            //     child: Text(
+            //       "Login",
+            //       style: GoogleFonts.poppins(color: Colors.black),
+            //     ),
+            //   ),
+            // ),
+          ],
         ),
-      );
-    
+      ),
+    );
   }
 }
