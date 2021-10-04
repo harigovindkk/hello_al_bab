@@ -13,6 +13,29 @@ class VerifyEmail extends StatefulWidget {
 }
 
 class _VerifyEmailState extends State<VerifyEmail> {
+  final snackBar = SnackBar(
+    backgroundColor: Colors.transparent,
+    elevation: 50.0,
+    content: Container(
+      
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: lightprimary,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          mainAxisAlignment:MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.warning_amber_rounded, color: Colors.black),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+              child: Text('OTP is Incorrect!',
+                  style: GoogleFonts.poppins(color: Colors.black)),
+            ),
+          ],
+        )),
+  );
+
   TextEditingController otpcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -47,14 +70,14 @@ class _VerifyEmailState extends State<VerifyEmail> {
             const SizedBox(
               height: 15,
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.only(left: 15.0, top: 15.0),
               child: Text(
                 "OTP",
                 style: GoogleFonts.poppins(color: Colors.white),
               ),
             ),
-           Padding(
+            Padding(
               //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextFormField(
@@ -67,7 +90,8 @@ class _VerifyEmailState extends State<VerifyEmail> {
                   }
                   return null;
                 },
-                controller: otpcontroller,keyboardType: TextInputType.number,
+                controller: otpcontroller,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelText: '',
                   labelStyle:
@@ -110,7 +134,9 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
                   child: Text(
                     "Verify",
                     style: GoogleFonts.poppins(
