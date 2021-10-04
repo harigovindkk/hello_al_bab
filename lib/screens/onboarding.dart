@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hello_al_bab/constants/colors.dart';
 
 final List<String> imagesList = [
   'https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
@@ -14,7 +15,11 @@ final List<String> titles = [
   ' Book ',
   ' Go ',
 ];
-final List<String> details =['Effortlessly filter and compare 3300 workspaces based on location, type and amenities.','Pay for the space you need, as long as you need, and nothing more.','Get useful directions to your workspace - it’ll be ready from the moment you arrive'];
+final List<String> details = [
+  'Effortlessly filter and compare 3300 workspaces based on location, type and amenities.',
+  'Pay for the space you need, as long as you need, and nothing more',
+  'Get useful directions to your workspace - it’ll be ready from the moment you arrive'
+];
 
 class OnBoardingScreen extends StatefulWidget {
   @override
@@ -27,14 +32,28 @@ class _MyAppState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              colors: <Color>[Colors.black, primary],
+              begin: FractionalOffset.topRight,
+              end: FractionalOffset.bottomLeft,
+              stops: [0.1, 0.9],
+              tileMode: TileMode.mirror),
+        ),
+        child: Center(
           child: Column(
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height*0.1,),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.1,
+              ),
               CarouselSlider(
-                options: CarouselOptions(height: 420,
+                options: CarouselOptions(
+                  height: 420,
                   autoPlay: true,
-                   enlargeCenterPage: true,
+                  enlargeCenterPage: true,
                   //scrollDirection: Axis.vertical,
                   onPageChanged: (index, reason) {
                     setState(
@@ -48,22 +67,51 @@ class _MyAppState extends State<OnBoardingScreen> {
                     .map(
                       (item) => Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: 
-                        Column(
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            CircleAvatar(radius: 100.0,
-                              foregroundImage: NetworkImage(item),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              height: MediaQuery.of(context).size.width * 0.5,
+                              decoration: BoxDecoration(
+                                color: lightprimary,
+                                image: DecorationImage(
+                                  image: NetworkImage(item),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.all(Radius.circular(
+                                    MediaQuery.of(context).size.width * 0.5)),
+                                border: Border.all(
+                                  color: primary,
+                                  width: 2.5,
+                                ),
+                              ),
                             ),
-                            const SizedBox(height: 10,),
-                            Text(titles[imagesList.indexOf(item)], style:GoogleFonts.poppins(fontSize: 20, fontWeight:FontWeight.bold)),
-                            const SizedBox(height: 10,),
-                            Text(details[imagesList.indexOf(item)],style:GoogleFonts.poppins(fontSize: 16,)),
-
+                            // CircleAvatar(radius: 100.0,foregroundColor: lightprimary,
+                            //   foregroundImage: NetworkImage(item),
+                            // ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(titles[imagesList.indexOf(item)],
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              details[imagesList.indexOf(item)],
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                                color: Colors.white,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
                           ],
                         ),
-
 
                         //  Card(
                         //   margin: const EdgeInsets.only(
@@ -140,7 +188,7 @@ class _MyAppState extends State<OnBoardingScreen> {
               //           "Register",
               //           style: GoogleFonts.poppins(),
               //         ))),
-                      
+
               // const SizedBox(
               //   height: 5,
               // ),
@@ -164,7 +212,7 @@ class _MyAppState extends State<OnBoardingScreen> {
             ],
           ),
         ),
-      );
-    
+      ),
+    );
   }
 }
