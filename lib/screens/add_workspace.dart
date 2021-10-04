@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/model/bookings_model.dart';
+import 'package:hello_al_bab/screens/bookings.dart';
 
 class AddWorkspace extends StatefulWidget {
   const AddWorkspace({Key? key}) : super(key: key);
@@ -73,7 +75,12 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                       primary: primary,
                       padding: const EdgeInsets.all(15),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                       Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyBookings()),
+                    );
+                    },
                     child: Text(
                       "Continue to Bookings",
                       style: GoogleFonts.poppins(

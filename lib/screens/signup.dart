@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/screens/login.dart';
 import 'package:hello_al_bab/widgets/input_field.dart';
 import 'package:intl/intl.dart';
 
@@ -265,7 +266,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                     Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LoginPage()),
+                    );
+                  },
                   child: Text(
                     "Sign Up",
                     style: GoogleFonts.poppins(

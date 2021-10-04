@@ -3,6 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/screens/home.dart';
+import 'package:hello_al_bab/screens/signup.dart';
 import 'package:hello_al_bab/widgets/input_field.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,12 +21,16 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed:() {Navigator.of(context).pop();}, icon:const Icon(Icons.arrow_back_ios, color :primary),),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: primary),
+        ),
         centerTitle: true,
         title: Text('Sign In',
             style: GoogleFonts.poppins(
                 fontWeight: FontWeight.bold, color: primary)),
-        
         backgroundColor: Colors.black,
       ),
       backgroundColor: Colors.black,
@@ -114,11 +120,18 @@ class _LoginPageState extends State<LoginPage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                  },
                   child: Text(
                     "Sign In",
-                    style:
-                        GoogleFonts.poppins(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w700),
+                    style: GoogleFonts.poppins(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -162,7 +175,13 @@ class _LoginPageState extends State<LoginPage> {
                                 fontWeight: FontWeight.w600,
                                 fontSize: 15),
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => {},
+                              ..onTap = () => {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SignUpPage()))
+                                  },
                           ),
                         ]),
                   ),
