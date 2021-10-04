@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/screens/login.dart';
 
 final List<String> imagesList = [
   'https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
@@ -38,8 +39,8 @@ class _MyAppState extends State<OnBoardingScreen> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
               colors: <Color>[Colors.black, primary],
-              begin: FractionalOffset.topRight,
-              end: FractionalOffset.bottomLeft,
+              begin: FractionalOffset.bottomCenter,
+              end: FractionalOffset.topCenter,
               stops: [0.1, 0.9],
               tileMode: TileMode.mirror),
         ),
@@ -189,9 +190,34 @@ class _MyAppState extends State<OnBoardingScreen> {
               //           style: GoogleFonts.poppins(),
               //         ))),
 
-              // const SizedBox(
-              //   height: 5,
-              // ),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0)),
+                      primary: primary,
+                      padding: const EdgeInsets.all(15),
+                    ),
+                    onPressed: () {
+                       Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                    },
+                    child: Text(
+                      "Get Started",
+                      style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
+              ),
               // Container(
               //   width: MediaQuery.of(context).size.width * 0.8,
               //   margin: EdgeInsets.all(10),

@@ -37,18 +37,20 @@ class _MyBookingsState extends State<MyBookings> {
         centerTitle: true,
         backgroundColor: Colors.black,
       ),
-      body: Container(
-        color: Colors.black,
-        child: Column(
-          children: [
-            Column(
-              children: [
-                BookedWorkSpaceCard(),
-                BookedWorkSpaceCard(),
-                BookedWorkSpaceCard(),
-              ],
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.black,
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  BookedWorkSpaceCard(),
+                  BookedWorkSpaceCard(),
+                  BookedWorkSpaceCard(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
