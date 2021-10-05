@@ -7,7 +7,7 @@ class Workspace {
     String address;
     String description;
     String photoUrl;
-    String time;
+    Map time;
     String ownerId;
     Timestamp lastUpdated;
     String addedBy;

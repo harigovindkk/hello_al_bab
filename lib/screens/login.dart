@@ -3,9 +3,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/screens/home.dart';
 import 'package:hello_al_bab/screens/signup.dart';
+import 'package:hello_al_bab/services/authentication.dart';
 import 'package:hello_al_bab/widgets/input_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,6 +21,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailcontroller = TextEditingController(),
       passwordcontroller = TextEditingController();
+
+  Future<void> reset() async {
+    try {
+      await AuthenticationHelper().resetPassword(emailcontroller.text);
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          customSnackBar(e.message as String, Icons.warning_amber_rounded));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,10 +135,35 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Home()),
-                    );
+                    if (emailcontroller.text.contains('@') == false ||
+                        emailcontroller.text.contains('.') == false) {
+                      ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
+                          "Enter a valid Email ID",
+                          Icons.warning_amber_rounded));
+                    } else if (passwordcontroller.text == "") {
+                      ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
+                          "Password cannot be null",
+                          Icons.warning_amber_rounded));
+                    } else {
+                      AuthenticationHelper()
+                          .signIn(emailcontroller.text, passwordcontroller.text)
+                          .then((result) {
+                        if (result == null) {
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => Home()));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              customSnackBar(
+                                  result, Icons.warning_amber_rounded));
+                          //  Scaffold.of(context).showSnackBar(SnackBar(
+                          //      content: Text(
+                          //      result,
+                          //     style: TextStyle(fontSize: 16),
+                          //        ),
+                          //   ));
+                        }
+                      });
+                    }
                   },
                   child: Text(
                     "Sign In",
@@ -144,7 +183,8 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 InkWell(
                   onTap: () {
-                    //TODO FORGOT PASSWORD SCREEN GOES HERE
+                    reset();
+                   // AuthenticationHelper().resetPassword(emailcontroller.text);
                   },
                   child: Text('Forgot Password?',
                       style: GoogleFonts.poppins(

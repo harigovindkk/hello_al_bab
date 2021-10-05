@@ -21,7 +21,7 @@ class _MyBookingsState extends State<MyBookings> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold( backgroundColor: Colors.black,
       appBar: AppBar(
         leading: IconButton(
           padding: EdgeInsets.only(left:10),

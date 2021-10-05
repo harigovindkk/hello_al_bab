@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/constants/snackbar.dart';
+import 'package:hello_al_bab/screens/home.dart';
 import 'package:hello_al_bab/screens/login.dart';
 import 'package:hello_al_bab/screens/verify_email.dart';
+import 'package:hello_al_bab/services/authentication.dart';
 import 'package:hello_al_bab/widgets/input_field.dart';
 import 'package:intl/intl.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -47,6 +52,22 @@ class _SignUpPageState extends State<SignUpPage> {
       });
   }
 
+  Future<void> createUserDoc() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set({
+          "loginMethord" : "EmailAndPassword",
+      "uid": FirebaseAuth.instance.currentUser!.uid,
+      "name": namecontroller.text,
+      "email": emailcontroller.text,
+      "dob": DateFormat(isSelected ? 'dd-MM-yyyy' : '').format(selectedDate),
+      "phone": phonecontroller.text,
+      "profilePicture": FirebaseAuth.instance.currentUser!.photoURL,
+      "createdTime": Timestamp.now(),
+    }).onError((error, stackTrace) => print(error));
+  }
+
   TextEditingController emailcontroller = TextEditingController(),
       namecontroller = TextEditingController(),
       dobcontroller = TextEditingController(),
@@ -83,7 +104,7 @@ class _SignUpPageState extends State<SignUpPage> {
             Padding(
               //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: InputField('', emailcontroller),
+              child: InputField('', namecontroller),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0, top: 15.0),
@@ -164,7 +185,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   }
                   return null;
                 },
-                obscureText: true,
+                obscureText: false,
                 controller: phonecontroller,
                 decoration: InputDecoration(
                   labelText: '',
@@ -268,10 +289,25 @@ class _SignUpPageState extends State<SignUpPage> {
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () {
-                     Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) =>const VerifyEmail()),
-                    );
+                    
+                    AuthenticationHelper()
+                        .signUp(emailcontroller.text, passwordcontroller.text)
+                        .then((result) {
+                      if (result == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
+                            "A verification link has been sent to the email. Please login after clicking it",
+                            Icons.mail_outline));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginPage()));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            customSnackBar(
+                                result, Icons.warning_amber_rounded));
+                      }
+                    });
+                    createUserDoc();
                   },
                   child: Text(
                     "Sign Up",

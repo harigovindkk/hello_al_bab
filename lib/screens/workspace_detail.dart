@@ -6,7 +6,11 @@ import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/model/workspace_model.dart';
 import 'package:hello_al_bab/screens/searchCriteria.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hello_al_bab/model/workspace_model.dart';
 
 class WorkSpaceDetail extends StatefulWidget {
   const WorkSpaceDetail({Key? key}) : super(key: key);
@@ -16,6 +20,35 @@ class WorkSpaceDetail extends StatefulWidget {
 }
 
 class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
+Workspace? workspace;bool isLoading=false;
+  Future<void> getDetails() async {
+    return FirebaseFirestore.instance
+        .collection('workspace')
+        .doc("zd2IDN4FmEpGJfBDUyA2")
+        .get()
+        .then((value) {
+          setState(() {
+            workspace= Workspace.fromDoc(value.data() as Map<String, dynamic>);
+          });
+    });
+  }
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+       setState(() {
+        isLoading=true;
+      });
+    getDetails().whenComplete(() {
+
+      setState(() {
+        isLoading=false;
+      });
+    });
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,10 +59,10 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
             width: double.infinity,
             height: 300,
             decoration: const BoxDecoration(
-              color: Colors.blue,
+              color: primary,
             ),
             child: Image.network(
-              'https://picsum.photos/seed/118/600',
+              workspace!.photoUrl,
               width: 100,
               height: 100,
               fit: BoxFit.cover,
@@ -53,7 +86,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'Workspace Name',
+                        workspace!.name,
                         style: GoogleFonts.poppins(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -63,14 +96,14 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                         height: 10,
                       ),
                       Text(
-                        'There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain...',
+                        workspace!.address,
                         style: GoogleFonts.poppins(color: Colors.white38),
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       ExpandableText(
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                       workspace!.description,
                         expandText: 'See More',
                         collapseText: 'See Less',
                         maxLines: 5,
