@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: GoogleFonts.poppins(
                         color: Colors.black,
                         fontSize: 15,
-                        fontWeight: FontWeight.w700),
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
@@ -195,7 +195,12 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                  },
                   child: Text(
                     'Skip and continue as a guest ',
                     style: GoogleFonts.poppins(color: primary),

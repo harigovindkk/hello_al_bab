@@ -151,7 +151,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
         title: Text(
           "Search Criteria",
           style:
-              GoogleFonts.poppins(fontWeight: FontWeight.w600, color: primary),
+              GoogleFonts.poppins(fontWeight: FontWeight.bold, color: primary),
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
@@ -166,7 +166,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
               children: [
                 Text("Space type",
                     style:
-                        GoogleFonts.poppins(fontSize: 10, color: Colors.white))
+                        GoogleFonts.poppins(color: Colors.white))
               ],
             ),
             Row(
@@ -233,7 +233,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
               children: [
                 Text("Date",
                     style:
-                        GoogleFonts.poppins(fontSize: 10, color: Colors.white))
+                        GoogleFonts.poppins( color: Colors.white))
               ],
             ),
             Row(
@@ -286,7 +286,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                       Text(
                         'Date from',
                         style: GoogleFonts.poppins(
-                            fontSize: 10, color: Colors.white),
+                             color: Colors.white),
                       ),
                     ],
                   ),
@@ -298,7 +298,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                       Text(
                         'Date to',
                         style: GoogleFonts.poppins(
-                            fontSize: 10, color: Colors.white),
+                             color: Colors.white),
                       ),
                     ],
                   ),
@@ -355,7 +355,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                       Text(
                         'Time from',
                         style: GoogleFonts.poppins(
-                            fontSize: 10, color: Colors.white),
+                             color: Colors.white),
                       ),
                     ],
                   ),
@@ -367,7 +367,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                       Text(
                         'Time to',
                         style: GoogleFonts.poppins(
-                            fontSize: 10, color: Colors.white),
+                            color: Colors.white),
                       ),
                     ],
                   ),
@@ -423,7 +423,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
               children: [
                 Text("Number of guests",
                     style:
-                        GoogleFonts.poppins(fontSize: 10, color: Colors.white))
+                        GoogleFonts.poppins( color: Colors.white))
               ],
             ),
             SizedBox(height: 5),

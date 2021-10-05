@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/model/bookings_model.dart';
+import 'package:hello_al_bab/screens/bookings.dart';
 import 'package:hello_al_bab/widgets/bookedWorkspace.dart';
 import 'package:hello_al_bab/widgets/workSpaceCard.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:hello_al_bab/screens/home.dart';
 
 class LocationAvailable extends StatefulWidget {
   @override
@@ -34,7 +37,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
         title: Text(
           "Location Available",
           style:
-              GoogleFonts.poppins(fontWeight: FontWeight.w600, color: primary),
+              GoogleFonts.poppins(fontWeight: FontWeight.bold, color: primary),
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
@@ -136,7 +139,12 @@ class _LocationAvailableState extends State<LocationAvailable> {
                   style: GoogleFonts.poppins(
                       color: Colors.black, fontWeight: FontWeight.w600),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                },
               ),
             ),
           ],

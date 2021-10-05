@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/screens/login.dart';
+import 'package:hello_al_bab/screens/verify_email.dart';
 import 'package:hello_al_bab/widgets/input_field.dart';
 import 'package:intl/intl.dart';
 
@@ -269,7 +270,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   onPressed: () {
                      Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const LoginPage()),
+                      MaterialPageRoute(builder: (context) =>const VerifyEmail()),
                     );
                   },
                   child: Text(
@@ -277,7 +278,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: GoogleFonts.poppins(
                         color: Colors.black,
                         fontSize: 15,
-                        fontWeight: FontWeight.w700),
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
@@ -309,7 +310,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: GoogleFonts.poppins(
                             color: Colors.black,
                             fontSize: 15,
-                            fontWeight: FontWeight.w700),
+                            fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),

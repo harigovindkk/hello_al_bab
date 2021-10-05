@@ -86,7 +86,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                       style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontSize: 15,
-                          fontWeight: FontWeight.w700),
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),

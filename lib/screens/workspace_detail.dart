@@ -6,6 +6,7 @@ import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/screens/searchCriteria.dart';
 
 class WorkSpaceDetail extends StatefulWidget {
   const WorkSpaceDetail({Key? key}) : super(key: key);
@@ -203,11 +204,16 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                         borderRadius:
                                             BorderRadius.circular(18.0),
                                       ))),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SearchCriteria()),
+                    );
+                                  },
                                   child: Text(
                                     "Book Now",
                                     style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w500),
+                                        fontWeight: FontWeight.w600),
                                   ))),
                         ],
                       ),

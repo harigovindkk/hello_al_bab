@@ -31,7 +31,7 @@ class _MyBookingsState extends State<MyBookings> {
         title: Text(
           "Bookings",
           style:
-              GoogleFonts.poppins(fontWeight: FontWeight.w600, color: primary),
+              GoogleFonts.poppins(fontWeight: FontWeight.bold, color: primary),
           textAlign: TextAlign.center,
         ),
         centerTitle: true,

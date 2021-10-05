@@ -203,7 +203,7 @@ class _MyAppState extends State<OnBoardingScreen> {
                       padding: const EdgeInsets.all(15),
                     ),
                     onPressed: () {
-                       Navigator.push(
+                       Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => LoginPage()),
                     );
@@ -213,7 +213,7 @@ class _MyAppState extends State<OnBoardingScreen> {
                       style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontSize: 15,
-                          fontWeight: FontWeight.w700),
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),

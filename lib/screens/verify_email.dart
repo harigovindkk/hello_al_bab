@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/screens/home.dart';
 
 class VerifyEmail extends StatefulWidget {
   const VerifyEmail({Key? key}) : super(key: key);
@@ -135,14 +136,18 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                    //ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   child: Text(
                     "Verify",
                     style: GoogleFonts.poppins(
                         color: Colors.black,
                         fontSize: 15,
-                        fontWeight: FontWeight.w700),
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ),

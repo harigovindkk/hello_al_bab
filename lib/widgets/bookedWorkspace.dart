@@ -52,7 +52,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                       height: 10,
                     ),
                     Text(
-                      " Weelington Place",
+                      " Wellington Place",
                       style: GoogleFonts.poppins(
                           fontWeight: FontWeight.w600,
                           fontSize: 15,
