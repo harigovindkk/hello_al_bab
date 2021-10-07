@@ -1,12 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Bookings {
   String bookId;
   String userId;
   String spaceId;
-  String isSingleDay;
-  String fromDate;
-  String toDate;
+  bool isSingleDay;
+  Timestamp fromDate;
+  Timestamp toDate;
   String status;
   String transactionId;
+  Timestamp timeStamp;
 
   Bookings({
     required this.bookId,
@@ -17,6 +20,7 @@ class Bookings {
     required this.toDate,
     required this.status,
     required this.transactionId,
+    required this.timeStamp,
   });
 
   factory Bookings.fromJson(Map<String, dynamic> json) => Bookings(
@@ -28,6 +32,7 @@ class Bookings {
         toDate: json["toDate"],
         status: json["status"],
         transactionId: json["transactionId"],
+        timeStamp : json['timeStamp']
       );
 
   Map<String, dynamic> toJson() => {
@@ -39,5 +44,6 @@ class Bookings {
         "toDate": toDate,
         "status": status,
         "transactionId": transactionId,
+        'timeStamp' : timeStamp
       };
 }

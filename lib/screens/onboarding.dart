@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/screens/login.dart';
+import 'package:hello_al_bab/services/authentication.dart';
 
 final List<String> imagesList = [
   'https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
@@ -203,6 +204,7 @@ class _MyAppState extends State<OnBoardingScreen> {
                       padding: const EdgeInsets.all(15),
                     ),
                     onPressed: () {
+                     // AuthenticationHelper().signOut();
                        Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => LoginPage()),

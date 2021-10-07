@@ -35,12 +35,12 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(Icons.arrow_back_ios, color: primary),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {
+        //     Navigator.of(context).pop();
+        //   },
+        //   icon: const Icon(Icons.arrow_back_ios, color: primary),
+        // ),
         centerTitle: true,
         title: Text('Sign In',
             style: GoogleFonts.poppins(
@@ -149,8 +149,21 @@ class _LoginPageState extends State<LoginPage> {
                           .signIn(emailcontroller.text, passwordcontroller.text)
                           .then((result) {
                         if (result == null) {
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => Home()));
+                          if (FirebaseAuth
+                              .instance.currentUser!.emailVerified) {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Home()));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                customSnackBar(
+                                    "Email not verified! Please check your mailbox",
+                                    Icons.warning_amber_rounded));
+                            AuthenticationHelper().signOut();
+                            emailcontroller.clear();
+                            passwordcontroller.clear();
+                          }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               customSnackBar(
@@ -184,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
                 InkWell(
                   onTap: () {
                     reset();
-                   // AuthenticationHelper().resetPassword(emailcontroller.text);
+                    // AuthenticationHelper().resetPassword(emailcontroller.text);
                   },
                   child: Text('Forgot Password?',
                       style: GoogleFonts.poppins(

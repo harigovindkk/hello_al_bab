@@ -1,5 +1,6 @@
-class User {
-  User({
+import 'package:cloud_firestore/cloud_firestore.dart';
+class Users {
+  Users({
     required this.uid,
     required this.name,
     required this.email,
@@ -12,12 +13,12 @@ class User {
   String uid;
   String name;
   String email;
-  DateTime dob;
+  String dob;
   String phone;
   String profilePicture;
-  DateTime createdTime;
+  Timestamp createdTime;
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory Users.fromJson(Map<String, dynamic> json) => Users(
         uid: json["uid"],
         name: json["name"],
         email: json["email"],

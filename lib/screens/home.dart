@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
         ],
         currentIndex: page,
         onTap: (index) {
-          print(index);
+          //print(index);
           setState(() {
             page = index;
           });

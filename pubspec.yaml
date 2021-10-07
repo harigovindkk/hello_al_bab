@@ -73,6 +73,9 @@ flutter:
   assets: 
       - images/profilepic.png
       - images/success.png
+      - images/failed.png
+      - images/processing.png
+      - images/requested.png
       - images/profilepic.JPG
       - images/success.JPG
   #   - images/a_dot_burr.jpeg

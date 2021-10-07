@@ -63,7 +63,7 @@ class _SignUpPageState extends State<SignUpPage> {
       "email": emailcontroller.text,
       "dob": DateFormat(isSelected ? 'dd-MM-yyyy' : '').format(selectedDate),
       "phone": phonecontroller.text,
-      "profilePicture": FirebaseAuth.instance.currentUser!.photoURL,
+      "profilePicture": '',
       "createdTime": Timestamp.now(),
     }).onError((error, stackTrace) => print(error));
   }
@@ -77,12 +77,12 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(Icons.arrow_back_ios, color: primary),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {
+        //     Navigator.of(context).pop();
+        //   },
+        //   icon: const Icon(Icons.arrow_back_ios, color: primary),
+        // ),
         centerTitle: true,
         title: Text('Sign Up',
             style: GoogleFonts.poppins(
@@ -294,6 +294,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         .signUp(emailcontroller.text, passwordcontroller.text)
                         .then((result) {
                       if (result == null) {
+                        createUserDoc();
                         ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
                             "A verification link has been sent to the email. Please login after clicking it",
                             Icons.mail_outline));
@@ -307,7 +308,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 result, Icons.warning_amber_rounded));
                       }
                     });
-                    createUserDoc();
+                    
                   },
                   child: Text(
                     "Sign Up",

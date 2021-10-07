@@ -16,10 +16,12 @@ SnackBar customSnackBar(String customMessage, IconData customIcon) {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(customIcon, color: Colors.black),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-            child: Text(customMessage,
-                style: GoogleFonts.poppins(color: Colors.black)),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+              child: Text(customMessage,maxLines: 3,overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.poppins(color: Colors.black)),
+            ),
           ),
         ],
       ),

@@ -20,7 +20,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(123);
+   // print(123);
   }
 
   bool checked = false;
@@ -54,7 +54,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
                 style: GoogleFonts.poppins(fontSize: 14, color: Colors.white),
               ),
             ),
-            BookedWorkSpaceCard(),
+            BookedWorkSpaceCard(new Bookings(bookId: "123", userId: "userId", spaceId: "spaceId", isSingleDay: true, fromDate: Timestamp.now(), toDate: Timestamp.now(), status: "status", transactionId: "transactionId", timeStamp: Timestamp.now())),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Row(

@@ -17,7 +17,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(123);
+    //print(123);
   }
 
   DateTime selectedFromDate = DateTime.now();
