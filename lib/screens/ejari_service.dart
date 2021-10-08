@@ -22,6 +22,7 @@ class _EjariServicePageState extends State<EjariServicePage> {
   String recentstatus = "";
   Future<void> createRequestDoc() async {
     await FirebaseFirestore.instance.collection('addRequests').doc().set({
+      'type' : "ejari",
       'status': 'requested',
       'time': Timestamp.now(),
       'userId': FirebaseAuth.instance.currentUser!.uid
@@ -59,6 +60,7 @@ class _EjariServicePageState extends State<EjariServicePage> {
                 .collection('addRequests')
                 .where('userId',
                     isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                    .where('type', isEqualTo: 'ejari')
 
                 //  .orderBy("date", descending: true)
                 .snapshots(),
@@ -111,7 +113,7 @@ class _EjariServicePageState extends State<EjariServicePage> {
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50.0)),
-                  primary: recentstatus != "requested" ? lightprimary : primary,
+                  primary:  recentstatus == "requested" ? lightprimary : primary,
                   padding: const EdgeInsets.all(15),
                 ),
                 onPressed: () {

@@ -9,20 +9,20 @@ import 'package:hello_al_bab/screens/bookings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hello_al_bab/widgets/workspace_request_card.dart';
 
-class AddWorkspace extends StatefulWidget {
-  const AddWorkspace({Key? key}) : super(key: key);
+class VirtualOfficePage extends StatefulWidget {
+  const VirtualOfficePage({Key? key}) : super(key: key);
 
   @override
-  _AddWorkspaceState createState() => _AddWorkspaceState();
+  _VirtualOfficePageState createState() => _VirtualOfficePageState();
 }
 
-class _AddWorkspaceState extends State<AddWorkspace> {
+class _VirtualOfficePageState extends State<VirtualOfficePage> {
   TextEditingController otpcontroller = TextEditingController();
   Requests? myRequest;
   String recentstatus = "";
   Future<void> createRequestDoc() async {
     await FirebaseFirestore.instance.collection('addRequests').doc().set({
-       'type' : "workspace",
+      'type' : "virtual office",
       'status': 'requested',
       'time': Timestamp.now(),
       'userId': FirebaseAuth.instance.currentUser!.uid
@@ -39,14 +39,14 @@ class _AddWorkspaceState extends State<AddWorkspace> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // leading: IconButton(
-        //   onPressed: () {
-        //     Navigator.of(context).pop();
-        //   },
-        //   icon: const Icon(Icons.arrow_back_ios, color: primary),
-        // ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: primary),
+        ),
         centerTitle: true,
-        title: Text('Workspace Requests',
+        title: Text('Virtual Office',
             style: GoogleFonts.poppins(
                 fontWeight: FontWeight.bold, color: primary)),
         backgroundColor: Colors.black,
@@ -60,7 +60,8 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                 .collection('addRequests')
                 .where('userId',
                     isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-                    .where('type', isEqualTo: 'workspace')
+                    .where('type', isEqualTo: 'virtual office')
+
                 //  .orderBy("date", descending: true)
                 .snapshots(),
             builder:
@@ -74,7 +75,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
               if (snapshot.data!.docs.isEmpty) {
                 return Center(
                   child: Text(
-                    "No workspace requests to show!",
+                    "No office requests to show!",
                     style:
                         GoogleFonts.poppins(color: Colors.white, fontSize: 15),
                   ),
