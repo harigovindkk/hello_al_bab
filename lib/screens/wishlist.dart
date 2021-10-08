@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
-import 'package:hello_al_bab/widgets/bookedWorkspace.dart';
 import 'package:hello_al_bab/widgets/workSpaceCard.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyWishlist extends StatefulWidget {
@@ -24,8 +21,8 @@ class _MyWishlistState extends State<MyWishlist> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          padding: EdgeInsets.only(left:10),
-          icon: Icon(Icons.arrow_back_ios,size: 20, color: primary),
+          padding: const EdgeInsets.only(left: 10),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: primary),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(

@@ -4,9 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
-import 'package:hello_al_bab/screens/home.dart';
 import 'package:hello_al_bab/screens/login.dart';
-import 'package:hello_al_bab/screens/verify_email.dart';
 import 'package:hello_al_bab/services/authentication.dart';
 import 'package:hello_al_bab/widgets/input_field.dart';
 import 'package:intl/intl.dart';
@@ -45,11 +43,12 @@ class _SignUpPageState extends State<SignUpPage> {
       },
     );
 
-    if (pickedDate != null && pickedDate != selectedDate)
+    if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
         isSelected = true;
         selectedDate = pickedDate;
       });
+    }
   }
 
   Future<void> createUserDoc() async {
@@ -57,7 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .set({
-          "loginMethord" : "EmailAndPassword",
+      "loginMethord": "EmailAndPassword",
       "uid": FirebaseAuth.instance.currentUser!.uid,
       "name": namecontroller.text,
       "email": emailcontroller.text,
@@ -141,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             color: primary, fontWeight: FontWeight.w600),
                       ),
                       IconButton(
-                        icon: Icon(Icons.calendar_today),
+                        icon: const Icon(Icons.calendar_today),
                         color: primary,
                         onPressed: () {
                           _selectDate(context);
@@ -289,7 +288,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () {
-                    
                     AuthenticationHelper()
                         .signUp(emailcontroller.text, passwordcontroller.text)
                         .then((result) {
@@ -308,7 +306,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                 result, Icons.warning_amber_rounded));
                       }
                     });
-                    
                   },
                   child: Text(
                     "Sign Up",
@@ -335,11 +332,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.mail,
                         color: Colors.black,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text(

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/screens/locationAvailable.dart';
-import 'package:hello_al_bab/widgets/bookedWorkspace.dart';
-import 'package:hello_al_bab/widgets/workSpaceCard.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchCriteria extends StatefulWidget {
@@ -37,7 +33,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
             data: ThemeData.dark().copyWith(
               primaryColor: primary,
               accentColor: lightprimary,
-              colorScheme: ColorScheme.dark(
+              colorScheme: const ColorScheme.dark(
                 primary: primary,
                 onPrimary: lightprimary,
                 // surface: primary,
@@ -122,7 +118,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
           data: ThemeData.dark().copyWith(
             primaryColor: primary,
             accentColor: lightprimary,
-            colorScheme: ColorScheme.dark(
+            colorScheme: const ColorScheme.dark(
               primary: primary,
               onPrimary: lightprimary,
               surface: primary,
@@ -133,10 +129,11 @@ class _SearchCriteriaState extends State<SearchCriteria> {
         );
       },
     );
-    if (picked != null && picked != selectedToDate)
+    if (picked != null && picked != selectedToDate) {
       setState(() {
         selectedToDate = picked;
       });
+    }
   }
 
   @override
@@ -144,8 +141,8 @@ class _SearchCriteriaState extends State<SearchCriteria> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          padding: EdgeInsets.only(left: 10),
-          icon: Icon(Icons.arrow_back_ios, size: 20, color: primary),
+          padding: const EdgeInsets.only(left: 10),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: primary),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
@@ -159,81 +156,79 @@ class _SearchCriteriaState extends State<SearchCriteria> {
       ),
       body: Container(
         color: Colors.black,
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+            // Row(
+            //   children: [
+            //     Text("Space type",
+            //         style:
+            //             GoogleFonts.poppins(color: Colors.white))
+            //   ],
+            // ),
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: ElevatedButton(
+            //         child: new Text(
+            //           'Coworking',
+            //           style: GoogleFonts.poppins(color: primary),
+            //         ),
+            //         style: ElevatedButton.styleFrom(
+            //           primary: Colors.black,
+            //           shape: (RoundedRectangleBorder(
+            //             side: BorderSide(
+            //               color: primary,
+            //             ),
+            //             borderRadius: BorderRadius.circular(5.0),
+            //           )),
+            //         ),
+            //         onPressed: () {},
+            //       ),
+            //     ),
+            //     SizedBox(width: 5),
+            //     Expanded(
+            //       child: ElevatedButton(
+            //         child: new Text(
+            //           'Meeting',
+            //           style: GoogleFonts.poppins(color: primary),
+            //         ),
+            //         style: ElevatedButton.styleFrom(
+            //           primary: Colors.black,
+            //           shape: (RoundedRectangleBorder(
+            //             side: BorderSide(
+            //               color: primary,
+            //             ),
+            //             borderRadius: BorderRadius.circular(5.0),
+            //           )),
+            //         ),
+            //         onPressed: () {},
+            //       ),
+            //     ),
+            //     SizedBox(width: 5),
+            //     Expanded(
+            //       child: ElevatedButton(
+            //         child: new Text(
+            //           'Office',
+            //           style: GoogleFonts.poppins(color: primary),
+            //         ),
+            //         style: ElevatedButton.styleFrom(
+            //           primary: Colors.black,
+            //           shape: (RoundedRectangleBorder(
+            //             side: BorderSide(
+            //               color: primary,
+            //             ),
+            //             borderRadius: BorderRadius.circular(5.0),
+            //           )),
+            //         ),
+            //         onPressed: () {},
+            //       ),
+            //     ),
+            //   ],
+            // ),
             Row(
               children: [
-                Text("Space type",
-                    style:
-                        GoogleFonts.poppins(color: Colors.white))
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    child: new Text(
-                      'Coworking',
-                      style: GoogleFonts.poppins(color: primary),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      shape: (RoundedRectangleBorder(
-                        side: BorderSide(
-                          color: primary,
-                        ),
-                        borderRadius: BorderRadius.circular(5.0),
-                      )),
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-                SizedBox(width: 5),
-                Expanded(
-                  child: ElevatedButton(
-                    child: new Text(
-                      'Meeting',
-                      style: GoogleFonts.poppins(color: primary),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      shape: (RoundedRectangleBorder(
-                        side: BorderSide(
-                          color: primary,
-                        ),
-                        borderRadius: BorderRadius.circular(5.0),
-                      )),
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-                SizedBox(width: 5),
-                Expanded(
-                  child: ElevatedButton(
-                    child: new Text(
-                      'Office',
-                      style: GoogleFonts.poppins(color: primary),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      shape: (RoundedRectangleBorder(
-                        side: BorderSide(
-                          color: primary,
-                        ),
-                        borderRadius: BorderRadius.circular(5.0),
-                      )),
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Text("Date",
-                    style:
-                        GoogleFonts.poppins( color: Colors.white))
+                Text("Date", style: GoogleFonts.poppins(color: Colors.white))
               ],
             ),
             Row(
@@ -247,7 +242,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     style: ElevatedButton.styleFrom(
                       primary: Colors.black,
                       shape: (RoundedRectangleBorder(
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: primary,
                         ),
                         borderRadius: BorderRadius.circular(5.0),
@@ -256,7 +251,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     onPressed: () {},
                   ),
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Expanded(
                   child: ElevatedButton(
                     child: new Text(
@@ -266,7 +261,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     style: ElevatedButton.styleFrom(
                       primary: Colors.black,
                       shape: (RoundedRectangleBorder(
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: primary,
                         ),
                         borderRadius: BorderRadius.circular(5.0),
@@ -285,8 +280,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     children: [
                       Text(
                         'Date from',
-                        style: GoogleFonts.poppins(
-                             color: Colors.white),
+                        style: GoogleFonts.poppins(color: Colors.white),
                       ),
                     ],
                   ),
@@ -297,8 +291,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     children: [
                       Text(
                         'Date to',
-                        style: GoogleFonts.poppins(
-                             color: Colors.white),
+                        style: GoogleFonts.poppins(color: Colors.white),
                       ),
                     ],
                   ),
@@ -317,7 +310,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     style: ElevatedButton.styleFrom(
                       primary: Colors.black,
                       shape: (RoundedRectangleBorder(
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: primary,
                         ),
                         borderRadius: BorderRadius.circular(5.0),
@@ -325,7 +318,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     ),
                   ),
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () => _selectToDate(context),
@@ -336,7 +329,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     style: ElevatedButton.styleFrom(
                       primary: Colors.black,
                       shape: (RoundedRectangleBorder(
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: primary,
                         ),
                         borderRadius: BorderRadius.circular(5.0),
@@ -354,8 +347,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     children: [
                       Text(
                         'Time from',
-                        style: GoogleFonts.poppins(
-                             color: Colors.white),
+                        style: GoogleFonts.poppins(color: Colors.white),
                       ),
                     ],
                   ),
@@ -366,8 +358,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     children: [
                       Text(
                         'Time to',
-                        style: GoogleFonts.poppins(
-                            color: Colors.white),
+                        style: GoogleFonts.poppins(color: Colors.white),
                       ),
                     ],
                   ),
@@ -388,7 +379,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     style: ElevatedButton.styleFrom(
                       primary: Colors.black,
                       shape: (RoundedRectangleBorder(
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: primary,
                         ),
                         borderRadius: BorderRadius.circular(5.0),
@@ -396,7 +387,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     ),
                   ),
                 ),
-                SizedBox(width: 5),
+                const SizedBox(width: 5),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () => _showToTime(),
@@ -409,7 +400,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     style: ElevatedButton.styleFrom(
                       primary: Colors.black,
                       shape: (RoundedRectangleBorder(
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: primary,
                         ),
                         borderRadius: BorderRadius.circular(5.0),
@@ -419,79 +410,79 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                 ),
               ],
             ),
-            Row(
-              children: [
-                Text("Number of guests",
-                    style:
-                        GoogleFonts.poppins( color: Colors.white))
-              ],
-            ),
-            SizedBox(height: 5),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(left: 8),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: primary, // red as border color
-                        ),
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Guests",
-                          style: GoogleFonts.poppins(color: primary),
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                              padding: EdgeInsets.all(0),
-                              onPressed: () {
-                                setState(() {
-                                  guests--;
-                                });
-                              },
-                              icon: Icon(
-                                Icons.remove,
-                                color: primary,
-                                size: 15,
-                              ),
-                            ),
-                            Container(
-                              color: primary,
-                              child: guests < 0 ? Text("0") : Text("$guests"),
-                              padding: EdgeInsets.all(16),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  guests++;
-                                });
-                              },
-                              icon: Icon(
-                                Icons.add,
-                                color: primary,
-                                size: 15,
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Spacer(),
+            // Row(
+            //   children: [
+            //     Text("Number of guests",
+            //         style:
+            //             GoogleFonts.poppins( color: Colors.white))
+            //   ],
+            // ),
+            // SizedBox(height: 5),
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: Container(
+            //         padding: EdgeInsets.only(left: 8),
+            //         decoration: BoxDecoration(
+            //             border: Border.all(
+            //               color: primary, // red as border color
+            //             ),
+            //             borderRadius: BorderRadius.circular(5)),
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //           children: [
+            //             Text(
+            //               "Guests",
+            //               style: GoogleFonts.poppins(color: primary),
+            //             ),
+            //             Row(
+            //               children: [
+            //                 IconButton(
+            //                   padding: EdgeInsets.all(0),
+            //                   onPressed: () {
+            //                     setState(() {
+            //                       guests--;
+            //                     });
+            //                   },
+            //                   icon: Icon(
+            //                     Icons.remove,
+            //                     color: primary,
+            //                     size: 15,
+            //                   ),
+            //                 ),
+            //                 Container(
+            //                   color: primary,
+            //                   child: guests < 0 ? Text("0") : Text("$guests"),
+            //                   padding: EdgeInsets.all(16),
+            //                 ),
+            //                 IconButton(
+            //                   onPressed: () {
+            //                     setState(() {
+            //                       guests++;
+            //                     });
+            //                   },
+            //                   icon: Icon(
+            //                     Icons.add,
+            //                     color: primary,
+            //                     size: 15,
+            //                   ),
+            //                 ),
+            //               ],
+            //             )
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            const Spacer(),
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     primary: primary,
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     shape: (RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ))),

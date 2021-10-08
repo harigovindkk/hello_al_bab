@@ -5,10 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:hello_al_bab/model/bookings_model.dart';
 import 'package:hello_al_bab/model/workspace_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class BookedWorkSpaceCard extends StatefulWidget {
-  Bookings? bookingDetail;
+  final Bookings? bookingDetail;
   BookedWorkSpaceCard(this.bookingDetail);
   @override
   _BookedWorkSpaceCardState createState() => _BookedWorkSpaceCardState();
@@ -48,20 +47,20 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
 
   Widget build(BuildContext context) {
     return isLoading
-        ? Center(
+        ? const Center(
             child: CircularProgressIndicator(
               color: primary,
             ),
           )
         : Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(bottom: 70),
+            padding: const EdgeInsets.only(bottom: 70),
             // height:MediaQuery.of(context).size.height*0.3 ,
             child: Stack(
               overflow: Overflow.visible,
               children: [
                 Container(
-                  margin: EdgeInsets.all(25),
+                  margin: const EdgeInsets.all(25),
 
                   width: MediaQuery.of(context).size.width * 0.25,
                   // height: MediaQuery.of(context).size.width * 0.35,
@@ -80,7 +79,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                   top: 30,
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: Container(
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: boxColor,
@@ -90,7 +89,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Text(
@@ -100,7 +99,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                 fontSize: 15,
                                 color: primary),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Text(
@@ -108,7 +107,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                             style: GoogleFonts.poppins(
                                 color: Colors.white, fontSize: 11),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Column(
@@ -158,7 +157,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                   )
                                 ],
                               ),
-                            Row(
+                              Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [

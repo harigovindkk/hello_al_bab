@@ -10,7 +10,6 @@ import 'package:hello_al_bab/constants/resources.dart';
 import 'package:hello_al_bab/model/workspace_model.dart';
 import 'package:hello_al_bab/screens/searchCriteria.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class WorkSpaceDetail extends StatefulWidget {
   const WorkSpaceDetail({Key? key}) : super(key: key);
@@ -53,7 +52,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: isLoading
-          ? CircularProgressIndicator(
+          ? const CircularProgressIndicator(
               color: primary,
             )
           : Stack(
@@ -249,7 +248,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                 Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.8,
-                                    margin: EdgeInsets.all(10),
+                                    margin: const EdgeInsets.all(10),
                                     child: ElevatedButton(
                                         style: ButtonStyle(
                                             backgroundColor:

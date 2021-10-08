@@ -14,21 +14,21 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.only(bottom: 10),
       // height:MediaQuery.of(context).size.height*0.3 ,
       child: InkWell(
-        onTap: (){
+        onTap: () {
           Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => WorkSpaceDetail()),
-                    );
+            context,
+            MaterialPageRoute(builder: (context) => const WorkSpaceDetail()),
+          );
         },
         child: Stack(
           overflow: Overflow.visible,
           children: [
             Container(
-              margin: EdgeInsets.all(25),
-      
+              margin: const EdgeInsets.all(25),
+
               width: MediaQuery.of(context).size.width * 0.3,
               // height: MediaQuery.of(context).size.width * 0.35,
               // decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
@@ -46,7 +46,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
               top: 30,
               width: MediaQuery.of(context).size.width * 0.65,
               child: Container(
-                margin: EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   color: boxColor,
@@ -56,7 +56,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
@@ -66,14 +66,15 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                             fontSize: 16,
                             color: primary),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fames praesent porttitor eu.",
-                        style: GoogleFonts.poppins(color: Colors.white,fontSize: 12),
+                        style: GoogleFonts.poppins(
+                            color: Colors.white, fontSize: 12),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                     ],
@@ -92,18 +93,18 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                   border: Border.all(color: boxColor),
                   color: boxColor,
                   boxShadow: [
-                    BoxShadow(
+                    const BoxShadow(
                       color: Colors.black,
-                      offset: const Offset(
+                      offset: Offset(
                         0.0,
                         0.0,
                       ),
                       blurRadius: 5.0,
                       spreadRadius: 2.0,
                     ), //BoxShadow
-                    BoxShadow(
+                    const BoxShadow(
                       color: Colors.white,
-                      offset: const Offset(0.0, 0.0),
+                      offset: Offset(0.0, 0.0),
                       blurRadius: 0.0,
                       spreadRadius: 0.0,
                     ), //BoxShadow
@@ -121,9 +122,9 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                     setState(() {
                       liked = !liked;
                     });
-                    if(liked){
+                    if (liked) {
                       //item added to wishlist
-                    }else{
+                    } else {
                       //item removed from wishlist
                     }
                   },

@@ -191,7 +191,7 @@ class _MyAppState extends State<OnBoardingScreen> {
               //           style: GoogleFonts.poppins(),
               //         ))),
 
-              Spacer(),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Container(
@@ -204,11 +204,12 @@ class _MyAppState extends State<OnBoardingScreen> {
                       padding: const EdgeInsets.all(15),
                     ),
                     onPressed: () {
-                     // AuthenticationHelper().signOut();
-                       Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
+                      AuthenticationHelper().signOut();
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
+                      );
                     },
                     child: Text(
                       "Get Started",

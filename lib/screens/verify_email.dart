@@ -18,14 +18,13 @@ class _VerifyEmailState extends State<VerifyEmail> {
     backgroundColor: Colors.transparent,
     elevation: 50.0,
     content: Container(
-      
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: lightprimary,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
-          mainAxisAlignment:MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.warning_amber_rounded, color: Colors.black),
             Padding(

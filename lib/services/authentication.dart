@@ -4,10 +4,10 @@ class AuthenticationHelper {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   get user => _auth.currentUser;
 
- //SIGN UP METHOD
+  //SIGN UP METHOD
   Future signUp(String email, String password) async {
     try {
-     UserCredential user=  await _auth.createUserWithEmailAndPassword(
+      UserCredential user = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -35,9 +35,8 @@ class AuthenticationHelper {
     print('signout');
   }
 
-
   //reset password
   Future<void> resetPassword(String email) async {
     await _auth.sendPasswordResetEmail(email: email);
-}
+  }
 }

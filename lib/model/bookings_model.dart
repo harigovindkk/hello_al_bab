@@ -24,16 +24,15 @@ class Bookings {
   });
 
   factory Bookings.fromJson(Map<String, dynamic> json) => Bookings(
-        bookId: json["bookId"],
-        userId: json["userId"],
-        spaceId: json["spaceId"],
-        isSingleDay: json["isSingleDay"],
-        fromDate: json["fromDate"],
-        toDate: json["toDate"],
-        status: json["status"],
-        transactionId: json["transactionId"],
-        timeStamp : json['timeStamp']
-      );
+      bookId: json["bookId"],
+      userId: json["userId"],
+      spaceId: json["spaceId"],
+      isSingleDay: json["isSingleDay"],
+      fromDate: json["fromDate"],
+      toDate: json["toDate"],
+      status: json["status"],
+      transactionId: json["transactionId"],
+      timeStamp: json['timeStamp']);
 
   Map<String, dynamic> toJson() => {
         "bookId": bookId,
@@ -44,6 +43,6 @@ class Bookings {
         "toDate": toDate,
         "status": status,
         "transactionId": transactionId,
-        'timeStamp' : timeStamp
+        'timeStamp': timeStamp
       };
 }

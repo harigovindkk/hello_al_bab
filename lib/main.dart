@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hello_al_bab/screens/home.dart';
 import 'package:hello_al_bab/screens/onboarding.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:hello_al_bab/screens/profile.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

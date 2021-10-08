@@ -2,13 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
-import 'package:hello_al_bab/constants/resources.dart';
 import 'package:hello_al_bab/model/user_model.dart';
 import 'package:hello_al_bab/screens/bookings.dart';
 import 'package:hello_al_bab/screens/wishlist.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -23,7 +21,6 @@ class _ProfilePageState extends State<ProfilePage> {
   //TextEditingController otpcontroller = TextEditingController();
 
   Future<void> getDetails() async {
-   
     return FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -51,6 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -115,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyBookings()),
+                                builder: (context) => const MyBookings()),
                           );
                         },
                         child: Text('My Bookings',
@@ -123,7 +121,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 fontWeight: FontWeight.bold, color: primary)),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.black,
-                            side: BorderSide(color: primary)),
+                            side: const BorderSide(color: primary)),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -138,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 fontWeight: FontWeight.bold, color: primary)),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.black,
-                            side: BorderSide(color: primary)),
+                            side: const BorderSide(color: primary)),
                       )
                     ],
                   ),

@@ -19,9 +19,9 @@ class _WorkSpaceRequestCardState extends State<WorkSpaceRequestCard> {
       padding: const EdgeInsets.only(left: 15.0, right: 15, top: 15),
       child: Container(
         height: 80,
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-          border: Border.all(color: primary, width: 1),
+          border: Border.all(color: primary, width: 1),borderRadius: BorderRadius.circular(15)
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,7 +40,7 @@ class _WorkSpaceRequestCardState extends State<WorkSpaceRequestCard> {
                         style: GoogleFonts.poppins(color: Colors.white)),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Row(
@@ -54,19 +54,32 @@ class _WorkSpaceRequestCardState extends State<WorkSpaceRequestCard> {
                 ),
               ],
             ),
-            Image.asset(
-              widget.request.status == "accepted"
-                  ? 'images/success.JPG'
+            Icon(
+                  widget.request.status == "accepted"
+                  ? Icons.check
                   : widget.request.status == "rejected"
-                      ? 'images/failed.png'
+                      ? Icons.close
                       : widget.request.status == "processing"
-                          ? 'images/processing.png'
+                          ? Icons.hourglass_bottom
                           : widget.request.status == "requested"
-                              ? 'images/requested.png'
-                              : '',
-              fit: BoxFit.fill,
-              height: MediaQuery.of(context).size.width * 0.5,
-            ),
+                              ? Icons.add_task_outlined
+                              : Icons.error,
+                              color: primary,
+                              size: 45,
+            )
+            // Image.asset(
+            //   widget.request.status == "accepted"
+            //       ? 'images/success.JPG'
+            //       : widget.request.status == "rejected"
+            //           ? 'images/failed.png'
+            //           : widget.request.status == "processing"
+            //               ? 'images/processing.png'
+            //               : widget.request.status == "requested"
+            //                   ? 'images/requested.png'
+            //                   : '',
+            //   fit: BoxFit.fill,
+            //   height: MediaQuery.of(context).size.width * 0.5,
+            // ),
           ],
         ),
       ),

@@ -9,14 +9,14 @@ import 'package:hello_al_bab/screens/bookings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hello_al_bab/widgets/workspace_request_card.dart';
 
-class AddWorkspace extends StatefulWidget {
-  const AddWorkspace({Key? key}) : super(key: key);
+class EjariServicePage extends StatefulWidget {
+  const EjariServicePage({Key? key}) : super(key: key);
 
   @override
-  _AddWorkspaceState createState() => _AddWorkspaceState();
+  _EjariServicePageState createState() => _EjariServicePageState();
 }
 
-class _AddWorkspaceState extends State<AddWorkspace> {
+class _EjariServicePageState extends State<EjariServicePage> {
   TextEditingController otpcontroller = TextEditingController();
   Requests? myRequest;
   String recentstatus = "";
@@ -38,14 +38,14 @@ class _AddWorkspaceState extends State<AddWorkspace> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // leading: IconButton(
-        //   onPressed: () {
-        //     Navigator.of(context).pop();
-        //   },
-        //   icon: const Icon(Icons.arrow_back_ios, color: primary),
-        // ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: primary),
+        ),
         centerTitle: true,
-        title: Text('Workspace Requests',
+        title: Text('Ejari Services',
             style: GoogleFonts.poppins(
                 fontWeight: FontWeight.bold, color: primary)),
         backgroundColor: Colors.black,

@@ -4,7 +4,7 @@ import 'package:hello_al_bab/constants/colors.dart';
 
 class InputField extends StatefulWidget {
   final String labeltext;
-   final TextEditingController myController;
+  final TextEditingController myController;
   //const InputField({ Key? key }) : super(key: key);
   InputField(this.labeltext, this.myController);
   @override
