@@ -28,6 +28,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
   String recentstatus = "";
   Future<void> createRequestDoc() async {
     await FirebaseFirestore.instance.collection('addRequests').doc().set({
+      'type': "workspace",
       'status': 'requested',
       'time': Timestamp.now(),
       'userId': FirebaseAuth.instance.currentUser!.uid
@@ -96,7 +97,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                       .collection('addRequests')
                       .where('userId',
                           isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-
+                      .where('type', isEqualTo: 'workspace')
                       //  .orderBy("date", descending: true)
                       .snapshots(),
                   builder: (BuildContext context,

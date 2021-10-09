@@ -6,6 +6,7 @@ import 'package:hello_al_bab/screens/conference_hall.dart';
 import 'package:hello_al_bab/screens/coworking.dart';
 import 'package:hello_al_bab/screens/meeting_room.dart';
 import 'package:hello_al_bab/screens/office_spaces.dart';
+import 'package:hello_al_bab/screens/virtual_office.dart';
 
 class OfficeBookingPage extends StatefulWidget {
   const OfficeBookingPage({Key? key}) : super(key: key);
@@ -168,8 +169,8 @@ class _OfficeBookingPageState extends State<OfficeBookingPage> {
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) =>const LoginPage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) =>const VirtualOfficePage()));
                   },
                   child: Text(
                     "Virtual Offices",

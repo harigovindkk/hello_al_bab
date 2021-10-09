@@ -9,20 +9,20 @@ import 'package:hello_al_bab/screens/bookings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hello_al_bab/widgets/workspace_request_card.dart';
 
-class EjariServicePage extends StatefulWidget {
-  const EjariServicePage({Key? key}) : super(key: key);
+class VirtualOfficePage extends StatefulWidget {
+  const VirtualOfficePage({Key? key}) : super(key: key);
 
   @override
-  _EjariServicePageState createState() => _EjariServicePageState();
+  _VirtualOfficePageState createState() => _VirtualOfficePageState();
 }
 
-class _EjariServicePageState extends State<EjariServicePage> {
+class _VirtualOfficePageState extends State<VirtualOfficePage> {
   TextEditingController otpcontroller = TextEditingController();
   Requests? myRequest;
   String recentstatus = "";
   Future<void> createRequestDoc() async {
     await FirebaseFirestore.instance.collection('addRequests').doc().set({
-      'type' : "ejari",
+      'type' : "virtual office",
       'status': 'requested',
       'time': Timestamp.now(),
       'userId': FirebaseAuth.instance.currentUser!.uid
@@ -46,7 +46,7 @@ class _EjariServicePageState extends State<EjariServicePage> {
           icon: const Icon(Icons.arrow_back_ios, color: primary),
         ),
         centerTitle: true,
-        title: Text('Ejari Services',
+        title: Text('Virtual Office',
             style: GoogleFonts.poppins(
                 fontWeight: FontWeight.bold, color: primary)),
         backgroundColor: Colors.black,
@@ -60,7 +60,7 @@ class _EjariServicePageState extends State<EjariServicePage> {
                 .collection('addRequests')
                 .where('userId',
                     isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-                    .where('type', isEqualTo: 'ejari')
+                    .where('type', isEqualTo: 'virtual office')
 
                 //  .orderBy("date", descending: true)
                 .snapshots(),
@@ -75,7 +75,7 @@ class _EjariServicePageState extends State<EjariServicePage> {
               if (snapshot.data!.docs.isEmpty) {
                 return Center(
                   child: Text(
-                    "No requests to show!",
+                    "No office requests to show!",
                     style:
                         GoogleFonts.poppins(color: Colors.white, fontSize: 15),
                   ),
@@ -113,7 +113,7 @@ class _EjariServicePageState extends State<EjariServicePage> {
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50.0)),
-                  primary:  recentstatus == "requested" ? lightprimary : primary,
+                  primary: recentstatus == "requested" ? lightprimary : primary,
                   padding: const EdgeInsets.all(15),
                 ),
                 onPressed: () {
