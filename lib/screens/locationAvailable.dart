@@ -53,7 +53,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
             BookedWorkSpaceCard(new Bookings(
                 bookId: "123",
                 userId: "userId",
-                spaceId: "spaceId",
+                spaceId: "zd2IDN4FmEpGJfBDUyA2",
                 isSingleDay: true,
                 fromDate: Timestamp.now(),
                 toDate: Timestamp.now(),

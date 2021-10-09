@@ -77,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    user!.profilePicture == ''
+                    user!.profilePicture == '' || user!.profilePicture == null
                         ? Image.asset(
                             'images/profilepic.JPG',
                             fit: BoxFit.fill,

@@ -19,60 +19,62 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 50.0,
+    return Scaffold(
+      body: Container(
+        color: Colors.black,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 50.0,
+                  ),
+                  child: Text(
+                    "Search",
+                    style: GoogleFonts.poppins(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: primary),
+                  ),
                 ),
-                child: Text(
-                  "Search",
-                  style: GoogleFonts.poppins(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: primary),
-                ),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              // WorkSpaceCard(),
-              WorkSpaceCard(),
-              // SizedBox(height: 10,),
-              WorkSpaceCard(),
-            ],
-          ),
-          const Spacer(),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            margin: const EdgeInsets.all(10),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  primary: primary,
-                  padding: const EdgeInsets.all(10),
-                  shape: (RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ))),
-              child: Text(
-                "Your Search Criteria",
-                style: GoogleFonts.poppins(
-                    color: Colors.black, fontWeight: FontWeight.w600),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SearchCriteria()),
-                );
-              },
+              ],
             ),
-          ),
-        ],
+            Column(
+              children: [
+                // WorkSpaceCard(),
+                WorkSpaceCard(),
+                // SizedBox(height: 10,),
+                WorkSpaceCard(),
+              ],
+            ),
+            const Spacer(),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              margin: const EdgeInsets.all(10),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: primary,
+                    padding: const EdgeInsets.all(10),
+                    shape: (RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ))),
+                child: Text(
+                  "Your Search Criteria",
+                  style: GoogleFonts.poppins(
+                      color: Colors.black, fontWeight: FontWeight.w600),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SearchCriteria()),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

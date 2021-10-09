@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "347417592146-5t64viemfcm8klk1sn64bp41hpqlu02e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hab.hello_al_bab",
+            "certificate_hash": "aed1c2d03bbc127e1d3854be40933c56b0af550d"
+          }
+        },
+        {
           "client_id": "347417592146-5ptcit67kjdip3rhvhm1otr6h4sge4cv.apps.googleusercontent.com",
           "client_type": 3
         }

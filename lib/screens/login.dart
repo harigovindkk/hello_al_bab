@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
+import 'package:hello_al_bab/provider.dart';
 import 'package:hello_al_bab/screens/forgot_password.dart';
 import 'package:hello_al_bab/screens/home.dart';
 import 'package:hello_al_bab/screens/office_booking.dart';
@@ -12,6 +13,9 @@ import 'package:hello_al_bab/screens/signup.dart';
 import 'package:hello_al_bab/services/authentication.dart';
 import 'package:hello_al_bab/widgets/input_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -21,8 +25,71 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  Widget _buildSignUpPop(BuildContext context) {
+    return new AlertDialog(
+      title: Text("Account doesn't exist",style: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.w700),),
+      content: new Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+              "There is no account exist with this email id. Please sign up for new account.",style: GoogleFonts.poppins(),),
+        ],
+      ),
+      actions: <Widget>[
+        new FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          textColor: primary,
+          
+          child: Text("Close",style: GoogleFonts.poppins(),),
+        ),
+        new FlatButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SignUpPage(),
+              ),
+            );
+          },
+          textColor: primary,
+          child: Text("Goto sign up",style: GoogleFonts.poppins()),
+        ),
+      ],
+    );
+  }
+
   TextEditingController emailcontroller = TextEditingController(),
       passwordcontroller = TextEditingController();
+  User? user;
+  Future isUserExist() async {
+    Future<QuerySnapshot<Map<String, dynamic>>> result = FirebaseFirestore
+        .instance
+        .collection('users')
+        .where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    result.then((value) async {
+      print(value.docs.length);
+      if (value.docs.length > 0) {
+        // Navigator.pop(context);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setInt('loggedin', 1);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Home(),
+          ),
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => _buildSignUpPop(context),
+        );
+      }
+    }).whenComplete(() => null);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,8 +214,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                         Home()));
+                                    builder: (context) => Home()));
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 customSnackBar(
@@ -184,6 +250,49 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(
               height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0)),
+                    primary: primary,
+                    padding: const EdgeInsets.all(15),
+                  ),
+                  onPressed: () async {
+                    final millionsprovider =
+                        Provider.of<HelloAlbabProvider>(context, listen: false);
+                    user = await millionsprovider.googleLogin(context);
+
+                    print(user!.email.toString());
+                    if (user != null) {
+                      isUserExist();
+                    }
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.mail,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "Continue with Gmail",
+                        style: GoogleFonts.poppins(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

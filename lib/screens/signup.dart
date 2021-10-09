@@ -4,12 +4,17 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
+import 'package:hello_al_bab/provider.dart';
+import 'package:hello_al_bab/screens/home.dart';
 import 'package:hello_al_bab/screens/login.dart';
 import 'package:hello_al_bab/services/authentication.dart';
 import 'package:hello_al_bab/widgets/input_field.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hello_al_bab/provider.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -19,6 +24,50 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  User? user;
+  Future isUserExist() async {
+    Future<QuerySnapshot<Map<String, dynamic>>> result = FirebaseFirestore
+        .instance
+        .collection('users')
+        .where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    result.then((value) {
+      print(value.docs.length);
+      if (value.docs.length > 0) {
+        // Navigator.pop(context);
+        Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+        final SharedPreferences prefsData = prefs as SharedPreferences;
+        prefsData.setInt('loggedin', 1);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Home(),
+          ),
+        );
+      } else {
+        //  Navigator.pop(context);
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .set({
+          "createdTime": Timestamp.now(),
+          "dob": "",
+          "email": user!.email,
+          "phone": user!.phoneNumber,
+          "profilePicture": user!.photoURL,
+          "uid": FirebaseAuth.instance.currentUser!.uid,
+          "name": user!.displayName
+        });
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Home(),
+          ),
+        );
+      }
+    }).whenComplete(() => null);
+  }
+
   DateTime selectedDate = DateTime.now();
   bool isSelected = false;
   Future<void> _selectDate(BuildContext context) async {
@@ -51,6 +100,8 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   Future<void> createUserDoc() async {
     await FirebaseFirestore.instance
         .collection('users')
@@ -75,6 +126,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         // leading: IconButton(
         //   onPressed: () {
@@ -328,7 +380,16 @@ class _SignUpPageState extends State<SignUpPage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    final millionsprovider =
+                        Provider.of<HelloAlbabProvider>(context, listen: false);
+                    user = await millionsprovider.googleLogin(context);
+
+                    print(user!.displayName.toString());
+                    if (user != null) {
+                      isUserExist();
+                    }
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

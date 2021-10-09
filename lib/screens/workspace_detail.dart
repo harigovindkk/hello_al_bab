@@ -10,6 +10,7 @@ import 'package:hello_al_bab/constants/resources.dart';
 import 'package:hello_al_bab/model/workspace_model.dart';
 import 'package:hello_al_bab/screens/searchCriteria.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WorkSpaceDetail extends StatefulWidget {
   const WorkSpaceDetail({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class WorkSpaceDetail extends StatefulWidget {
 
 class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
   Workspace? workspace;
+  int isLoggedIn = 0;
   bool isLoading = true;
   Future<void> getDetails() async {
     return FirebaseFirestore.instance
@@ -246,36 +248,46 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
-                                    margin: const EdgeInsets.all(10),
-                                    child: ElevatedButton(
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    primary),
-                                            foregroundColor:
-                                                MaterialStateProperty.all(
-                                                    Colors.black),
-                                            shape: MaterialStateProperty.all<
-                                                    RoundedRectangleBorder>(
-                                                RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(18.0),
-                                            ))),
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SearchCriteria()),
-                                          );
-                                        },
-                                        child: Text(
-                                          "Book Now",
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.w600),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  margin: const EdgeInsets.all(10),
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(primary),
+                                        foregroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.black),
+                                        shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
                                         ))),
+                                    child: Text(
+                                      "Book Now",
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    onPressed: () async {
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //       builder: (context) =>
+                                      //           SearchCriteria()),
+                                      // );
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+                                      isLoggedIn =await prefs.getInt('loggedin')!;
+                                      print(isLoggedIn);
+                                      if (isLoggedIn == 0) {
+                                        print("please login");
+                                      } else {
+                                        print("loggein");
+                                      }
+                                    },
+                                  ),
+                                ),
                               ],
                             ),
                           ],

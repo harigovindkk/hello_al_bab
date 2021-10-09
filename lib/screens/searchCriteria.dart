@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/screens/homePage.dart';
 import 'package:hello_al_bab/screens/locationAvailable.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,6 +23,8 @@ class _SearchCriteriaState extends State<SearchCriteria> {
   String? _selectedToTime;
   int guests = 0;
   bool singleDay = false;
+  bool isSingleDay = false;
+  bool isMultipleDay = false;
 
   Future<void> _showFromTime() async {
     final TimeOfDay? result = await showTimePicker(
@@ -237,10 +240,11 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                   child: ElevatedButton(
                     child: new Text(
                       'Single Day',
-                      style: GoogleFonts.poppins(color: primary),
+                      style: GoogleFonts.poppins(
+                          color: isSingleDay ? Colors.black : primary),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
+                      primary: isSingleDay ? primary : Colors.black,
                       shape: (RoundedRectangleBorder(
                         side: const BorderSide(
                           color: primary,
@@ -248,7 +252,14 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                         borderRadius: BorderRadius.circular(5.0),
                       )),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        isSingleDay = !isSingleDay;
+                      });
+                      if (isSingleDay) {
+                        isMultipleDay = false;
+                      }
+                    },
                   ),
                 ),
                 const SizedBox(width: 5),
@@ -256,10 +267,10 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                   child: ElevatedButton(
                     child: new Text(
                       'Multiple Days',
-                      style: GoogleFonts.poppins(color: primary),
+                      style: GoogleFonts.poppins(color: isMultipleDay ? Colors.black : primary),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
+                      primary: isMultipleDay ? primary : Colors.black,
                       shape: (RoundedRectangleBorder(
                         side: const BorderSide(
                           color: primary,
@@ -267,7 +278,14 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                         borderRadius: BorderRadius.circular(5.0),
                       )),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        isMultipleDay = !isMultipleDay;
+                      });
+                      if (isMultipleDay) {
+                        isSingleDay = false;
+                      }
+                    },
                   ),
                 ),
               ],
@@ -495,7 +513,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => LocationAvailable()),
+                        builder: (context) => HomePage()),
                   );
                 },
               ),
