@@ -544,17 +544,22 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                       color: Colors.black, fontWeight: FontWeight.w600),
                 ),
                 onPressed: () async {
+                  print(_selectedFromTime);
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
                   prefs.setBool('isSingle', isSingleDay);
                   if (isSingleDay) {
-                    prefs.setString('fromDate', "${selectedFromDate}");
-                    prefs.setString('toDate', "${selectedToDate}");
+                    prefs.setString('fromDate',
+                        "${selectedFromDate.millisecondsSinceEpoch}");
+                    prefs.setString(
+                        'toDate', "${selectedToDate.millisecondsSinceEpoch}");
                     prefs.setString('fromTime', "${_selectedFromTime}");
                     prefs.setString('toTime', "${_selectedToTime}");
                   } else {
-                    prefs.setString('fromDate', "${selectedFromDate}");
-                    prefs.setString('toDate', "${selectedToDate}");
+                    prefs.setString('fromDate',
+                        "${selectedFromDate.millisecondsSinceEpoch}");
+                    prefs.setString(
+                        'toDate', "${selectedToDate.millisecondsSinceEpoch}");
                   }
                   Navigator.push(
                     context,

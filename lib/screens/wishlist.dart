@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/model/wishlist_model.dart';
 import 'package:hello_al_bab/widgets/workSpaceCard.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MyWishlist extends StatefulWidget {
   @override
@@ -9,6 +12,7 @@ class MyWishlist extends StatefulWidget {
 }
 
 class _MyWishlistState extends State<MyWishlist> {
+  Wishlist? wishlistItem;
   @override
   void initState() {
     // TODO: implement initState
@@ -41,6 +45,54 @@ class _MyWishlistState extends State<MyWishlist> {
           children: [
             Column(
               children: [
+                StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('wishlist')
+                      .where('userId',
+                          isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                      // .orderBy("date", descending: true)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                          child: CircularProgressIndicator(
+                        color: primary,
+                      ));
+                    }
+                    if (snapshot.data!.docs.isEmpty) {
+                      return Center(
+                        child: Text(
+                          "No Workspace in wishlist!",
+                          style: GoogleFonts.poppins(
+                              color: Colors.white, fontSize: 15),
+                        ),
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      return ListView(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children: snapshot.data!.docs.map((doc) {
+                          wishlistItem = Wishlist.fromMap(
+                              doc.data() as Map<String, dynamic>);
+                          // print();
+                          return WorkSpaceCard(
+                            spaceId: wishlistItem!.spaceId,
+                          );
+                        }).toList(),
+                      );
+                    } else {
+                      return Center(
+                        child: Text(
+                          "Unknown Error Occured!",
+                          style: GoogleFonts.poppins(
+                              color: Colors.white, fontSize: 15),
+                        ),
+                      );
+                    }
+                  },
+                ),
               ],
             ),
           ],

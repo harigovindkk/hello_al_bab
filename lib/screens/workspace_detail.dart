@@ -25,10 +25,10 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
   int isLoggedIn = 0;
   bool isLoading = true;
 
-  Map<String, bool> facilities = {
-    'foo': true,
-    'bar': false,
-  };
+  bool projectCheck = false;
+  bool receptionCheck = false;
+  bool foodCheck = false;
+  bool pickCheck = false;
 
   Future<void> getDetails() async {
     return FirebaseFirestore.instance
@@ -90,251 +90,368 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                             topLeft: Radius.circular(30),
                             topRight: Radius.circular(30))),
                     child: Padding(
-                      padding: EdgeInsets.only(top: 15.0, left: 20, right: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            workspace!.name,
-                            style: GoogleFonts.poppins(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: primary),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            workspace!.address,
-                            style: GoogleFonts.poppins(color: Colors.white38),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          ExpandableText(
-                            workspace!.description,
-                            expandText: 'See More',
-                            collapseText: 'See Less',
-                            maxLines: 5,
-                            style: GoogleFonts.poppins(color: Colors.white),
-                            linkColor: primary,
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            'Opening Timings',
-                            style: GoogleFonts.poppins(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: primary),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Monday',
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                  Text(
-                                    "${widget.workspace.time["mo-from"]} - ${widget.workspace.time["mo-to"]}",
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Tuesday',
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                  Text(
-                                    "${widget.workspace.time["tu-from"]} - ${widget.workspace.time["tu-to"]}",
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Wednesday',
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                  Text(
-                                    "${widget.workspace.time["we-from"]} - ${widget.workspace.time["we-to"]}",
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Thursday',
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                  Text(
-                                    "${widget.workspace.time["th-from"]} - ${widget.workspace.time["th-to"]}",
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Friday',
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                  Text(
-                                    "${widget.workspace.time["fr-from"]} - ${widget.workspace.time["fr-to"]}",
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Saturday',
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                  Text(
-                                    "${widget.workspace.time["sa-from"]} - ${widget.workspace.time["sa-to"]}",
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Sunday',
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                  Text(
-                                    "${widget.workspace.time["su-from"]} - ${widget.workspace.time["su-to"]}",
-                                    style: GoogleFonts.poppins(
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Column(
-                            children: [
-                              Text(
-                                'Facilities',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: primary),
-                              ),
-                              Container(
-                                child: ListView(
-                                  children: facilities.keys.map((String key) {
-                                    return new CheckboxListTile(
-                                      title: new Text(key),
-                                      value: true,
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          facilities[key] = value!;
-                                        });
-                                      },
-                                    );
-                                  }).toList(),
+                      padding: EdgeInsets.only(
+                          top: 15.0, left: 20, right: 20, bottom: 40),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              workspace!.name,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: primary),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              workspace!.address,
+                              style: GoogleFonts.poppins(color: Colors.white38),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ExpandableText(
+                              workspace!.description,
+                              expandText: 'See More',
+                              collapseText: 'See Less',
+                              maxLines: 5,
+                              style: GoogleFonts.poppins(color: Colors.white),
+                              linkColor: primary,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Opening Timings',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: primary),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Monday',
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                    Text(
+                                      "${widget.workspace.time["mo-from"]} - ${widget.workspace.time["mo-to"]}",
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          Column(
-                            children: [
-                              Text(
-                                'Additional Facilities',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: primary),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.8,
-                                margin: EdgeInsets.all(10),
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(primary),
-                                      foregroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.black),
-                                      shape: MaterialStateProperty.all<
-                                              RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                      ))),
-                                  child: Text(
-                                    "Book Now",
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  onPressed: () async {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //       builder: (context) =>
-                                    //           SearchCriteria()),
-                                    // );
-                                    SharedPreferences prefs =
-                                        await SharedPreferences.getInstance();
-                                    isLoggedIn =
-                                        await prefs.getInt('loggedin')!;
-                                    print(isLoggedIn);
-                                    if (isLoggedIn == 0) {
-                                      print("please login");
-                                    } else {
-                                      print("loggein");
-                                    }
-                                  },
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Tuesday',
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                    Text(
+                                      "${widget.workspace.time["tu-from"]} - ${widget.workspace.time["tu-to"]}",
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Wednesday',
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                    Text(
+                                      "${widget.workspace.time["we-from"]} - ${widget.workspace.time["we-to"]}",
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Thursday',
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                    Text(
+                                      "${widget.workspace.time["th-from"]} - ${widget.workspace.time["th-to"]}",
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Friday',
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                    Text(
+                                      "${widget.workspace.time["fr-from"]} - ${widget.workspace.time["fr-to"]}",
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Saturday',
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                    Text(
+                                      "${widget.workspace.time["sa-from"]} - ${widget.workspace.time["sa-to"]}",
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Sunday',
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                    Text(
+                                      "${widget.workspace.time["su-from"]} - ${widget.workspace.time["su-to"]}",
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            Column(
+                              children: [
+                                Text(
+                                  'Facilities',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: primary),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              'WiFi',
+                              style: GoogleFonts.poppins(color: Colors.white),
+                            ),
+                            Text(
+                              'Electricity',
+                              style: GoogleFonts.poppins(color: Colors.white),
+                            ),
+                            Text(
+                              'Water',
+                              style: GoogleFonts.poppins(color: Colors.white),
+                            ),
+                            Text(
+                              'Coffee',
+                              style: GoogleFonts.poppins(color: Colors.white),
+                            ),
+                            SizedBox(height: 10),
+                            Column(
+                              children: [
+                                Text(
+                                  'Additional Facilities',
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.bold,
+                                      color: primary),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Theme(
+                                  data:
+                                      ThemeData(unselectedWidgetColor: primary),
+                                  child: Checkbox(
+                                    value: projectCheck,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        projectCheck = newValue!;
+                                      });
+                                    },
+                                    tristate: false,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(2),
+                                        side: const BorderSide(
+                                            color: Colors.white)),
+                                    activeColor: boxColor,
+                                    checkColor: primary,
+                                  ),
+                                ),
+                                Text(
+                                  "Projector",
+                                  style:
+                                      GoogleFonts.poppins(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Theme(
+                                  data:
+                                      ThemeData(unselectedWidgetColor: primary),
+                                  child: Checkbox(
+                                    value: receptionCheck,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        receptionCheck = newValue!;
+                                      });
+                                    },
+                                    tristate: false,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(2),
+                                        side: const BorderSide(
+                                            color: Colors.white)),
+                                    activeColor: boxColor,
+                                    checkColor: primary,
+                                  ),
+                                ),
+                                Text(
+                                  "Reception",
+                                  style:
+                                      GoogleFonts.poppins(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Theme(
+                                  data:
+                                      ThemeData(unselectedWidgetColor: primary),
+                                  child: Checkbox(
+                                    value: foodCheck,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        foodCheck = newValue!;
+                                      });
+                                    },
+                                    tristate: false,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(2),
+                                        side: const BorderSide(
+                                            color: Colors.white)),
+                                    activeColor: boxColor,
+                                    checkColor: primary,
+                                  ),
+                                ),
+                                Text(
+                                  "Food and drinks",
+                                  style:
+                                      GoogleFonts.poppins(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Theme(
+                                  data:
+                                      ThemeData(unselectedWidgetColor: primary),
+                                  child: Checkbox(
+                                    value: pickCheck,
+                                    onChanged: (newValue) {
+                                      setState(() {
+                                        pickCheck = newValue!;
+                                      });
+                                    },
+                                    tristate: false,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(2),
+                                        side: const BorderSide(
+                                            color: Colors.white)),
+                                    activeColor: boxColor,
+                                    checkColor: primary,
+                                  ),
+                                ),
+                                Text(
+                                  "Pick and drop",
+                                  style:
+                                      GoogleFonts.poppins(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  margin: EdgeInsets.all(10),
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(primary),
+                                        foregroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.black),
+                                        shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
+                                        ))),
+                                    child: Text(
+                                      "Book Now",
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    onPressed: () async {
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //       builder: (context) =>
+                                      //           SearchCriteria()),
+                                      // );
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+                                      isLoggedIn =
+                                          await prefs.getInt('loggedin')!;
+                                      print(isLoggedIn);
+                                      if (isLoggedIn == 0) {
+                                        print("please login");
+                                      } else {
+                                        print("loggein");
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
