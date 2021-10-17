@@ -131,19 +131,20 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        // leading: IconButton(
-        //   onPressed: () {
-        //     Navigator.of(context).pop();
-        //   },
-        //   icon: const Icon(Icons.arrow_back_ios, color: primary),
-        // ),
+        elevation:0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+        ),
         centerTitle: true,
         title: Text('Sign Up',
             style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold, color: primary)),
-        backgroundColor: Colors.black,
+                fontWeight: FontWeight.bold, color:  Colors.black)),
+        backgroundColor: Colors.white,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,7 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: const EdgeInsets.only(left: 15.0, top: 15.0),
               child: Text(
                 "Name",
-                style: GoogleFonts.poppins(color: Colors.white),
+                style: GoogleFonts.poppins(color: Colors.black),
               ),
             ),
             Padding(
@@ -164,7 +165,7 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: const EdgeInsets.only(left: 15.0, top: 15.0),
               child: Text(
                 "Date Of Birth",
-                style: GoogleFonts.poppins(color: Colors.white),
+                style: GoogleFonts.poppins(color: Colors.black),
               ),
             ),
             Padding(
@@ -175,7 +176,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: MediaQuery.of(context).size.height * 0.09,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: primary,
+                    color:  Colors.black,
                     width: 1,
                   ),
                   borderRadius: const BorderRadius.all(
@@ -196,7 +197,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       IconButton(
                         icon: const Icon(Icons.calendar_today),
-                        color: primary,
+                        color:  Colors.black,
                         onPressed: () {
                           _selectDate(context);
                         },
@@ -210,7 +211,7 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: const EdgeInsets.only(left: 15.0, top: 15.0),
               child: Text(
                 "Email",
-                style: GoogleFonts.poppins(color: Colors.white),
+                style: GoogleFonts.poppins(color: Colors.black),
               ),
             ),
             Padding(
@@ -222,7 +223,7 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: const EdgeInsets.only(left: 15.0, top: 15.0),
               child: Text(
                 "Phone",
-                style: GoogleFonts.poppins(color: Colors.white),
+                style: GoogleFonts.poppins(color: Colors.black),
               ),
             ),
             Padding(
@@ -231,7 +232,7 @@ class _SignUpPageState extends State<SignUpPage> {
               child: TextFormField(
                 keyboardType: TextInputType.number,
                 style: GoogleFonts.poppins(
-                    color: primary, fontWeight: FontWeight.w600),
+                    color: Colors.black, fontWeight: FontWeight.w600),
                 cursorColor: primary,
                 validator: (text) {
                   if (text == null || text.isEmpty) {
@@ -247,7 +248,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       GoogleFonts.poppins(color: const Color(0xff181818)),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: primary,
+                      color:  Colors.black,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.only(
@@ -259,7 +260,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: primary,
+                      color:  Colors.black,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.only(
@@ -276,7 +277,7 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: const EdgeInsets.only(left: 15.0, top: 15.0),
               child: Text(
                 "Password",
-                style: GoogleFonts.poppins(color: Colors.white),
+                style: GoogleFonts.poppins(color: Colors.black),
               ),
             ),
             Padding(
@@ -285,7 +286,7 @@ class _SignUpPageState extends State<SignUpPage> {
               child: TextFormField(
                 style: GoogleFonts.poppins(
                     color: primary, fontWeight: FontWeight.w600),
-                cursorColor: primary,
+                cursorColor:  Colors.black,
                 validator: (text) {
                   if (text == null || text.isEmpty) {
                     return "Password field can't be empty";
@@ -300,7 +301,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       GoogleFonts.poppins(color: const Color(0xff181818)),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: primary,
+                      color:  Colors.black,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.only(
@@ -312,7 +313,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: primary,
+                      color:  Colors.black,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.only(
@@ -334,12 +335,23 @@ class _SignUpPageState extends State<SignUpPage> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(
+               decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0)),
-                    primary: primary,
+                    elevation: 0,
+                    primary: Colors.transparent,
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () {
@@ -375,18 +387,29 @@ class _SignUpPageState extends State<SignUpPage> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0)),
-                    primary: primary,
+                    elevation: 0,
+                    primary: Colors.transparent,
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () async {
-                    final millionsprovider =
+                    final albabprovider =
                         Provider.of<HelloAlbabProvider>(context, listen: false);
-                    user = await millionsprovider.googleLogin(context);
+                    user = await albabprovider.googleLogin(context);
 
                     print(user!.displayName.toString());
                     if (user != null) {

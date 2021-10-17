@@ -52,6 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         // leading: IconButton(
         //   onPressed: () {
         //     Navigator.of(context).pop();
@@ -61,10 +62,10 @@ class _ProfilePageState extends State<ProfilePage> {
         centerTitle: true,
         title: Text('Profile',
             style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold, color: primary)),
-        backgroundColor: Colors.black,
+                fontWeight: FontWeight.bold, color: Colors.black)),
+        backgroundColor: Colors.white,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: isLoading
           ? const Center(
               child: CircularProgressIndicator(
@@ -96,7 +97,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Text(
                   user!.name,
                   style: GoogleFonts.poppins(
-                      color: primary,
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 20),
                 ),
@@ -118,10 +119,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         child: Text('My Bookings',
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.bold, color: primary)),
+                                fontWeight: FontWeight.bold, color: Colors.black)),
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.black,
-                            side: const BorderSide(color: primary)),
+                            primary: Colors.white,
+                            side: const BorderSide(color: Colors.black)),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -133,10 +134,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         child: Text('My Wishlist',
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.bold, color: primary)),
+                                fontWeight: FontWeight.bold, color: Colors.black)),
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.black,
-                            side: const BorderSide(color: primary)),
+                            primary: Colors.white,
+                            side: const BorderSide(color: Colors.black)),
                       )
                     ],
                   ),

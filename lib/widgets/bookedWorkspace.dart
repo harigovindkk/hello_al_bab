@@ -82,7 +82,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                     margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      color: boxColor,
+                      color: Colors.white,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -97,7 +97,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 15,
-                                color: primary),
+                                color: Colors.black),
                           ),
                           const SizedBox(
                             height: 5,
@@ -105,7 +105,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                           Text(
                             workspace!.address,
                             style: GoogleFonts.poppins(
-                                color: Colors.white, fontSize: 11),
+                                color: Colors.black38, fontSize: 11),
                           ),
                           const SizedBox(
                             height: 5,
@@ -120,14 +120,14 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                     children: [
                                       Text("Space",
                                           style: GoogleFonts.poppins(
-                                              color: primary))
+                                              color: Colors.black))
                                     ],
                                   ),
                                   Column(
                                     children: [
                                       Text("Coworking",
                                           style: GoogleFonts.poppins(
-                                              color: primary))
+                                              color: Colors.black))
                                     ],
                                   )
                                 ],
@@ -140,7 +140,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                     children: [
                                       Text("Date",
                                           style: GoogleFonts.poppins(
-                                              color: primary))
+                                              color: Colors.black))
                                     ],
                                   ),
                                   Column(
@@ -152,7 +152,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                                       .toDate())
                                               : '${DateFormat('dd/MM/yyyy').format(widget.bookingDetail!.fromDate.toDate())}-${DateFormat('dd/MM/yyyy').format(widget.bookingDetail!.toDate.toDate())}',
                                           style: GoogleFonts.poppins(
-                                              color: primary))
+                                              color: Colors.black))
                                     ],
                                   )
                                 ],
@@ -165,7 +165,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                     children: [
                                       Text("Time",
                                           style: GoogleFonts.poppins(
-                                              color: primary))
+                                              color: Colors.black))
                                     ],
                                   ),
                                   Column(
@@ -173,7 +173,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                       Text(
                                           "${DateFormat('hh:mm').format(widget.bookingDetail!.fromDate.toDate())} - ${DateFormat('hh:mm').format(widget.bookingDetail!.toDate.toDate())}",
                                           style: GoogleFonts.poppins(
-                                              color: primary))
+                                              color: Colors.black))
                                     ],
                                   )
                                 ],
@@ -186,14 +186,14 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                     children: [
                                       Text("Guests",
                                           style: GoogleFonts.poppins(
-                                              color: primary))
+                                              color: Colors.black))
                                     ],
                                   ),
                                   Column(
                                     children: [
                                       Text("3",
                                           style: GoogleFonts.poppins(
-                                              color: primary))
+                                              color: Colors.black))
                                     ],
                                   )
                                 ],

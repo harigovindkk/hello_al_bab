@@ -19,7 +19,7 @@ class WorkSpaceCard extends StatefulWidget {
 class _WorkSpaceCardState extends State<WorkSpaceCard> {
   Workspace? workspace;
   bool isLoading = true;
-  bool? liked;
+  bool? liked=false;
 
   // Future<void> getDetails() async {
   //   return FirebaseFirestore.instance
@@ -110,7 +110,8 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                       margin: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: boxColor,
+                        color: Colors.white,
+                        
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -125,7 +126,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                               style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16,
-                                  color: primary),
+                                  color: Colors.black),
                             ),
                             const SizedBox(
                               height: 5,
@@ -133,7 +134,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                             Text(
                               workspace!.address,
                               style: GoogleFonts.poppins(
-                                color: Colors.white,
+                                color: Colors.black38,
                                 fontSize: 12,
                               ),
                             ),
@@ -154,7 +155,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
                         border: Border.all(color: boxColor),
-                        color: boxColor,
+                        color: Colors.white,
                         boxShadow: [
                           const BoxShadow(
                             color: Colors.black,

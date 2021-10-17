@@ -7,10 +7,10 @@ import 'package:hello_al_bab/screens/add_workspace.dart';
 import 'package:hello_al_bab/screens/ejari_service.dart';
 import 'package:hello_al_bab/screens/login.dart';
 import 'package:hello_al_bab/screens/office_booking.dart';
+import 'package:hello_al_bab/services/dark_mode_service.dart';
 import 'package:hello_al_bab/services/login_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
-
 
 class OurServicesPage extends StatefulWidget {
   const OurServicesPage({Key? key}) : super(key: key);
@@ -29,17 +29,24 @@ class _OurServicesPageState extends State<OurServicesPage> {
     });
   }
 
+  int isdarkmode = 0;
   @override
   initState() {
     // TODO: implement initState
     super.initState();
     loginChecker();
+    isDark().whenComplete(() => ((value) {
+          setState(() {
+            isdarkmode = value;
+          });
+        }));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          elevation: 0,
         // leading: IconButton(
         //   onPressed: () {
         //     Navigator.of(context).pop();
@@ -50,14 +57,17 @@ class _OurServicesPageState extends State<OurServicesPage> {
         actions: [
           isLoggedin == 1
               ? IconButton(
-                  icon: Icon(Icons.logout,color: primary,),
+                  icon: Icon(
+                    Icons.logout,
+                    color: primary,
+                  ),
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     prefs.setInt('loggedin', 0);
-                    final millionsprovider =
+                    final albabprovider =
                         Provider.of<HelloAlbabProvider>(context, listen: false);
-                    millionsprovider.logout(context);
+                    albabprovider.logout(context);
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => LoginPage()),
@@ -69,10 +79,10 @@ class _OurServicesPageState extends State<OurServicesPage> {
         centerTitle: true,
         title: Text('Our Services',
             style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold, color: primary)),
-        backgroundColor: Colors.black,
+                fontWeight: FontWeight.bold, color: Colors.black)),
+        backgroundColor: Colors.white,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,12 +90,23 @@ class _OurServicesPageState extends State<OurServicesPage> {
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
               child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0)),
-                    primary: primary,
+                    elevation: 0,
+                    primary: Colors.transparent,
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () {
@@ -110,12 +131,23 @@ class _OurServicesPageState extends State<OurServicesPage> {
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
               child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0)),
-                    primary: primary,
+                     elevation: 0,
+                    primary: Colors.transparent,
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () {

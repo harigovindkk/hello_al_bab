@@ -21,7 +21,7 @@ class _WorkSpaceRequestCardState extends State<WorkSpaceRequestCard> {
         height: 80,
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-          border: Border.all(color: primary, width: 1),borderRadius: BorderRadius.circular(15)
+          border: Border.all(color: Colors.black, width: 1),borderRadius: BorderRadius.circular(15)
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,11 +33,11 @@ class _WorkSpaceRequestCardState extends State<WorkSpaceRequestCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Request Placed On : ',
-                        style: GoogleFonts.poppins(color: primary)),
+                        style: GoogleFonts.poppins(color: Colors.black)),
                     Text(
                         DateFormat('dd-MM-yyyy hh:mm')
                             .format((widget.request.time).toDate()),
-                        style: GoogleFonts.poppins(color: Colors.white)),
+                        style: GoogleFonts.poppins(color: Colors.black)),
                   ],
                 ),
                 const SizedBox(
@@ -47,9 +47,9 @@ class _WorkSpaceRequestCardState extends State<WorkSpaceRequestCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Request Status : ',
-                        style: GoogleFonts.poppins(color: primary)),
+                        style: GoogleFonts.poppins(color: Colors.black)),
                     Text(widget.request.status,
-                        style: GoogleFonts.poppins(color: Colors.white)),
+                        style: GoogleFonts.poppins(color: Colors.black)),
                   ],
                 ),
               ],

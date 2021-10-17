@@ -39,14 +39,14 @@ class _SearchCriteriaState extends State<SearchCriteria> {
         helpText: "Select from time",
         builder: (context, child) {
           return Theme(
-            data: ThemeData.dark().copyWith(
+            data: ThemeData.light().copyWith(
               primaryColor: primary,
               accentColor: lightprimary,
-              colorScheme: const ColorScheme.dark(
+              colorScheme: const ColorScheme.light(
                 primary: primary,
                 onPrimary: lightprimary,
                 // surface: primary,
-                onSurface: Colors.white,
+                onSurface: Colors.black,
               ),
             ),
             child: child!,
@@ -66,14 +66,14 @@ class _SearchCriteriaState extends State<SearchCriteria> {
         helpText: "Select to time",
         builder: (context, child) {
           return Theme(
-            data: ThemeData.dark().copyWith(
+            data: ThemeData.light().copyWith(
               primaryColor: primary,
               accentColor: lightprimary,
-              colorScheme: ColorScheme.dark(
+              colorScheme: ColorScheme.light(
                 primary: primary,
                 onPrimary: lightprimary,
                 // surface: primary,
-                onSurface: Colors.white,
+                onSurface: Colors.black,
               ),
             ),
             child: child!,
@@ -95,14 +95,14 @@ class _SearchCriteriaState extends State<SearchCriteria> {
       helpText: 'Select from date',
       builder: (context, child) {
         return Theme(
-          data: ThemeData.dark().copyWith(
+          data: ThemeData.light().copyWith(
             primaryColor: primary,
             accentColor: lightprimary,
             colorScheme: ColorScheme.dark(
               primary: primary,
               onPrimary: lightprimary,
               surface: primary,
-              onSurface: Colors.white,
+              onSurface: Colors.black,
             ),
           ),
           child: child!,
@@ -124,14 +124,14 @@ class _SearchCriteriaState extends State<SearchCriteria> {
       helpText: 'Select to date',
       builder: (context, child) {
         return Theme(
-          data: ThemeData.dark().copyWith(
+          data: ThemeData.light().copyWith(
             primaryColor: primary,
             accentColor: lightprimary,
             colorScheme: const ColorScheme.dark(
               primary: primary,
               onPrimary: lightprimary,
               surface: primary,
-              onSurface: Colors.white,
+              onSurface: Colors.black,
             ),
           ),
           child: child!,
@@ -157,22 +157,23 @@ class _SearchCriteriaState extends State<SearchCriteria> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           padding: const EdgeInsets.only(left: 10),
-          icon: const Icon(Icons.arrow_back_ios, size: 20, color: primary),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
           "Search Criteria",
           style:
-              GoogleFonts.poppins(fontWeight: FontWeight.bold, color: primary),
+              GoogleFonts.poppins(fontWeight: FontWeight.bold, color: Colors.black),
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
       ),
       body: Container(
-        color: Colors.black,
+        color: Colors.white,
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
@@ -245,7 +246,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
             // ),
             Row(
               children: [
-                Text("Date", style: GoogleFonts.poppins(color: Colors.white))
+                Text("Date", style: GoogleFonts.poppins(color: Colors.black))
               ],
             ),
             Row(
@@ -255,13 +256,13 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     child: new Text(
                       'Single Day',
                       style: GoogleFonts.poppins(
-                          color: isSingleDay ? Colors.black : primary),
+                          color: isSingleDay ? Colors.white : Colors.black),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: isSingleDay ? primary : Colors.black,
+                      primary: isSingleDay ? Colors.black : Colors.white,
                       shape: (RoundedRectangleBorder(
                         side: const BorderSide(
-                          color: primary,
+                          color: Colors.black,
                         ),
                         borderRadius: BorderRadius.circular(5.0),
                       )),
@@ -269,10 +270,11 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     onPressed: () {
                       setState(() {
                         isSingleDay = !isSingleDay;
-                      });
-                      if (isSingleDay) {
+                         if (isSingleDay) {
                         isMultipleDay = false;
                       }
+                      });
+                     
                     },
                   ),
                 ),
@@ -282,13 +284,13 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     child: new Text(
                       'Multiple Days',
                       style: GoogleFonts.poppins(
-                          color: isMultipleDay ? Colors.black : primary),
+                          color: isMultipleDay? Colors.white : Colors.black),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: isMultipleDay ? primary : Colors.black,
+                      primary: isMultipleDay ? Colors.black : Colors.white,
                       shape: (RoundedRectangleBorder(
                         side: const BorderSide(
-                          color: primary,
+                          color: Colors.black,
                         ),
                         borderRadius: BorderRadius.circular(5.0),
                       )),
@@ -296,10 +298,11 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     onPressed: () {
                       setState(() {
                         isMultipleDay = !isMultipleDay;
-                      });
-                      if (isMultipleDay) {
+                        if (isMultipleDay) {
                         isSingleDay = false;
                       }
+                      });
+                      
                     },
                   ),
                 ),
@@ -313,7 +316,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     children: [
                       Text(
                         'Date from',
-                        style: GoogleFonts.poppins(color: Colors.white),
+                        style: GoogleFonts.poppins(color: Colors.black),
                       ),
                     ],
                   ),
@@ -324,7 +327,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     children: [
                       Text(
                         'Date to',
-                        style: GoogleFonts.poppins(color: Colors.white),
+                        style: GoogleFonts.poppins(color: Colors.black),
                       ),
                     ],
                   ),
@@ -338,13 +341,13 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     onPressed: () => _selectFromDate(context),
                     child: new Text(
                       "${selectedFromDate.day} / ${selectedFromDate.month} / ${selectedFromDate.year}",
-                      style: GoogleFonts.poppins(color: primary),
+                      style: GoogleFonts.poppins(color: Colors.black),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
+                      primary: Colors.white,
                       shape: (RoundedRectangleBorder(
                         side: const BorderSide(
-                          color: primary,
+                          color: Colors.black,
                         ),
                         borderRadius: BorderRadius.circular(5.0),
                       )),
@@ -357,13 +360,13 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     onPressed: () => _selectToDate(context),
                     child: new Text(
                       "${selectedToDate.day} / ${selectedToDate.month} / ${selectedToDate.year}",
-                      style: GoogleFonts.poppins(color: primary),
+                      style: GoogleFonts.poppins(color: Colors.black),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
+                      primary: Colors.white,
                       shape: (RoundedRectangleBorder(
                         side: const BorderSide(
-                          color: primary,
+                          color: Colors.black,
                         ),
                         borderRadius: BorderRadius.circular(5.0),
                       )),
@@ -382,7 +385,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                       children: [
                         Text(
                           'Time from',
-                          style: GoogleFonts.poppins(color: Colors.white),
+                          style: GoogleFonts.poppins(color: Colors.black),
                         ),
                       ],
                     ),
@@ -393,7 +396,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                       children: [
                         Text(
                           'Time to',
-                          style: GoogleFonts.poppins(color: Colors.white),
+                          style: GoogleFonts.poppins(color: Colors.black),
                         ),
                       ],
                     ),
@@ -412,13 +415,13 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                         _selectedFromTime == null
                             ? "Select from time"
                             : _selectedFromTime.toString(),
-                        style: GoogleFonts.poppins(color: primary),
+                        style: GoogleFonts.poppins(color: Colors.black),
                       ),
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
+                        primary: Colors.white,
                         shape: (RoundedRectangleBorder(
                           side: const BorderSide(
-                            color: primary,
+                            color: Colors.black,
                           ),
                           borderRadius: BorderRadius.circular(5.0),
                         )),
@@ -433,13 +436,13 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                         _selectedToTime == null
                             ? "Select to time"
                             : _selectedToTime.toString(),
-                        style: GoogleFonts.poppins(color: primary),
+                        style: GoogleFonts.poppins(color: Colors.black),
                       ),
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
+                        primary: Colors.white,
                         shape: (RoundedRectangleBorder(
                           side: const BorderSide(
-                            color: primary,
+                            color: Colors.black,
                           ),
                           borderRadius: BorderRadius.circular(5.0),
                         )),
@@ -516,15 +519,25 @@ class _SearchCriteriaState extends State<SearchCriteria> {
             // ),
             const Spacer(),
             Container(
-              width: MediaQuery.of(context).size.width * 0.8,
-              margin: const EdgeInsets.all(10),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: primary,
-                    padding: const EdgeInsets.all(10),
-                    shape: (RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ))),
+             decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0)),
+                     elevation: 0,
+                    primary: Colors.transparent,
+                    padding: const EdgeInsets.all(15),
+                  ),
                 child: Text(
                   "Check Availability",
                   style: GoogleFonts.poppins(

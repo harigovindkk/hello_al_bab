@@ -44,30 +44,31 @@ class _LocationAvailableState extends State<LocationAvailable> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           padding: const EdgeInsets.only(left: 10),
-          icon: const Icon(Icons.arrow_back_ios, size: 20, color: primary),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
           "Location Available",
           style:
-              GoogleFonts.poppins(fontWeight: FontWeight.bold, color: primary),
+              GoogleFonts.poppins(fontWeight: FontWeight.bold, color: Colors.black),
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.black,
+          color: Colors.white,
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
                   widget.workspace.description,
-                  style: GoogleFonts.poppins(fontSize: 14, color: Colors.white),
+                  style: GoogleFonts.poppins(fontSize: 14, color: Colors.black),
                 ),
               ),
               BookedWorkSpaceCard(new Bookings(
@@ -85,7 +86,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
                 child: Row(
                   children: [
                     Theme(
-                      data: ThemeData(unselectedWidgetColor: primary),
+                      data: ThemeData(unselectedWidgetColor: Colors.black),
                       child: Checkbox(
                         value: checked,
                         onChanged: (newValue) {
@@ -100,13 +101,13 @@ class _LocationAvailableState extends State<LocationAvailable> {
 // tristate: true,
                         // shape: CircleBorder(),
                         activeColor: boxColor,
-                        checkColor: primary,
+                        checkColor: Colors.white,
                       ),
                     ),
                     Text(
                       "Agree to the terms and conditions",
                       style: GoogleFonts.poppins(
-                          fontSize: 12, color: Colors.white),
+                          fontSize: 12, color: Colors.black),
                     ),
                   ],
                 ),
@@ -119,7 +120,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
                     "Cost Breakdown",
                     style: GoogleFonts.poppins(
                       fontSize: 18,
-                      color: primary,
+                      color: Colors.black,
                       fontWeight: FontWeight.w600,
                     ),
                   )
@@ -134,7 +135,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
                       "Total",
                       style: GoogleFonts.poppins(
                         fontSize: 15,
-                        color: primary,
+                        color: Colors.black,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -142,7 +143,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
                       "22 AED",
                       style: GoogleFonts.poppins(
                         fontSize: 15,
-                        color: primary,
+                        color: Colors.black,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -150,15 +151,25 @@ class _LocationAvailableState extends State<LocationAvailable> {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
+                width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      primary: primary,
-                      padding: const EdgeInsets.all(10),
-                      shape: (RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ))),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0)),
+                    elevation: 0,
+                    primary: Colors.transparent,
+                    padding: const EdgeInsets.all(15),
+                  ),
                   child: Text(
                     "Book",
                     style: GoogleFonts.poppins(

@@ -21,8 +21,8 @@ class _InputFieldState extends State<InputField> {
   Widget build(BuildContext context) {
     //String labeltext='Hai';
     return TextFormField(
-      style: GoogleFonts.poppins(color: primary, fontWeight: FontWeight.w600),
-      cursorColor: primary,
+      style: GoogleFonts.poppins(color: Colors.black, fontWeight: FontWeight.w600),
+      cursorColor: Colors.black,
       validator: (text) {
         if (text == null || text.isEmpty) {
           return "This field can't be empty";
@@ -35,7 +35,7 @@ class _InputFieldState extends State<InputField> {
         labelStyle: GoogleFonts.poppins(color: const Color(0xff181818)),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: primary,
+            color: Colors.black,
             width: 1,
           ),
           borderRadius: BorderRadius.only(
@@ -47,7 +47,7 @@ class _InputFieldState extends State<InputField> {
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: primary,
+            color:  Colors.black,
             width: 1,
           ),
           borderRadius: BorderRadius.only(
