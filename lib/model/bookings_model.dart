@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class Bookings {
   String bookId;
@@ -7,6 +8,8 @@ class Bookings {
   bool isSingleDay;
   Timestamp fromDate;
   Timestamp toDate;
+  Timestamp? fromTime;
+  Timestamp? toTime;
   String status;
   String transactionId;
   Timestamp timeStamp;
@@ -18,6 +21,8 @@ class Bookings {
     required this.isSingleDay,
     required this.fromDate,
     required this.toDate,
+    this.fromTime,
+    this.toTime,
     required this.status,
     required this.transactionId,
     required this.timeStamp,
@@ -30,6 +35,8 @@ class Bookings {
       isSingleDay: json["isSingleDay"],
       fromDate: json["fromDate"],
       toDate: json["toDate"],
+      toTime: json["toTime"],
+      fromTime: json["fromDate"],
       status: json["status"],
       transactionId: json["transactionId"],
       timeStamp: json['timeStamp']);
@@ -41,6 +48,8 @@ class Bookings {
         "isSingleDay": isSingleDay,
         "fromDate": fromDate,
         "toDate": toDate,
+        "toTime": toTime,
+        "fromTime": fromTime,
         "status": status,
         "transactionId": transactionId,
         'timeStamp': timeStamp

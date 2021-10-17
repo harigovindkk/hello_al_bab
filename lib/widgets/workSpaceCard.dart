@@ -19,7 +19,7 @@ class WorkSpaceCard extends StatefulWidget {
 class _WorkSpaceCardState extends State<WorkSpaceCard> {
   Workspace? workspace;
   bool isLoading = true;
-  bool? liked;
+  bool? liked = false;
 
   // Future<void> getDetails() async {
   //   return FirebaseFirestore.instance
@@ -49,6 +49,24 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
     });
   }
 
+  Future<void> likeChecker() async {
+    return FirebaseFirestore.instance
+        .collection('wishlist')
+        .doc(FirebaseAuth.instance.currentUser!.uid + '_' + workspace!.spaceId)
+        .get()
+        .then((value) {
+      setState(() {
+        if (value.exists) {
+          setState(() {
+            liked = true;
+          });
+        }
+        //workspaceData= value;
+      });
+      // print(workspace!.addedBy);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -59,6 +77,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
       setState(() {
         isLoading = false;
       });
+      likeChecker();
     });
   }
 
@@ -176,8 +195,8 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                       child: IconButton(
                         icon: Icon(
                           liked!
-                              ? Icons.favorite_outline_rounded
-                              : Icons.favorite_rounded,
+                              ? Icons.favorite_rounded
+                              : Icons.favorite_outline_outlined,
                           color: primary,
                           size: 24,
                         ),
@@ -187,21 +206,35 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                           });
                           if (liked!) {
                             //item added to wishlist
+                            print("liked");
                             FirebaseFirestore.instance
                                 .collection('wishlist')
-                                .doc()
-                                .set({
-                              'ownerId': workspace!.ownerId,
-                              'userId': FirebaseAuth.instance.currentUser!.uid,
-                              'spaceId': workspace!.spaceId,
-                              'photoUrl': workspace!.photoUrl,
-                              'name': workspace!.name,
-                              'address': workspace!.address,
-                              'timeStamp': Timestamp.now(),
-                            });
+                                .doc(FirebaseAuth.instance.currentUser!.uid +
+                                    '_' +
+                                    workspace!.spaceId)
+                                .set(
+                              {
+                                'ownerId': workspace!.ownerId,
+                                'userId':
+                                    FirebaseAuth.instance.currentUser!.uid,
+                                'spaceId': workspace!.spaceId,
+                                'photoUrl': workspace!.photoUrl,
+                                'name': workspace!.name,
+                                'address': workspace!.address,
+                                'timeStamp': Timestamp.now(),
+                              },
+                              SetOptions(
+                                merge: true,
+                              ),
+                            );
                           } else {
                             //item removed from wishlist
-                            
+                            FirebaseFirestore.instance
+                                .collection('wishlist')
+                                .doc(FirebaseAuth.instance.currentUser!.uid +
+                                    '_' +
+                                    workspace!.spaceId)
+                                .delete();
                           }
                         },
                       ),

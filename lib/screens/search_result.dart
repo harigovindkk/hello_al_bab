@@ -91,8 +91,9 @@ class _SearchResultsState extends State<SearchResults> {
                         children: snapshot.data!.docs.map((doc) {
                           workspace = Workspace.fromDoc(
                               doc.data() as Map<String, dynamic>);
+                              // print();
                           return WorkSpaceCard(
-                            spaceId: this.workspace!.spaceId,
+                            spaceId: workspace!.spaceId,
                           );
                         }).toList(),
                       );
