@@ -65,7 +65,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
         actions: [
           isLoggedin == 1
               ? IconButton(
-                  icon: Icon(Icons.logout),
+                  icon: Icon(Icons.logout,color: primary,),
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
@@ -88,7 +88,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
         backgroundColor: Colors.black,
       ),
       backgroundColor: Colors.black,
-      body: isLoggedin == 0
+      body: isLoggedin == 1
           ? SingleChildScrollView(
               child: Column(
               children: [

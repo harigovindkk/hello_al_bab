@@ -17,7 +17,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool isLoading = true;
-  Users? user;
+  Users? user =null;
   //TextEditingController otpcontroller = TextEditingController();
 
   Future<void> getDetails() async {
@@ -77,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    user!.profilePicture == '' || user!.profilePicture == null
+                    user!.profilePicture == ''
                         ? Image.asset(
                             'images/profilepic.JPG',
                             fit: BoxFit.fill,

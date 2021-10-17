@@ -50,7 +50,7 @@ class _OurServicesPageState extends State<OurServicesPage> {
         actions: [
           isLoggedin == 1
               ? IconButton(
-                  icon: Icon(Icons.logout),
+                  icon: Icon(Icons.logout,color: primary,),
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();

@@ -1,8 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
-import 'package:hello_al_bab/screens/homePage.dart';
+import 'package:hello_al_bab/screens/search_result.dart';
 import 'package:hello_al_bab/screens/locationAvailable.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchCriteria extends StatefulWidget {
   @override
@@ -10,13 +12,6 @@ class SearchCriteria extends StatefulWidget {
 }
 
 class _SearchCriteriaState extends State<SearchCriteria> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    //print(123);
-  }
-
   DateTime selectedFromDate = DateTime.now();
   DateTime selectedToDate = DateTime.now();
   String? _selectedFromTime;
@@ -25,6 +20,17 @@ class _SearchCriteriaState extends State<SearchCriteria> {
   bool singleDay = false;
   bool isSingleDay = false;
   bool isMultipleDay = false;
+  String type = '';
+  String spec = '';
+
+  _getOfficeCriteria() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      type = prefs.getString('type').toString();
+      spec = prefs.getString('spec').toString();
+    });
+    print("type = " + type + ", spec = " + spec);
+  }
 
   Future<void> _showFromTime() async {
     final TimeOfDay? result = await showTimePicker(
@@ -137,6 +143,14 @@ class _SearchCriteriaState extends State<SearchCriteria> {
         selectedToDate = picked;
       });
     }
+  }
+
+  @override
+  void initState() {
+    print(123);
+    _getOfficeCriteria();
+    // print("type = " + type + ", spec = " + spec);
+    super.initState();
   }
 
   @override
@@ -267,7 +281,8 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                   child: ElevatedButton(
                     child: new Text(
                       'Multiple Days',
-                      style: GoogleFonts.poppins(color: isMultipleDay ? Colors.black : primary),
+                      style: GoogleFonts.poppins(
+                          color: isMultipleDay ? Colors.black : primary),
                     ),
                     style: ElevatedButton.styleFrom(
                       primary: isMultipleDay ? primary : Colors.black,
@@ -357,76 +372,82 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                 ),
               ],
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Time from',
-                        style: GoogleFonts.poppins(color: Colors.white),
-                      ),
-                    ],
+            Visibility(
+              visible: isSingleDay ? true : false,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Time from',
+                          style: GoogleFonts.poppins(color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Time to',
-                        style: GoogleFonts.poppins(color: Colors.white),
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Time to',
+                          style: GoogleFonts.poppins(color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => _showFromTime(),
-                    child: new Text(
-                      _selectedFromTime == null
-                          ? "Select from time"
-                          : _selectedFromTime.toString(),
-                      style: GoogleFonts.poppins(color: primary),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      shape: (RoundedRectangleBorder(
-                        side: const BorderSide(
-                          color: primary,
-                        ),
-                        borderRadius: BorderRadius.circular(5.0),
-                      )),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => _showToTime(),
-                    child: new Text(
-                      _selectedToTime == null
-                          ? "Select to time"
-                          : _selectedToTime.toString(),
-                      style: GoogleFonts.poppins(color: primary),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      shape: (RoundedRectangleBorder(
-                        side: const BorderSide(
-                          color: primary,
-                        ),
-                        borderRadius: BorderRadius.circular(5.0),
-                      )),
+            Visibility(
+              visible: isSingleDay ? true : false,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () => _showFromTime(),
+                      child: new Text(
+                        _selectedFromTime == null
+                            ? "Select from time"
+                            : _selectedFromTime.toString(),
+                        style: GoogleFonts.poppins(color: primary),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                        shape: (RoundedRectangleBorder(
+                          side: const BorderSide(
+                            color: primary,
+                          ),
+                          borderRadius: BorderRadius.circular(5.0),
+                        )),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () => _showToTime(),
+                      child: new Text(
+                        _selectedToTime == null
+                            ? "Select to time"
+                            : _selectedToTime.toString(),
+                        style: GoogleFonts.poppins(color: primary),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                        shape: (RoundedRectangleBorder(
+                          side: const BorderSide(
+                            color: primary,
+                          ),
+                          borderRadius: BorderRadius.circular(5.0),
+                        )),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             // Row(
             //   children: [
@@ -509,11 +530,22 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                   style: GoogleFonts.poppins(
                       color: Colors.black, fontWeight: FontWeight.w600),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.setBool('isSingle', isSingleDay);
+                  if (isSingleDay) {
+                    prefs.setString('fromDate', "${selectedFromDate}");
+                    prefs.setString('toDate', "${selectedToDate}");
+                    prefs.setString('fromTime', "${_selectedFromTime}");
+                    prefs.setString('toTime', "${_selectedToTime}");
+                  } else {
+                    prefs.setString('fromDate', "${selectedFromDate}");
+                    prefs.setString('toDate', "${selectedToDate}");
+                  }
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => SearchResults()),
                   );
                 },
               ),

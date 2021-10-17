@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/screens/conference_hall.dart';
 import 'package:hello_al_bab/screens/searchCriteria.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MeetingRoomPage extends StatefulWidget {
   const MeetingRoomPage({Key? key}) : super(key: key);
@@ -170,7 +171,11 @@ class _MeetingRoomPageState extends State<MeetingRoomPage> {
                   primary: isMoreThanTen ? lightprimary : primary,
                   padding: const EdgeInsets.all(15),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('spec', "${guests}");
+
                   if (!isMoreThanTen) {
                     Navigator.push(
                         context,

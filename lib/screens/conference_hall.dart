@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/screens/searchCriteria.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ConferenceHallPage extends StatefulWidget {
   const ConferenceHallPage({Key? key}) : super(key: key);
@@ -53,7 +54,10 @@ class _ConferenceHallPageState extends State<ConferenceHallPage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {
+                  onPressed: ()async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('spec', "businessMeeting");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -83,7 +87,10 @@ class _ConferenceHallPageState extends State<ConferenceHallPage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('spec', "conference");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -113,7 +120,10 @@ class _ConferenceHallPageState extends State<ConferenceHallPage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('spec', "productLaunch");
                     Navigator.push(
                         context,
                         MaterialPageRoute(

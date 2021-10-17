@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/screens/searchCriteria.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OfficeSpacePage extends StatefulWidget {
   const OfficeSpacePage({Key? key}) : super(key: key);
@@ -51,7 +52,11 @@ class _OfficeSpacePageState extends State<OfficeSpacePage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('spec', "20");
+                    
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -81,7 +86,10 @@ class _OfficeSpacePageState extends State<OfficeSpacePage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('spec', "100");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -111,7 +119,10 @@ class _OfficeSpacePageState extends State<OfficeSpacePage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('spec', "500");
                     Navigator.push(
                         context,
                         MaterialPageRoute(

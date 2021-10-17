@@ -20,13 +20,13 @@ class Users {
   Timestamp createdTime;
 
   factory Users.fromJson(Map<String, dynamic> json) => Users(
-        uid: json["uid"],
-        name: json["name"],
-        email: json["email"],
-        dob: json["dob"],
-        phone: json["phone"],
-        profilePicture: json["profilePicture"],
-        createdTime: json["createdTime"],
+        uid: json["uid"] ?? '',
+        name: json["name"] ?? "",
+        email: json["email"] ?? '',
+        dob: json["dob"] ?? '',
+        phone: json["phone"] ?? '',
+        profilePicture: json["profilePicture"] ?? "",
+        createdTime: json["createdTime"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {

@@ -40,9 +40,6 @@ class _MyWishlistState extends State<MyWishlist> {
           children: [
             Column(
               children: [
-                WorkSpaceCard(),
-                WorkSpaceCard(),
-                WorkSpaceCard(),
               ],
             ),
           ],

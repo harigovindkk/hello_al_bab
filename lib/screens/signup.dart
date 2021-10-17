@@ -12,7 +12,6 @@ import 'package:hello_al_bab/widgets/input_field.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hello_al_bab/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,7 +31,7 @@ class _SignUpPageState extends State<SignUpPage> {
         .where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .get();
     result.then((value) {
-      print(value.docs.length);
+      print("value=${value.docs.length}");
       if (value.docs.length > 0) {
         // Navigator.pop(context);
         Future<SharedPreferences> prefs = SharedPreferences.getInstance();
@@ -58,14 +57,18 @@ class _SignUpPageState extends State<SignUpPage> {
           "uid": FirebaseAuth.instance.currentUser!.uid,
           "name": user!.displayName
         });
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Home(),
-          ),
-        );
       }
-    }).whenComplete(() => null);
+    }).whenComplete(() {
+      Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+      final SharedPreferences prefsData = prefs as SharedPreferences;
+      prefsData.setInt('loggedin', 1);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home(),
+        ),
+      );
+    });
   }
 
   DateTime selectedDate = DateTime.now();

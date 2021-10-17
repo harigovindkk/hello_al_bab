@@ -14,7 +14,7 @@ class BookedWorkSpaceCard extends StatefulWidget {
 }
 
 class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
-  Workspace? workspace;
+  Workspace? workspace; 
   bool isLoading = true;
   DocumentSnapshot<Map<String, dynamic>>? workspaceData;
   Future<void> getDetails() async {

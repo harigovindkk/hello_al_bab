@@ -6,6 +6,7 @@ import 'package:hello_al_bab/screens/conference_hall.dart';
 import 'package:hello_al_bab/screens/coworking.dart';
 import 'package:hello_al_bab/screens/meeting_room.dart';
 import 'package:hello_al_bab/screens/office_spaces.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hello_al_bab/screens/virtual_office.dart';
 
 class OfficeBookingPage extends StatefulWidget {
@@ -48,7 +49,10 @@ class _OfficeBookingPageState extends State<OfficeBookingPage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('type', "conferenceHall");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -78,7 +82,10 @@ class _OfficeBookingPageState extends State<OfficeBookingPage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('type', "meetingRooms");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -108,7 +115,10 @@ class _OfficeBookingPageState extends State<OfficeBookingPage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('type', "officeSpace");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -138,7 +148,10 @@ class _OfficeBookingPageState extends State<OfficeBookingPage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('type', "coworkingSpace");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -168,9 +181,14 @@ class _OfficeBookingPageState extends State<OfficeBookingPage> {
                     primary: primary,
                     padding: const EdgeInsets.all(15),
                   ),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) =>const VirtualOfficePage()));
+                  onPressed: () async{
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.setString('type', "virtualOffice");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const VirtualOfficePage()));
                   },
                   child: Text(
                     "Virtual Offices",
