@@ -195,7 +195,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
                     BookedWorkSpaceCard(
                       new Bookings(
                         bookId: "123",
-                        userId: FirebaseAuth.instance.currentUser!.uid,
+                        userId: "",
                         toDate: Timestamp.fromDate(toDate!),
                         fromDate: Timestamp.fromDate(fromDate!),
                         type: type.toString(),
@@ -372,7 +372,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
                         onPressed: () {
                           if (status == "Available") {
                             if (checked) {
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => WorkSpaceDetail(

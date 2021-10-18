@@ -12,14 +12,22 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  int? isLoggedin = null;
+  loginChecker() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isLoggedin = prefs.getInt('loggedin');
+    });
+  }
+
   Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-  int isFirstTime=0;
+  int isFirstTime = 1;
   Future<void> _isFirstTime() async {
     final SharedPreferences prefsData = await prefs;
     setState(() {
-      isFirstTime = prefsData.getInt('isFirstTime') ?? 0;
+      isFirstTime = prefsData.getInt('isFirstTime') ?? 1;
     });
-    print(isFirstTime == 0 ? "first time" : "not first time");
+    print(isFirstTime == 1 ? "first time" : "not first time");
   }
 
   @override
@@ -28,13 +36,10 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     _mockCheckForSession().then((status) {
       if (status) {
-       // isUserExist();
-       //_navigateToFirstScreen();
-       _isFirstTime();
-       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (BuildContext context) =>Home()));
+        _isFirstTime();
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (BuildContext context) => Home()));
       } else {
-        
         print(isFirstTime);
         isFirstTime == 1 ? _navigateToFirstScreen() : _navigateToLogin();
       }
@@ -56,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
   //           builder: (context) => HomePage(),
   //         ),
   //       );
-      
+
   //     } else {
   //       Navigator.pushReplacement(
   //         context,
@@ -76,13 +81,13 @@ class _SplashScreenState extends State<SplashScreen> {
       });
 
   void _navigateToFirstScreen() {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (BuildContext context) => OnBoardingScreen()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (BuildContext context) => OnBoardingScreen()));
   }
 
   void _navigateToLogin() {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (BuildContext context) => const LoginPage()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (BuildContext context) => const LoginPage()));
   }
 
   @override

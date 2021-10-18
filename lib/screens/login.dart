@@ -385,10 +385,10 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const OfficeBookingPage()),
+                          builder: (context) => Home()),
                     );
                   },
                   child: Text(

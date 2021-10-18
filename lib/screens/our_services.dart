@@ -7,8 +7,7 @@ import 'package:hello_al_bab/screens/add_workspace.dart';
 import 'package:hello_al_bab/screens/ejari_service.dart';
 import 'package:hello_al_bab/screens/login.dart';
 import 'package:hello_al_bab/screens/office_booking.dart';
-import 'package:hello_al_bab/services/dark_mode_service.dart';
-import 'package:hello_al_bab/services/login_checker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
@@ -29,20 +28,65 @@ class _OurServicesPageState extends State<OurServicesPage> {
     });
   }
 
+  Widget ensureLogout(BuildContext context) {
+    return new AlertDialog(
+      title: Text(
+        "Confirm Logout",
+        style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w700),
+      ),
+      content: new Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            "Are you sure to sign out?",
+            style: GoogleFonts.poppins(),
+          ),
+        ],
+      ),
+      actions: <Widget>[
+        new FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          textColor: Colors.black,
+          child: Text(
+            "No",
+            style: GoogleFonts.poppins(),
+          ),
+        ),
+        new FlatButton(
+          onPressed: () async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setInt('loggedin', 0);
+            FirebaseAuth.instance.signOut().whenComplete(() {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            });
+          },
+          textColor: Colors.black,
+          child: Text("Yes", style: GoogleFonts.poppins()),
+        ),
+      ],
+    );
+  }
+
   int isdarkmode = 0;
   @override
   initState() {
     // TODO: implement initState
     super.initState();
     loginChecker();
-    
+    print(FirebaseAuth.instance.currentUser);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          elevation: 0,
+        elevation: 0,
         // leading: IconButton(
         //   onPressed: () {
         //     Navigator.of(context).pop();
@@ -52,21 +96,14 @@ class _OurServicesPageState extends State<OurServicesPage> {
         automaticallyImplyLeading: false,
         actions: [
           isLoggedin == 1
-              ? IconButton(
-                  icon: Icon(
-                    Icons.logout,
-                    color: Colors.black,
-                  ),
+              ? TextButton(
+                  child: Text("Logout",
+                      style: GoogleFonts.poppins(
+                          color: Colors.black, fontWeight: FontWeight.w500)),
                   onPressed: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.setInt('loggedin', 0);
-                    final albabprovider =
-                        Provider.of<HelloAlbabProvider>(context, listen: false);
-                    albabprovider.logout(context);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => ensureLogout(context),
                     );
                   },
                 )
@@ -83,6 +120,32 @@ class _OurServicesPageState extends State<OurServicesPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            isLoggedin == 1
+                ? Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Text(
+                            'Hi,\n${FirebaseAuth.instance.currentUser!.displayName}',
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
+                                color: Colors.black)),
+                      ),
+                    ],
+                  )
+                : Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Text('Welcome!',
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
+                                color: Colors.black)),
+                      ),
+                    ],
+                  ),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
               child: Container(
@@ -142,7 +205,7 @@ class _OurServicesPageState extends State<OurServicesPage> {
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0)),
-                     elevation: 0,
+                    elevation: 0,
                     primary: Colors.transparent,
                     padding: const EdgeInsets.all(15),
                   ),

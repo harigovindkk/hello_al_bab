@@ -81,14 +81,15 @@ class _SignUpPageState extends State<SignUpPage> {
       lastDate: DateTime(2100),
       builder: (context, child) {
         return Theme(
-          data: ThemeData.dark().copyWith(
-            colorScheme: const ColorScheme.dark(
+          data: ThemeData.light().copyWith(
+            primaryColor: primary,
+            accentColor: lightprimary,
+            colorScheme: ColorScheme.dark(
               primary: primary,
               onPrimary: lightprimary,
               surface: primary,
-              onSurface: Colors.white,
+              onSurface: Colors.black,
             ),
-            dialogBackgroundColor: Colors.black,
           ),
           child: child as Widget,
         );
@@ -193,7 +194,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         DateFormat(isSelected ? 'dd-MM-yyyy' : '')
                             .format(selectedDate),
                         style: GoogleFonts.poppins(
-                            color: primary, fontWeight: FontWeight.w600),
+                            color: Colors.black, fontWeight: FontWeight.w600),
                       ),
                       IconButton(
                         icon: const Icon(Icons.calendar_today),
@@ -233,7 +234,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 keyboardType: TextInputType.number,
                 style: GoogleFonts.poppins(
                     color: Colors.black, fontWeight: FontWeight.w600),
-                cursorColor: primary,
+                cursorColor: Colors.black87,
                 validator: (text) {
                   if (text == null || text.isEmpty) {
                     return "Phone Number can't be empty";
@@ -285,7 +286,7 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextFormField(
                 style: GoogleFonts.poppins(
-                    color: primary, fontWeight: FontWeight.w600),
+                    color: Colors.black, fontWeight: FontWeight.w600),
                 cursorColor:  Colors.black,
                 validator: (text) {
                   if (text == null || text.isEmpty) {

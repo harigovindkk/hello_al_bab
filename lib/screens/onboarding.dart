@@ -34,7 +34,7 @@ class _MyAppState extends State<OnBoardingScreen> {
 
   void setFirstTime() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('isFirstTime', 1);
+    prefs.setInt('isFirstTime', 0);
   }
 
   @override
@@ -212,7 +212,7 @@ class _MyAppState extends State<OnBoardingScreen> {
                   ),
                     onPressed: () {
                       setFirstTime();
-                      AuthenticationHelper().signOut();
+                      // AuthenticationHelper().signOut();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

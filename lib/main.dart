@@ -39,36 +39,23 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int? isLoggedin = null;
-  loginChecker() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      isLoggedin = prefs.getInt('loggedin');
-    });
-  }
-
-void setTheme() async{
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setInt('isDarkMode', 0);
-  print(prefs.getInt('isDarkMode'));
-}
   @override
   void initState() {
-    // TODO: implement initState
-   // setTheme();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (BuildContext context) => HelloAlbabProvider(),
-      child: MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home:SplashScreen(),
-      ),
+      create: (context) => HelloAlbabProvider(),
+      builder: (context, child) {
+        return MaterialApp(
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: SplashScreen(),
+        );
+      },
     );
   }
 }

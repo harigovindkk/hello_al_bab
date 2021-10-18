@@ -42,7 +42,50 @@ class _AddWorkspaceState extends State<AddWorkspace> {
     setState(() {
       isLoggedin = prefs.getInt('loggedin');
     });
-    print(isLoggedin);
+    print("isLoggedin = $isLoggedin");
+  }
+
+  Widget bookingConfirmation(BuildContext context) {
+    return new AlertDialog(
+      title: Text(
+        "Confirm booking",
+        style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w700),
+      ),
+      content: new Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            "Thank you for your workspace request. Our Admin will contact you through email or phone.",
+            style: GoogleFonts.poppins(),
+          ),
+        ],
+      ),
+      actions: <Widget>[
+        new FlatButton(
+          child: Text(
+            "Cancel",
+            style: GoogleFonts.poppins(),
+          ),
+          onPressed: () {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(customSnackBar("Request failed", Icons.check));
+            Navigator.of(context).pop();
+          },
+          textColor: primary,
+        ),
+        new FlatButton(
+          onPressed: () {
+            createRequestDoc().whenComplete(() => ScaffoldMessenger.of(context)
+                .showSnackBar(customSnackBar(
+                    "Request placed successfully", Icons.check)));
+            Navigator.of(context).pop();
+          },
+          textColor: primary,
+          child: Text("Okay", style: GoogleFonts.poppins()),
+        ),
+      ],
+    );
   }
 
   @override
@@ -64,29 +107,6 @@ class _AddWorkspaceState extends State<AddWorkspace> {
         //   icon: const Icon(Icons.arrow_back_ios, color: primary),
         // ),
         elevation: 0,
-
-        actions: [
-          isLoggedin == 1
-              ? IconButton(
-                  icon: Icon(
-                    Icons.logout,
-                    color: Colors.black,
-                  ),
-                  onPressed: () async {
-                    SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                    prefs.setInt('loggedin', 0);
-                    final millionsprovider =
-                        Provider.of<HelloAlbabProvider>(context, listen: false);
-                    millionsprovider.logout(context);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
-                  },
-                )
-              : Container()
-        ],
         centerTitle: true,
         title: Text('Workspace Requests',
             style: GoogleFonts.poppins(
@@ -176,10 +196,11 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                               "You cannot place a new request if your latest request is not reviewed",
                               Icons.warning_amber_rounded));
                         } else {
-                          createRequestDoc().whenComplete(() =>
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  customSnackBar("Request placed successfully",
-                                      Icons.check)));
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                bookingConfirmation(context),
+                          );
                         }
                       },
                       child: Text(
@@ -192,44 +213,44 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(50.0),
-                      gradient: const LinearGradient(
-                          colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
-                          begin: FractionalOffset.topLeft,
-                          end: FractionalOffset.bottomRight,
-                          stops: [0.1, 0.4],
-                          tileMode: TileMode.mirror),
-                    ),
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0)),
-                        elevation: 0,
-                        primary: Colors.transparent,
-                        padding: const EdgeInsets.all(15),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MyBookings()),
-                        );
-                      },
-                      child: Text(
-                        "Continue to Bookings",
-                        style: GoogleFonts.poppins(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  ),
-                ),
+                //   Padding(
+                //     padding: const EdgeInsets.all(15.0),
+                //     child: Container(
+                //       decoration: BoxDecoration(
+                //         shape: BoxShape.rectangle,
+                //         borderRadius: BorderRadius.circular(50.0),
+                //         gradient: const LinearGradient(
+                //             colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                //             begin: FractionalOffset.topLeft,
+                //             end: FractionalOffset.bottomRight,
+                //             stops: [0.1, 0.4],
+                //             tileMode: TileMode.mirror),
+                //       ),
+                //       width: MediaQuery.of(context).size.width * 0.9,
+                //       child: ElevatedButton(
+                //         style: ElevatedButton.styleFrom(
+                //           shape: RoundedRectangleBorder(
+                //               borderRadius: BorderRadius.circular(50.0)),
+                //           elevation: 0,
+                //           primary: Colors.transparent,
+                //           padding: const EdgeInsets.all(15),
+                //         ),
+                //         onPressed: () {
+                //           Navigator.push(
+                //             context,
+                //             MaterialPageRoute(builder: (context) => MyBookings()),
+                //           );
+                //         },
+                //         child: Text(
+                //           "Continue to Bookings",
+                //           style: GoogleFonts.poppins(
+                //               color: Colors.black,
+                //               fontSize: 15,
+                //               fontWeight: FontWeight.w600),
+                //         ),
+                //       ),
+                //     ),
+                //   ),
               ],
             ))
           : Container(
@@ -276,7 +297,10 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                           },
                           child: Text(
                             "Go to sign in",
-                            style: GoogleFonts.poppins(color: Colors.black),
+                            style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
                           ),
                         ),

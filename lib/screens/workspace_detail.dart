@@ -6,12 +6,9 @@ import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:hello_al_bab/constants/colors.dart';
-import 'package:hello_al_bab/constants/resources.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/workspace_model.dart';
-import 'package:hello_al_bab/screens/bookings.dart';
 import 'package:hello_al_bab/screens/home.dart';
-import 'package:hello_al_bab/screens/searchCriteria.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -45,6 +42,8 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
   String? selectedToTime;
   String bookedFromTime = '', bookedToTime = '';
   String status = '';
+  List additionalFacilities = [];
+  TextEditingController specialRequest = TextEditingController(text: "");
 
   _getSearchCriteria() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -102,7 +101,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: isLoading
           ? CircularProgressIndicator(
               color: primary,
@@ -128,7 +127,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.75,
                     decoration: BoxDecoration(
-                        color: Colors.black,
+                        color: Colors.white,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(30),
                             topRight: Radius.circular(30))),
@@ -152,7 +151,9 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                             ),
                             Text(
                               workspace!.address,
-                              style: GoogleFonts.poppins(color: Colors.white38),
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600),
                             ),
                             SizedBox(
                               height: 10,
@@ -162,8 +163,8 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                               expandText: 'See More',
                               collapseText: 'See Less',
                               maxLines: 5,
-                              style: GoogleFonts.poppins(color: Colors.white),
-                              linkColor: primary,
+                              style: GoogleFonts.poppins(color: Colors.black54),
+                              linkColor: Colors.black87,
                             ),
                             SizedBox(
                               height: 10,
@@ -185,14 +186,14 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Monday',
+                                      'Week Days',
                                       style: GoogleFonts.poppins(
-                                          color: Colors.white),
+                                          color: Colors.black),
                                     ),
                                     Text(
                                       "${widget.workspace.time["mo-from"]} - ${widget.workspace.time["mo-to"]}",
                                       style: GoogleFonts.poppins(
-                                          color: Colors.white),
+                                          color: Colors.black),
                                     ),
                                   ],
                                 ),
@@ -201,94 +202,14 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Tuesday',
+                                      'Weekend Days',
                                       style: GoogleFonts.poppins(
-                                          color: Colors.white),
-                                    ),
-                                    Text(
-                                      "${widget.workspace.time["tu-from"]} - ${widget.workspace.time["tu-to"]}",
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Wednesday',
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white),
-                                    ),
-                                    Text(
-                                      "${widget.workspace.time["we-from"]} - ${widget.workspace.time["we-to"]}",
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Thursday',
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white),
-                                    ),
-                                    Text(
-                                      "${widget.workspace.time["th-from"]} - ${widget.workspace.time["th-to"]}",
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Friday',
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white),
+                                          color: Colors.black),
                                     ),
                                     Text(
                                       "${widget.workspace.time["fr-from"]} - ${widget.workspace.time["fr-to"]}",
                                       style: GoogleFonts.poppins(
-                                          color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Saturday',
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white),
-                                    ),
-                                    Text(
-                                      "${widget.workspace.time["sa-from"]} - ${widget.workspace.time["sa-to"]}",
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Sunday',
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white),
-                                    ),
-                                    Text(
-                                      "${widget.workspace.time["su-from"]} - ${widget.workspace.time["su-to"]}",
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white),
+                                          color: Colors.black),
                                     ),
                                   ],
                                 ),
@@ -309,19 +230,19 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                             SizedBox(height: 10),
                             Text(
                               'WiFi',
-                              style: GoogleFonts.poppins(color: Colors.white),
+                              style: GoogleFonts.poppins(color: Colors.black),
                             ),
                             Text(
                               'Electricity',
-                              style: GoogleFonts.poppins(color: Colors.white),
+                              style: GoogleFonts.poppins(color: Colors.black),
                             ),
                             Text(
                               'Water',
-                              style: GoogleFonts.poppins(color: Colors.white),
+                              style: GoogleFonts.poppins(color: Colors.black),
                             ),
                             Text(
                               'Coffee',
-                              style: GoogleFonts.poppins(color: Colors.white),
+                              style: GoogleFonts.poppins(color: Colors.black),
                             ),
                             SizedBox(height: 10),
                             Column(
@@ -330,6 +251,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                   'Additional Facilities',
                                   style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.bold,
+                                      fontSize: 16,
                                       color: primary),
                                 ),
                               ],
@@ -350,7 +272,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(2),
                                         side: const BorderSide(
-                                            color: Colors.white)),
+                                            color: Colors.black)),
                                     activeColor: boxColor,
                                     checkColor: primary,
                                   ),
@@ -358,7 +280,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                 Text(
                                   "Projector",
                                   style:
-                                      GoogleFonts.poppins(color: Colors.white),
+                                      GoogleFonts.poppins(color: Colors.black),
                                 ),
                               ],
                             ),
@@ -378,7 +300,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(2),
                                         side: const BorderSide(
-                                            color: Colors.white)),
+                                            color: Colors.black)),
                                     activeColor: boxColor,
                                     checkColor: primary,
                                   ),
@@ -386,7 +308,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                 Text(
                                   "Reception",
                                   style:
-                                      GoogleFonts.poppins(color: Colors.white),
+                                      GoogleFonts.poppins(color: Colors.black),
                                 ),
                               ],
                             ),
@@ -406,7 +328,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(2),
                                         side: const BorderSide(
-                                            color: Colors.white)),
+                                            color: Colors.black)),
                                     activeColor: boxColor,
                                     checkColor: primary,
                                   ),
@@ -414,7 +336,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                 Text(
                                   "Food and drinks",
                                   style:
-                                      GoogleFonts.poppins(color: Colors.white),
+                                      GoogleFonts.poppins(color: Colors.black),
                                 ),
                               ],
                             ),
@@ -434,7 +356,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(2),
                                         side: const BorderSide(
-                                            color: Colors.white)),
+                                            color: Colors.black)),
                                     activeColor: boxColor,
                                     checkColor: primary,
                                   ),
@@ -442,9 +364,54 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                 Text(
                                   "Pick and drop",
                                   style:
-                                      GoogleFonts.poppins(color: Colors.white),
+                                      GoogleFonts.poppins(color: Colors.black),
                                 ),
                               ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                child: TextFormField(
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w300),
+                                  cursorColor: Colors.black,
+                                  maxLines: 2,
+                                  controller: specialRequest,
+                                  decoration: InputDecoration(
+                                    alignLabelWithHint: true,
+                                    isDense: true,
+                                    labelText: 'Special requests',
+                                    labelStyle: GoogleFonts.poppins(
+                                        color: const Color(0xff181818)),
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                        bottomLeft: Radius.circular(4.0),
+                                        bottomRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                    focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.black,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(4.0),
+                                        topRight: Radius.circular(4.0),
+                                        bottomLeft: Radius.circular(4.0),
+                                        bottomRight: Radius.circular(4.0),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -472,6 +439,20 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                           fontWeight: FontWeight.w600),
                                     ),
                                     onPressed: () async {
+                                      if (projectCheck) {
+                                        additionalFacilities.add("Projector");
+                                      }
+                                      if (receptionCheck) {
+                                        additionalFacilities.add("Reception");
+                                      }
+                                      if (foodCheck) {
+                                        additionalFacilities
+                                            .add("Food and drinks");
+                                      }
+                                      if (pickCheck) {
+                                        additionalFacilities
+                                            .add("Pick and drop");
+                                      }
                                       FirebaseFirestore.instance
                                           .collection('bookings')
                                           .doc()
@@ -488,7 +469,16 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                         "userId": FirebaseAuth
                                             .instance.currentUser!.uid,
                                         "spec": spec,
-                                        "type": type
+                                        "type": type,
+                                        "facilities": [
+                                          "Wifi",
+                                          "Electricity",
+                                          "Water",
+                                          "Coffee"
+                                        ],
+                                        "additionalFacilities":
+                                            additionalFacilities,
+                                        "specialRequests": specialRequest.text
                                       }).whenComplete(() {
                                         print(123);
                                         ScaffoldMessenger.of(context)
