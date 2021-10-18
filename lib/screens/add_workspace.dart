@@ -62,6 +62,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
         //   },
         //   icon: const Icon(Icons.arrow_back_ios, color: primary),
         // ),
+        leading: null,
         actions: [
           isLoggedin == 1
               ? IconButton(

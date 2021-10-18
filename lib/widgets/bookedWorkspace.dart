@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hello_al_bab/screens/searchCriteria.dart';
 import 'package:intl/intl.dart';
 import 'package:hello_al_bab/model/bookings_model.dart';
 import 'package:hello_al_bab/model/workspace_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BookedWorkSpaceCard extends StatefulWidget {
   final Bookings? bookingDetail;
@@ -14,7 +16,8 @@ class BookedWorkSpaceCard extends StatefulWidget {
 }
 
 class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
-  Workspace? workspace; 
+  Workspace? workspace;
+  bool? isSingleDate = false;
   bool isLoading = true;
   DocumentSnapshot<Map<String, dynamic>>? workspaceData;
   Future<void> getDetails() async {
@@ -30,6 +33,14 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
     });
   }
 
+  _getDayType() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isSingleDate = prefs.getBool('isSingle');
+    });
+    print(isSingleDate);
+  }
+
   bool liked = true;
   @override
   void initState() {
@@ -38,11 +49,16 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
     setState(() {
       isLoading = true;
     });
+    _getDayType();
     getDetails().whenComplete(() {
       setState(() {
         isLoading = false;
       });
     });
+    print(
+        DateFormat('dd/MM/yyyy').format(widget.bookingDetail!.toDate.toDate()));
+    print(DateFormat('dd/MM/yyyy')
+        .format(widget.bookingDetail!.fromDate.toDate()));
   }
 
   Widget build(BuildContext context) {
@@ -125,7 +141,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                   ),
                                   Column(
                                     children: [
-                                      Text("Coworking",
+                                      Text(widget.bookingDetail!.type,
                                           style: GoogleFonts.poppins(
                                               color: primary))
                                     ],
@@ -138,7 +154,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                 children: [
                                   Column(
                                     children: [
-                                      Text("Date",
+                                      Text("From Date",
                                           style: GoogleFonts.poppins(
                                               color: primary))
                                     ],
@@ -146,11 +162,10 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                   Column(
                                     children: [
                                       Text(
-                                          widget.bookingDetail!.isSingleDay
-                                              ? DateFormat('dd/MM/yyyy').format(
-                                                  widget.bookingDetail!.fromDate
-                                                      .toDate())
-                                              : '${DateFormat('dd/MM/yyyy').format(widget.bookingDetail!.fromDate.toDate())}-${DateFormat('dd/MM/yyyy').format(widget.bookingDetail!.toDate.toDate())}',
+                                          DateFormat('dd/MM/yyyy').format(widget
+                                              .bookingDetail!.fromDate
+                                              .toDate()),
+                                          // ${DateFormat('dd/MM/yyyy').format(widget.bookingDetail!.toDate.toDate())}
                                           style: GoogleFonts.poppins(
                                               color: primary))
                                     ],
@@ -163,41 +178,149 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                 children: [
                                   Column(
                                     children: [
-                                      Text("Time",
+                                      Text("To Date",
                                           style: GoogleFonts.poppins(
                                               color: primary))
                                     ],
                                   ),
-                                  Column(
-                                    children: [
-                                      Text(
-                                          "${DateFormat('hh:mm').format(widget.bookingDetail!.fromDate.toDate())} - ${DateFormat('hh:mm').format(widget.bookingDetail!.toDate.toDate())}",
-                                          style: GoogleFonts.poppins(
-                                              color: primary))
-                                    ],
-                                  )
+                                  isSingleDate == false
+                                      ? Column(
+                                          children: [
+                                            Text(
+                                                DateFormat('dd/MM/yyyy').format(
+                                                    widget.bookingDetail!.toDate
+                                                        .toDate()),
+                                                style: GoogleFonts.poppins(
+                                                    color: primary))
+                                          ],
+                                        )
+                                      : Container()
                                 ],
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text("Guests",
-                                          style: GoogleFonts.poppins(
-                                              color: primary))
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text("3",
-                                          style: GoogleFonts.poppins(
-                                              color: primary))
-                                    ],
-                                  )
-                                ],
-                              )
+                              isSingleDate == true
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Text("Time",
+                                                style: GoogleFonts.poppins(
+                                                    color: primary))
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Text(
+                                                "${DateFormat('hh:mm').format(widget.bookingDetail!.fromDate.toDate())} - ${DateFormat('hh:mm').format(widget.bookingDetail!.toDate.toDate())}",
+                                                style: GoogleFonts.poppins(
+                                                    color: primary))
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  : Container(),
+                              widget.bookingDetail!.type == "Conference Hall"
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Text("Purpose",
+                                                style: GoogleFonts.poppins(
+                                                    color: primary))
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            Text(widget.bookingDetail!.spec,
+                                                style: GoogleFonts.poppins(
+                                                    color: primary))
+                                          ],
+                                        )
+                                      ],
+                                    )
+                                  : widget.bookingDetail!.type == "Meeting Room"
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Text("Guests",
+                                                    style: GoogleFonts.poppins(
+                                                        color: primary))
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+                                                Text(widget.bookingDetail!.spec,
+                                                    style: GoogleFonts.poppins(
+                                                        color: primary))
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      : widget.bookingDetail!.type ==
+                                              "Office Space"
+                                          ? Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Column(
+                                                  children: [
+                                                    Text("Area",
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                                color: primary))
+                                                  ],
+                                                ),
+                                                Column(
+                                                  children: [
+                                                    Text(
+                                                        widget.bookingDetail!
+                                                            .spec,
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                                color: primary))
+                                                  ],
+                                                )
+                                              ],
+                                            )
+                                          : widget.bookingDetail!.type ==
+                                                  "Coworking Space"
+                                              ? Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Column(
+                                                      children: [
+                                                        Text(
+                                                            "Number of companies",
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                                    color:
+                                                                        primary))
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        Text(
+                                                            widget
+                                                                .bookingDetail!
+                                                                .spec,
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                                    color:
+                                                                        primary))
+                                                      ],
+                                                    )
+                                                  ],
+                                                )
+                                              : Row()
                             ],
                           )
                         ],
@@ -205,6 +328,49 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                     ),
                   ),
                 ),
+                widget.bookingDetail!.status == "not booked"
+                    ? Positioned(
+                        top: 10,
+                        right: 10,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            border: Border.all(color: boxColor),
+                            color: boxColor,
+                            boxShadow: [
+                              const BoxShadow(
+                                color: Colors.black,
+                                offset: Offset(
+                                  0.0,
+                                  0.0,
+                                ),
+                                blurRadius: 5.0,
+                                spreadRadius: 2.0,
+                              ), //BoxShadow
+                              const BoxShadow(
+                                color: Colors.white,
+                                offset: Offset(0.0, 0.0),
+                                blurRadius: 0.0,
+                                spreadRadius: 0.0,
+                              ), //BoxShadow
+                            ],
+                          ),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SearchCriteria()),
+                              );
+                            },
+                            icon: Icon(
+                              Icons.edit,
+                              color: primary,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container(),
               ],
             ),
           );

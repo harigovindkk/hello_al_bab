@@ -81,7 +81,6 @@ class _MyBookingsState extends State<MyBookings> {
                           children: snapshot.data!.docs.map((doc) {
                             booking = Bookings.fromJson(
                                 doc.data() as Map<String, dynamic>);
-
                             return BookedWorkSpaceCard(booking);
                           }).toList(),
                         );

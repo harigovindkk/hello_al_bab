@@ -7,10 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/constants/resources.dart';
+import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/workspace_model.dart';
+import 'package:hello_al_bab/screens/bookings.dart';
+import 'package:hello_al_bab/screens/home.dart';
 import 'package:hello_al_bab/screens/searchCriteria.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class WorkSpaceDetail extends StatefulWidget {
   final Workspace workspace;
@@ -29,6 +33,44 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
   bool receptionCheck = false;
   bool foodCheck = false;
   bool pickCheck = false;
+
+  String? type;
+  String? spec;
+  DateTime? fromDate;
+  DateTime? toDate;
+  DateTime? bookedFromDate;
+  DateTime? bookedToDate;
+  bool isSingleDay = false;
+  String? selectedFromTime;
+  String? selectedToTime;
+  String bookedFromTime = '', bookedToTime = '';
+  String status = '';
+
+  _getSearchCriteria() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      type = prefs.getString('type').toString();
+      spec = prefs.getString('spec').toString();
+      isSingleDay = prefs.getBool('isSingle') as bool;
+    });
+    if (isSingleDay) {
+      setState(() {
+        fromDate = DateTime.fromMillisecondsSinceEpoch(
+            int.parse(prefs.getString('fromDate').toString()));
+        toDate = DateTime.fromMillisecondsSinceEpoch(
+            int.parse(prefs.getString('toDate').toString()));
+        selectedFromTime = prefs.getString('fromTime');
+        selectedToTime = prefs.getString('toTime');
+      });
+    } else {
+      setState(() {
+        fromDate = DateTime.fromMillisecondsSinceEpoch(
+            int.parse(prefs.getString('fromDate').toString()));
+        toDate = DateTime.fromMillisecondsSinceEpoch(
+            int.parse(prefs.getString('toDate').toString()));
+      });
+    }
+  }
 
   Future<void> getDetails() async {
     return FirebaseFirestore.instance
@@ -53,6 +95,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
       setState(() {
         isLoading = false;
       });
+      _getSearchCriteria();
     });
   }
 
@@ -429,12 +472,36 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                           fontWeight: FontWeight.w600),
                                     ),
                                     onPressed: () async {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //       builder: (context) =>
-                                      //           SearchCriteria()),
-                                      // );
+                                      FirebaseFirestore.instance
+                                          .collection('bookings')
+                                          .doc()
+                                          .set({
+                                        "fromDate": fromDate,
+                                        "fromTime": selectedFromTime,
+                                        "isSingleDay": isSingleDay,
+                                        "spaceId": workspace!.spaceId,
+                                        "status": "booked",
+                                        "timeStamp": Timestamp.now(),
+                                        "toDate": toDate,
+                                        "toTime": selectedToTime,
+                                        "transactionId": "1231",
+                                        "userId": FirebaseAuth
+                                            .instance.currentUser!.uid,
+                                        "spec": spec,
+                                        "type": type
+                                      }).whenComplete(() {
+                                        print(123);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(customSnackBar(
+                                                "Booking is completed successfully",
+                                                Icons.check));
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Home()),
+                                        );
+                                      });
+
                                       SharedPreferences prefs =
                                           await SharedPreferences.getInstance();
                                       isLoggedIn =

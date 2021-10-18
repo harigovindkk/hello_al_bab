@@ -10,6 +10,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/screens/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LocationAvailable extends StatefulWidget {
@@ -34,7 +36,9 @@ class _LocationAvailableState extends State<LocationAvailable> {
   bool isSingleDay = false;
   String? selectedFromTime;
   String? selectedToTime;
+  String bookedFromTime = '', bookedToTime = '';
   String status = '';
+  Bookings? booking;
 
   _getSearchCriteria() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -62,6 +66,18 @@ class _LocationAvailableState extends State<LocationAvailable> {
     }
   }
 
+  // TimeOfDay fromString(String time) {
+  //   int hh = 0;
+  //   if (time.endsWith('PM')) hh = 12;
+  //   time = time.split(' ')[0];
+  //   return TimeOfDay(
+  //     hour: hh +
+  //         int.parse(time.split(":")[0]) %
+  //             24, // in case of a bad time format entered manually by the user
+  //     minute: int.parse(time.split(":")[1]) % 60,
+  //   );
+  // }
+
   getAvailability() {
     return FirebaseFirestore.instance
         .collection('bookings')
@@ -70,8 +86,6 @@ class _LocationAvailableState extends State<LocationAvailable> {
         .then((value) {
       if (value.size > 0) {
         for (int i = 0; i < value.size; i++) {
-          // bookedFromDate = (
-          //     ;
           Timestamp f = value.docs[i].data()['fromDate'];
           bookedFromDate = f.toDate();
           Timestamp t = value.docs[i].data()['toDate'];
@@ -83,7 +97,9 @@ class _LocationAvailableState extends State<LocationAvailable> {
           // print(bookedToDate!.isAfter(fromDate!));
           if (!isSingleDay) {
             if (bookedToDate!.isAfter(fromDate!) &&
-                bookedFromDate!.isBefore(fromDate!)) {
+                    bookedFromDate!.isBefore(fromDate!) ||
+                bookedToDate!.isAfter(toDate!) &&
+                    bookedFromDate!.isBefore(toDate!)) {
               setState(() {
                 status = "Not Available";
               });
@@ -93,13 +109,34 @@ class _LocationAvailableState extends State<LocationAvailable> {
                 status = "Available";
               });
             }
-          }else{
-            print(selectedFromTime);
-            print(selectedToTime);
-            String? bookedFromTime = value.docs[i].data()['fromTime'];
-            String? bookedToTime = value.docs[i].data()['toTime'];
-            
-            
+          } else {
+            // print(123);
+            // print((value.docs[i].data()['toTime']).toString().split(":")[0]);
+            // print((value.docs[i].data()['toTime']).toString().split(" ")[0]);
+            // String hour =
+            //     value.docs[i].data()['toTime'].toString().split(":")[0];
+            // int h = int.parse("$hour");
+            // print("hour=$h");
+
+            // String min =
+            //     value.docs[i].data()['toTime'].toString().split(":")[0];
+            print("single day");
+            // Timestamp(hour:hour,)
+            // print(TimeOfDay(hour: value.docs[i].data()['toTime'].split(":")[0], minute: 0), );
+
+            if (bookedToDate!.isAfter(fromDate!) &&
+                    bookedFromDate!.isBefore(fromDate!) ||
+                bookedToDate!.isAfter(toDate!) &&
+                    bookedFromDate!.isBefore(toDate!)) {
+              setState(() {
+                status = "Not Available";
+              });
+              break;
+            } else {
+              setState(() {
+                status = "Available";
+              });
+            }
           }
         }
       } else {
@@ -154,16 +191,84 @@ class _LocationAvailableState extends State<LocationAvailable> {
                 color: Colors.black,
                 child: Column(
                   children: [
-                    BookedWorkSpaceCard(new Bookings(
+                    BookedWorkSpaceCard(
+                      new Bookings(
                         bookId: "123",
                         userId: FirebaseAuth.instance.currentUser!.uid,
                         toDate: Timestamp.fromDate(toDate!),
-                        fromDate: Timestamp.now(),
+                        fromDate: Timestamp.fromDate(fromDate!),
+                        type: type.toString(),
+                        spec: spec.toString(),
                         spaceId: widget.workspace.spaceId,
                         isSingleDay: true,
                         status: "not booked",
                         transactionId: "transactionId",
-                        timeStamp: Timestamp.now())),
+                        timeStamp: Timestamp.now(),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16, top: 10),
+                          child: Text(
+                            "Booked Slots",
+                            style: GoogleFonts.poppins(
+                                fontSize: 16, color: primary),
+                          ),
+                        )
+                      ],
+                    ),
+                    StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('bookings')
+                          .where('spaceId', isEqualTo: widget.workspace.spaceId)
+                          // .orderBy("date", descending: true)
+                          .snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator(
+                            color: primary,
+                          ));
+                        }
+                        if (snapshot.data!.docs.isEmpty) {
+                          return Center(
+                            child: Text(
+                              "No bookings to show!",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white, fontSize: 15),
+                            ),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          return ListView(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            children: snapshot.data!.docs.map((doc) {
+                              Timestamp t = doc.get('fromDate');
+                              DateTime from = t.toDate();
+                              t = doc.get('toDate');
+                              DateTime to = t.toDate();
+                              return ListTile(
+                                title: Text(
+                                    "${from.day} / ${from.month} / ${from.year} to ${to.day} / ${to.month} / ${to.year}",
+                                    style: TextStyle(color: Colors.white)),
+                              );
+                            }).toList(),
+                          );
+                        } else {
+                          return Center(
+                            child: Text(
+                              "Unknown Error Occured!",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white, fontSize: 15),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Row(
@@ -251,7 +356,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
                         onPressed: () {
                           if (status == "Available") {
                             if (checked) {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => WorkSpaceDetail(

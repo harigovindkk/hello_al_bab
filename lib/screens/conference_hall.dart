@@ -57,7 +57,7 @@ class _ConferenceHallPageState extends State<ConferenceHallPage> {
                   onPressed: ()async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setString('spec', "businessMeeting");
+                    prefs.setString('spec', "Business Meeting");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -90,7 +90,7 @@ class _ConferenceHallPageState extends State<ConferenceHallPage> {
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setString('spec', "conference");
+                    prefs.setString('spec', "Conference/Seminar");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -123,7 +123,7 @@ class _ConferenceHallPageState extends State<ConferenceHallPage> {
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setString('spec', "productLaunch");
+                    prefs.setString('spec', "Product Launch");
                     Navigator.push(
                         context,
                         MaterialPageRoute(

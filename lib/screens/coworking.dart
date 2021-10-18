@@ -48,7 +48,7 @@ class _CoworkingPageState extends State<CoworkingPage> {
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setString('spec', "single");
+                    prefs.setString('spec', "One Company");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -91,7 +91,7 @@ class _CoworkingPageState extends State<CoworkingPage> {
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setString('spec', "multiple");
+                    prefs.setString('spec', "Multiple Companies");
 
                     Navigator.push(
                         context,
