@@ -4,12 +4,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/screens/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hello_al_bab/services/authentication.dart';
 
 final List<String> imagesList = [
-  'https://images.pexels.com/photos/927022/pexels-photo-927022.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-  'https://images.pexels.com/photos/3178818/pexels-photo-3178818.jpeg',
-  'https://cdn.pixabay.com/photo/2019/01/14/17/25/gelato-3932596_1280.jpg',
+  'images/search.jpg',
+  'images/book.jpg',
+  'images/workspace.jpg',
 ];
 
 final List<String> titles = [
@@ -31,6 +32,11 @@ class OnBoardingScreen extends StatefulWidget {
 class _MyAppState extends State<OnBoardingScreen> {
   int _currentIndex = 0;
 
+  void setFirstTime() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('isFirstTime', 1);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,12 +44,7 @@ class _MyAppState extends State<OnBoardingScreen> {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              colors: <Color>[Colors.black, primary],
-              begin: FractionalOffset.bottomCenter,
-              end: FractionalOffset.topCenter,
-              stops: [0.1, 0.9],
-              tileMode: TileMode.mirror),
+         color: Colors.white
         ),
         child: Center(
           child: Column(
@@ -79,15 +80,10 @@ class _MyAppState extends State<OnBoardingScreen> {
                               decoration: BoxDecoration(
                                 color: lightprimary,
                                 image: DecorationImage(
-                                  image: NetworkImage(item),
+                                  image: AssetImage(item),
                                   fit: BoxFit.cover,
                                 ),
-                                borderRadius: BorderRadius.all(Radius.circular(
-                                    MediaQuery.of(context).size.width * 0.5)),
-                                border: Border.all(
-                                  color: primary,
-                                  width: 2.5,
-                                ),
+                                
                               ),
                             ),
                             // CircleAvatar(radius: 100.0,foregroundColor: lightprimary,
@@ -98,7 +94,7 @@ class _MyAppState extends State<OnBoardingScreen> {
                             ),
                             Text(titles[imagesList.indexOf(item)],
                                 style: GoogleFonts.poppins(
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontSize: 25,
                                     fontWeight: FontWeight.bold)),
                             const SizedBox(
@@ -108,7 +104,7 @@ class _MyAppState extends State<OnBoardingScreen> {
                               details[imagesList.indexOf(item)],
                               style: GoogleFonts.poppins(
                                 fontSize: 16,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -168,8 +164,8 @@ class _MyAppState extends State<OnBoardingScreen> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: _currentIndex == index
-                          ? const Color(0xffE8BD71)
-                          : const Color(0xffC4C4C4),
+                          ?  Colors.black
+                          : Colors.grey,
                     ),
                   );
                 }).toList(),
@@ -195,15 +191,27 @@ class _MyAppState extends State<OnBoardingScreen> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0)),
-                      primary: primary,
-                      padding: const EdgeInsets.all(15),
-                    ),
+                  decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0)),
+                    elevation: 0,
+                    primary: Colors.transparent,
+                    padding: const EdgeInsets.all(15),
+                  ),
                     onPressed: () {
+                      setFirstTime();
                       AuthenticationHelper().signOut();
                       Navigator.pushReplacement(
                         context,

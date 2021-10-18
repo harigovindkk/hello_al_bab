@@ -61,6 +61,11 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+    void setLoggedIn() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('loggedin', 1);
+  }
+
   TextEditingController emailcontroller = TextEditingController(),
       passwordcontroller = TextEditingController();
   User? user;
@@ -223,6 +228,7 @@ class _LoginPageState extends State<LoginPage> {
                         if (result == null) {
                           if (FirebaseAuth
                               .instance.currentUser!.emailVerified) {
+                                setLoggedIn();
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
