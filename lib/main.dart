@@ -5,6 +5,8 @@ import 'package:hello_al_bab/screens/login.dart';
 import 'package:hello_al_bab/screens/onboarding.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hello_al_bab/screens/signup.dart';
+import 'package:hello_al_bab/screens/splash_screen.dart';
+import 'package:hello_al_bab/services/authentication.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
@@ -54,6 +56,7 @@ void setTheme() async{
   void initState() {
     // TODO: implement initState
    // setTheme();
+   AuthenticationHelper().signOut();
     super.initState();
   }
 
@@ -65,7 +68,7 @@ void setTheme() async{
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: isLoggedin == 0 ? LoginPage() : Home(),
+        home:SplashScreen(),
       ),
     );
   }

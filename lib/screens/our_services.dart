@@ -59,7 +59,7 @@ class _OurServicesPageState extends State<OurServicesPage> {
               ? IconButton(
                   icon: Icon(
                     Icons.logout,
-                    color: primary,
+                    color: Colors.black,
                   ),
                   onPressed: () async {
                     SharedPreferences prefs =
