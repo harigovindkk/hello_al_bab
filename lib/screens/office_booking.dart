@@ -64,7 +64,7 @@ class _OfficeBookingPageState extends State<OfficeBookingPage> {
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setString('type', "conferenceHall");
+                    prefs.setString('type', "Conference Hall");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -108,7 +108,7 @@ class _OfficeBookingPageState extends State<OfficeBookingPage> {
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setString('type', "meetingRooms");
+                    prefs.setString('type', "Meeting Room");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -152,7 +152,7 @@ class _OfficeBookingPageState extends State<OfficeBookingPage> {
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setString('type', "officeSpace");
+                    prefs.setString('type', "Office Space");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -196,7 +196,7 @@ class _OfficeBookingPageState extends State<OfficeBookingPage> {
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setString('type', "coworkingSpace");
+                    prefs.setString('type', "Coworking Space");
                     Navigator.push(
                         context,
                         MaterialPageRoute(

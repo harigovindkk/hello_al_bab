@@ -67,7 +67,7 @@ class _OfficeSpacePageState extends State<OfficeSpacePage> {
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setString('spec', "20");
+                    prefs.setString('spec', "20 sq.ft");
                     
                     Navigator.push(
                         context,
@@ -112,7 +112,7 @@ class _OfficeSpacePageState extends State<OfficeSpacePage> {
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setString('spec', "100");
+                    prefs.setString('spec', "100 sq.ft");
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -156,7 +156,7 @@ class _OfficeSpacePageState extends State<OfficeSpacePage> {
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
-                    prefs.setString('spec', "500");
+                    prefs.setString('spec', "500 sq.ft");
                     Navigator.push(
                         context,
                         MaterialPageRoute(

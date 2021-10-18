@@ -45,7 +45,6 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
         workspace = Workspace.fromDoc(value.data() as Map<String, dynamic>);
         //workspaceData= value;
       });
-      print(workspace!.addedBy);
     });
   }
 
@@ -79,6 +78,12 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
       });
       likeChecker();
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
