@@ -32,19 +32,20 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(Icons.arrow_back_ios, color: primary),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
         ),
         centerTitle: true,
         title: Text('Forgot Password',
             style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold, color: primary)),
-        backgroundColor: Colors.black,
+                fontWeight: FontWeight.bold, color: Colors.black)),
+        backgroundColor: Colors.white,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +54,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               padding: const EdgeInsets.only(left: 15.0, top: 15.0),
               child: Text(
                 "Email",
-                style: GoogleFonts.poppins(color: Colors.white),
+                style: GoogleFonts.poppins(color: Colors.black),
               ),
             ),
             Padding(
@@ -64,12 +65,23 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0)),
-                    primary: primary,
+                    elevation: 0,
+                    primary: Colors.transparent,
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () {
