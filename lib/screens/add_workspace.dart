@@ -240,7 +240,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                     children: [
                       Text(
                         "Please Create an account to view your workspace requests",
-                        style: GoogleFonts.poppins(color: primary),
+                        style: GoogleFonts.poppins(color: Colors.black),
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 20),

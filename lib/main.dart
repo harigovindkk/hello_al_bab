@@ -56,7 +56,6 @@ void setTheme() async{
   void initState() {
     // TODO: implement initState
    // setTheme();
-   AuthenticationHelper().signOut();
     super.initState();
   }
 
