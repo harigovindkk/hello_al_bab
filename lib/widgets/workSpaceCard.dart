@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/workspace_model.dart';
 import 'package:hello_al_bab/screens/locationAvailable.dart';
 import 'package:hello_al_bab/screens/workspace_detail.dart';
@@ -19,7 +20,7 @@ class WorkSpaceCard extends StatefulWidget {
 class _WorkSpaceCardState extends State<WorkSpaceCard> {
   Workspace? workspace;
   bool isLoading = true;
-  bool? liked=false;
+  bool? liked = false;
 
   // Future<void> getDetails() async {
   //   return FirebaseFirestore.instance
@@ -135,7 +136,23 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.white,
-                        
+                        boxShadow: [
+                          const BoxShadow(
+                            color: Colors.black12,
+                            offset: Offset(
+                              0.0,
+                              0.0,
+                            ),
+                            blurRadius: 7.0,
+                            spreadRadius: 2.0,
+                          ), //BoxShadow
+                          const BoxShadow(
+                            color: Colors.white,
+                            offset: Offset(0.0, 0.0),
+                            blurRadius: 0.0,
+                            spreadRadius: 0.0,
+                          ), //BoxShadow
+                        ],
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -178,16 +195,16 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
-                        border: Border.all(color: boxColor),
+                        border: Border.all(color: Colors.white),
                         color: Colors.white,
                         boxShadow: [
                           const BoxShadow(
-                            color: Colors.black,
+                            color: Colors.black12,
                             offset: Offset(
                               0.0,
                               0.0,
                             ),
-                            blurRadius: 5.0,
+                            blurRadius: 7.0,
                             spreadRadius: 2.0,
                           ), //BoxShadow
                           const BoxShadow(
@@ -232,7 +249,12 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                               SetOptions(
                                 merge: true,
                               ),
-                            );
+                            ).whenComplete(() => {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(customSnackBar(
+                                              "Added to wishlist",
+                                              Icons.check))
+                                    });
                           } else {
                             //item removed from wishlist
                             FirebaseFirestore.instance
@@ -240,7 +262,13 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                                 .doc(FirebaseAuth.instance.currentUser!.uid +
                                     '_' +
                                     workspace!.spaceId)
-                                .delete();
+                                .delete()
+                                .whenComplete(() => {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(customSnackBar(
+                                              "Removed from wishlist",
+                                              Icons.check))
+                                    });
                           }
                         },
                       ),

@@ -164,21 +164,22 @@ class _LocationAvailableState extends State<LocationAvailable> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           padding: const EdgeInsets.only(left: 10),
-          icon: const Icon(Icons.arrow_back_ios, size: 20, color: primary),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
           "Location " + status,
-          style:
-              GoogleFonts.poppins(fontWeight: FontWeight.bold, color: primary),
+          style: GoogleFonts.poppins(
+              fontWeight: FontWeight.bold, color: Colors.black),
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
       ),
       body: isLoading
           ? const Center(
@@ -188,7 +189,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
             )
           : SingleChildScrollView(
               child: Container(
-                color: Colors.black,
+                color: Colors.white,
                 child: Column(
                   children: [
                     BookedWorkSpaceCard(
@@ -252,9 +253,11 @@ class _LocationAvailableState extends State<LocationAvailable> {
                               t = doc.get('toDate');
                               DateTime to = t.toDate();
                               return ListTile(
+                                dense: true,
+                                trailing: Icon(Icons.check),
                                 title: Text(
                                     "${from.day} / ${from.month} / ${from.year} to ${to.day} / ${to.month} / ${to.year}",
-                                    style: TextStyle(color: Colors.white)),
+                                    style: TextStyle(color: Colors.black)),
                               );
                             }).toList(),
                           );
@@ -263,7 +266,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
                             child: Text(
                               "Unknown Error Occured!",
                               style: GoogleFonts.poppins(
-                                  color: Colors.white, fontSize: 15),
+                                  color: Colors.black, fontSize: 15),
                             ),
                           );
                         }
@@ -285,7 +288,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
                               tristate: false,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(2),
-                                  side: const BorderSide(color: Colors.white)),
+                                  side: const BorderSide(color: Colors.black)),
 // tristate: true,
                               // shape: CircleBorder(),
                               activeColor: boxColor,
@@ -295,7 +298,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
                           Text(
                             "Agree to the terms and conditions",
                             style: GoogleFonts.poppins(
-                                fontSize: 12, color: Colors.white),
+                                fontSize: 12, color: Colors.black),
                           ),
                         ],
                       ),
@@ -339,15 +342,28 @@ class _LocationAvailableState extends State<LocationAvailable> {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(50.0),
+                        gradient: const LinearGradient(
+                            colors: <Color>[
+                              Color(0xffF9DB39),
+                              Color(0xffFFEF62)
+                            ],
+                            begin: FractionalOffset.topLeft,
+                            end: FractionalOffset.bottomRight,
+                            stops: [0.1, 0.4],
+                            tileMode: TileMode.mirror),
+                      ),
+                      width: MediaQuery.of(context).size.width * 0.9,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: primary,
-                            padding: const EdgeInsets.all(10),
-                            shape: (RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ))),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50.0)),
+                          elevation: 0,
+                          primary: Colors.transparent,
+                          padding: const EdgeInsets.all(15),
+                        ),
                         child: Text(
                           "Book",
                           style: GoogleFonts.poppins(
@@ -378,8 +394,10 @@ class _LocationAvailableState extends State<LocationAvailable> {
                         },
                       ),
                     ),
+                    SizedBox(height: 10,),
                   ],
                 ),
+
               ),
             ),
     );

@@ -99,6 +99,23 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: Colors.white,
+                      boxShadow: [
+                        const BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(
+                            0.0,
+                            0.0,
+                          ),
+                          blurRadius: 7.0,
+                          spreadRadius: 2.0,
+                        ), //BoxShadow
+                        const BoxShadow(
+                          color: Colors.white,
+                          offset: Offset(0.0, 0.0),
+                          blurRadius: 0.0,
+                          spreadRadius: 0.0,
+                        ), //BoxShadow
+                      ],
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -191,7 +208,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                                     widget.bookingDetail!.toDate
                                                         .toDate()),
                                                 style: GoogleFonts.poppins(
-                                                    color: primary))
+                                                    color: Colors.black))
                                           ],
                                         )
                                       : Container()
@@ -206,7 +223,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                           children: [
                                             Text("Time",
                                                 style: GoogleFonts.poppins(
-                                                    color: primary))
+                                                    color: Colors.black))
                                           ],
                                         ),
                                         Column(
@@ -214,7 +231,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                             Text(
                                                 "${DateFormat('hh:mm').format(widget.bookingDetail!.fromDate.toDate())} - ${DateFormat('hh:mm').format(widget.bookingDetail!.toDate.toDate())}",
                                                 style: GoogleFonts.poppins(
-                                                    color: primary))
+                                                    color: Colors.black))
                                           ],
                                         )
                                       ],
@@ -229,14 +246,14 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                           children: [
                                             Text("Purpose",
                                                 style: GoogleFonts.poppins(
-                                                    color: primary))
+                                                    color: Colors.black))
                                           ],
                                         ),
                                         Column(
                                           children: [
                                             Text(widget.bookingDetail!.spec,
                                                 style: GoogleFonts.poppins(
-                                                    color: primary))
+                                                    color: Colors.black))
                                           ],
                                         )
                                       ],
@@ -250,14 +267,14 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                               children: [
                                                 Text("Guests",
                                                     style: GoogleFonts.poppins(
-                                                        color: primary))
+                                                        color: Colors.black))
                                               ],
                                             ),
                                             Column(
                                               children: [
                                                 Text(widget.bookingDetail!.spec,
                                                     style: GoogleFonts.poppins(
-                                                        color: primary))
+                                                        color: Colors.black))
                                               ],
                                             )
                                           ],
@@ -274,7 +291,8 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                                     Text("Area",
                                                         style:
                                                             GoogleFonts.poppins(
-                                                                color: primary))
+                                                                color: Colors
+                                                                    .black))
                                                   ],
                                                 ),
                                                 Column(
@@ -284,7 +302,8 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                                             .spec,
                                                         style:
                                                             GoogleFonts.poppins(
-                                                                color: primary))
+                                                                color: Colors
+                                                                    .black))
                                                   ],
                                                 )
                                               ],
@@ -302,8 +321,8 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                                             "Number of companies",
                                                             style: GoogleFonts
                                                                 .poppins(
-                                                                    color:
-                                                                        primary))
+                                                                    color: Colors
+                                                                        .black))
                                                       ],
                                                     ),
                                                     Column(
@@ -314,8 +333,8 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                                                 .spec,
                                                             style: GoogleFonts
                                                                 .poppins(
-                                                                    color:
-                                                                        primary))
+                                                                    color: Colors
+                                                                        .black))
                                                       ],
                                                     )
                                                   ],
@@ -335,16 +354,16 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(40),
-                            border: Border.all(color: boxColor),
-                            color: boxColor,
+                            border: Border.all(color: Colors.white),
+                            color: Colors.white,
                             boxShadow: [
                               const BoxShadow(
-                                color: Colors.black,
+                                color: Colors.black12,
                                 offset: Offset(
                                   0.0,
                                   0.0,
                                 ),
-                                blurRadius: 5.0,
+                                blurRadius: 7.0,
                                 spreadRadius: 2.0,
                               ), //BoxShadow
                               const BoxShadow(

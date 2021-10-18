@@ -35,11 +35,7 @@ class _OurServicesPageState extends State<OurServicesPage> {
     // TODO: implement initState
     super.initState();
     loginChecker();
-    isDark().whenComplete(() => ((value) {
-          setState(() {
-            isdarkmode = value;
-          });
-        }));
+    
   }
 
   @override
@@ -59,7 +55,7 @@ class _OurServicesPageState extends State<OurServicesPage> {
               ? IconButton(
                   icon: Icon(
                     Icons.logout,
-                    color: primary,
+                    color: Colors.black,
                   ),
                   onPressed: () async {
                     SharedPreferences prefs =

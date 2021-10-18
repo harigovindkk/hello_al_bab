@@ -17,7 +17,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool isLoading = true;
-  Users? user =null;
+  Users? user = null;
   //TextEditingController otpcontroller = TextEditingController();
 
   Future<void> getDetails() async {
@@ -59,6 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
         //   },
         //   icon: const Icon(Icons.arrow_back_ios, color: primary),
         // ),
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text('Profile',
             style: GoogleFonts.poppins(
@@ -74,20 +75,27 @@ class _ProfilePageState extends State<ProfilePage> {
             )
           : Column(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     user!.profilePicture == ''
-                        ? Image.asset(
-                            'images/profilepic.JPG',
-                            fit: BoxFit.fill,
-                            height: MediaQuery.of(context).size.width * 0.5,
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(200),
+                            child: Image.asset(
+                              'images/profilepic.JPG',
+                              fit: BoxFit.fill,
+                              height: MediaQuery.of(context).size.width * 0.3,
+                            ),
                           )
-                        : Image.network(
-                            user!.profilePicture,
-                            fit: BoxFit.fill,
-                            height: MediaQuery.of(context).size.width * 0.5,
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: Image.network(
+                              user!.profilePicture,
+                              fit: BoxFit.fill,
+                              height: MediaQuery.of(context).size.width * 0.3,
+                            ),
                           ),
                   ],
                 ),
@@ -119,7 +127,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         child: Text('My Bookings',
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.bold, color: Colors.black)),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black)),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.white,
                             side: const BorderSide(color: Colors.black)),
@@ -134,7 +143,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         child: Text('My Wishlist',
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.bold, color: Colors.black)),
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black)),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.white,
                             side: const BorderSide(color: Colors.black)),

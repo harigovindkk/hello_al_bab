@@ -65,7 +65,7 @@ class _MyWishlistState extends State<MyWishlist> {
                         child: Text(
                           "No Workspace in wishlist!",
                           style: GoogleFonts.poppins(
-                              color: Colors.white, fontSize: 15),
+                              color: Colors.black, fontSize: 15),
                         ),
                       );
                     }
