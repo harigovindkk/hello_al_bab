@@ -56,6 +56,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation :0,
         // leading: IconButton(
         //   onPressed: () {
         //     Navigator.of(context).pop();
@@ -71,9 +72,9 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     prefs.setInt('loggedin', 0);
-                    final millionsprovider =
+                    final albabprovider =
                         Provider.of<HelloAlbabProvider>(context, listen: false);
-                    millionsprovider.logout(context);
+                    albabprovider.logout(context);
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => LoginPage()),
@@ -85,10 +86,10 @@ class _AddWorkspaceState extends State<AddWorkspace> {
         centerTitle: true,
         title: Text('Workspace Requests',
             style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold, color: primary)),
-        backgroundColor: Colors.black,
+                fontWeight: FontWeight.bold, color: Colors.black)),
+        backgroundColor: Colors.white,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: isLoggedin == 1
           ? SingleChildScrollView(
               child: Column(
@@ -114,7 +115,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                         child: Text(
                           "No requests to show!",
                           style: GoogleFonts.poppins(
-                              color: Colors.white, fontSize: 15),
+                              color: Colors.black, fontSize: 15),
                         ),
                       );
                     }
@@ -133,7 +134,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                         child: Text(
                           "Unknown Error Occured!",
                           style: GoogleFonts.poppins(
-                              color: Colors.white, fontSize: 15),
+                              color: Colors.black, fontSize: 15),
                         ),
                       );
                     }
@@ -145,16 +146,25 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0)),
-                        primary: recentstatus != "requested"
-                            ? lightprimary
-                            : primary,
-                        padding: const EdgeInsets.all(15),
-                      ),
+                    decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0)),
+                    elevation: 0,
+                    primary: Colors.transparent,
+                    padding: const EdgeInsets.all(15),
+                  ),
                       onPressed: () {
                         if (recentstatus == "requested" ||
                             (recentstatus == "processsing")) {
@@ -181,14 +191,25 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0)),
-                        primary: primary,
-                        padding: const EdgeInsets.all(15),
-                      ),
+                     decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0)),
+                    elevation: 0,
+                    primary: Colors.transparent,
+                    padding: const EdgeInsets.all(15),
+                  ),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -215,33 +236,48 @@ class _AddWorkspaceState extends State<AddWorkspace> {
                     children: [
                       Text(
                         "Please Create an account to view your workspace requests",
-                        style: GoogleFonts.poppins(color: primary),
+                        style: GoogleFonts.poppins(color: Colors.black),
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 20),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0)),
-                          primary: recentstatus != "requested"
-                              ? lightprimary
-                              : primary,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 30),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginPage()),
-                          );
-                        },
-                        child: Text(
-                          "Go to sign in",
-                          style: GoogleFonts.poppins(color: Colors.black),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                      Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0)),
+                    elevation: 0,
+                    primary: Colors.transparent,
+                    padding: const EdgeInsets.all(15),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()));
+                  },
+                  child: Text(
+                    "Go to Sign In",
+                    style: GoogleFonts.poppins(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ),
+            ),
                     ]),
               ),
             ),

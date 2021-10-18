@@ -38,27 +38,27 @@ class _SearchResultsState extends State<SearchResults> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     appBar: AppBar(
+        elevation: 0,
+        leading: IconButton(
+          padding: const EdgeInsets.only(left: 10),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text(
+          "Search Results",
+          style:
+              GoogleFonts.poppins(fontWeight: FontWeight.bold, color: Colors.black),
+          textAlign: TextAlign.center,
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
       body: Container(
-        color: Colors.black,
+        color: Colors.white,
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 50.0,
-                  ),
-                  child: Text(
-                    "Search Results",
-                    style: GoogleFonts.poppins(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: primary),
-                  ),
-                ),
-              ],
-            ),
+           
             Column(
               children: [
                 StreamBuilder(
@@ -80,7 +80,7 @@ class _SearchResultsState extends State<SearchResults> {
                         child: Text(
                           "No Workspace to show!",
                           style: GoogleFonts.poppins(
-                              color: Colors.white, fontSize: 15),
+                              color: Colors.black, fontSize: 15),
                         ),
                       );
                     }
@@ -102,7 +102,7 @@ class _SearchResultsState extends State<SearchResults> {
                         child: Text(
                           "Unknown Error Occured!",
                           style: GoogleFonts.poppins(
-                              color: Colors.white, fontSize: 15),
+                              color: Colors.black, fontSize: 15),
                         ),
                       );
                     }

@@ -26,25 +26,27 @@ class _MyBookingsState extends State<MyBookings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           padding: const EdgeInsets.only(left: 10),
-          icon: const Icon(Icons.arrow_back_ios, size: 20, color: primary),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
           "Bookings",
           style:
-              GoogleFonts.poppins(fontWeight: FontWeight.bold, color: primary),
+              GoogleFonts.poppins(fontWeight: FontWeight.bold, color: Colors.black),
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
       ),
+      
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.black,
+          color: Colors.white,
           child: Column(
             children: [
               Column(
@@ -70,7 +72,7 @@ class _MyBookingsState extends State<MyBookings> {
                           child: Text(
                             "No bookings to show!",
                             style: GoogleFonts.poppins(
-                                color: Colors.white, fontSize: 15),
+                                color: Colors.black, fontSize: 15),
                           ),
                         );
                       }
@@ -89,7 +91,7 @@ class _MyBookingsState extends State<MyBookings> {
                           child: Text(
                             "Unknown Error Occured!",
                             style: GoogleFonts.poppins(
-                                color: Colors.white, fontSize: 15),
+                                color: Colors.black, fontSize: 15),
                           ),
                         );
                       }

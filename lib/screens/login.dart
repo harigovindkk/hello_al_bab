@@ -95,6 +95,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         // leading: IconButton(
         //   onPressed: () {
         //     Navigator.of(context).pop();
@@ -104,10 +105,10 @@ class _LoginPageState extends State<LoginPage> {
         centerTitle: true,
         title: Text('Sign In',
             style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold, color: primary)),
-        backgroundColor: Colors.black,
+                fontWeight: FontWeight.bold, color: Colors.black)),
+        backgroundColor: Colors.white,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(left: 15.0, top: 15.0),
               child: Text(
                 "Email",
-                style: GoogleFonts.poppins(color: Colors.white),
+                style: GoogleFonts.poppins(color: Colors.black),
               ),
             ),
             Padding(
@@ -128,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(left: 15.0, top: 15.0),
               child: Text(
                 "Password",
-                style: GoogleFonts.poppins(color: Colors.white),
+                style: GoogleFonts.poppins(color: Colors.black),
               ),
             ),
             Padding(
@@ -136,8 +137,8 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: TextFormField(
                 style: GoogleFonts.poppins(
-                    color: primary, fontWeight: FontWeight.w600),
-                cursorColor: primary,
+                    color: Colors.black, fontWeight: FontWeight.w600),
+                cursorColor: Colors.black,
                 validator: (text) {
                   if (text == null || text.isEmpty) {
                     return "Password field can't be empty";
@@ -152,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                       GoogleFonts.poppins(color: const Color(0xff181818)),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: primary,
+                      color: Colors.black,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.only(
@@ -164,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: primary,
+                      color: Colors.black,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.only(
@@ -186,12 +187,23 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0)),
-                    primary: primary,
+                    elevation: 0,
+                    primary: Colors.transparent,
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () {
@@ -254,18 +266,29 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(
+              decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0)),
-                    primary: primary,
+                    elevation: 0,
+                    primary: Colors.transparent,
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () async {
-                    final millionsprovider =
+                    final albabprovider =
                         Provider.of<HelloAlbabProvider>(context, listen: false);
-                    user = await millionsprovider.googleLogin(context);
+                    user = await albabprovider.googleLogin(context);
 
                     print(user!.email.toString());
                     if (user != null) {
@@ -308,7 +331,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   child: Text('Forgot Password?',
                       style: GoogleFonts.poppins(
-                          color: primary,
+                          color: Colors.black,
                           fontSize: 15,
                           decoration: TextDecoration.underline)),
                 ),
@@ -326,12 +349,12 @@ class _LoginPageState extends State<LoginPage> {
                     text: TextSpan(
                         text: 'Don\'t have an account ? ',
                         style:
-                            GoogleFonts.poppins(fontSize: 15, color: primary),
+                            GoogleFonts.poppins(fontSize: 15, color: Colors.black),
                         children: [
                           TextSpan(
                             text: 'Sign Up',
                             style: GoogleFonts.poppins(
-                                color: primary,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 15),
                             recognizer: TapGestureRecognizer()
@@ -364,10 +387,10 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   child: Text(
                     'Skip and continue as a guest ',
-                    style: GoogleFonts.poppins(color: primary),
+                    style: GoogleFonts.poppins(color: Colors.black),
                   ),
                 ),
-                const Icon(Icons.arrow_forward, color: primary),
+                const Icon(Icons.arrow_forward, color: Colors.black),
               ],
             )
           ],

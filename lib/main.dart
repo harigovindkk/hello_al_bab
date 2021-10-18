@@ -45,10 +45,15 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+void setTheme() async{
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setInt('isDarkMode', 0);
+  print(prefs.getInt('isDarkMode'));
+}
   @override
   void initState() {
     // TODO: implement initState
-
+   // setTheme();
     super.initState();
   }
 

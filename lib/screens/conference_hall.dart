@@ -17,19 +17,20 @@ class _ConferenceHallPageState extends State<ConferenceHallPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(Icons.arrow_back_ios, color: primary),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
         ),
         centerTitle: true,
         title: Text('Conference Halls',
             style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold, color: primary)),
-        backgroundColor: Colors.black,
+                fontWeight: FontWeight.bold, color: Colors.black)),
+        backgroundColor: Colors.white,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,19 +40,30 @@ class _ConferenceHallPageState extends State<ConferenceHallPage> {
               children: [
                 Text(
                   'Please Specify Your Purpose',
-                  style: GoogleFonts.poppins(color: Colors.white),
+                  style: GoogleFonts.poppins(color: Colors.black),
                 ),
               ],
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15, top: 15),
               child: Container(
+               decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0)),
-                    primary: primary,
+                     elevation: 0,
+                    primary: Colors.transparent,
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: ()async {
@@ -79,12 +91,23 @@ class _ConferenceHallPageState extends State<ConferenceHallPage> {
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15, top: 15),
               child: Container(
+               decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0)),
-                    primary: primary,
+                     elevation: 0,
+                    primary: Colors.transparent,
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () async {
@@ -112,12 +135,23 @@ class _ConferenceHallPageState extends State<ConferenceHallPage> {
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15, top: 15),
               child: Container(
+               decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
+                ),
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0)),
-                    primary: primary,
+                     elevation: 0,
+                    primary: Colors.transparent,
                     padding: const EdgeInsets.all(15),
                   ),
                   onPressed: () async {

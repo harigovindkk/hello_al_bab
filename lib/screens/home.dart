@@ -19,11 +19,11 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: pages[page],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        selectedItemColor: primary,
+        backgroundColor: Colors.white,
+        selectedItemColor: Colors.black,
         selectedLabelStyle: GoogleFonts.poppins(fontSize: 12),
         unselectedLabelStyle: GoogleFonts.poppins(fontSize: 12),
-        unselectedItemColor: lightprimary,
+        unselectedItemColor: Colors.black38,
         items: [
           const BottomNavigationBarItem(
               icon: Icon(Icons.search), label: "Services"),

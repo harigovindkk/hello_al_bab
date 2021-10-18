@@ -24,22 +24,23 @@ class _MyWishlistState extends State<MyWishlist> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           padding: const EdgeInsets.only(left: 10),
-          icon: const Icon(Icons.arrow_back_ios, size: 20, color: primary),
+          icon: const Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
           "Wishlist",
           style:
-              GoogleFonts.poppins(fontWeight: FontWeight.bold, color: primary),
+              GoogleFonts.poppins(fontWeight: FontWeight.bold, color: Colors.black),
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
       ),
       body: Container(
-        color: Colors.black,
+        color: Colors.white,
         child: Column(
           children: [
             Column(

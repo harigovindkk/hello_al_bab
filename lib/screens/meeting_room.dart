@@ -20,19 +20,20 @@ class _MeetingRoomPageState extends State<MeetingRoomPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          elevation: 0,
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(Icons.arrow_back_ios, color: primary),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
         ),
         centerTitle: true,
         title: Text('Meeting Room',
             style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold, color: primary)),
-        backgroundColor: Colors.black,
+                fontWeight: FontWeight.bold, color: Colors.black)),
+        backgroundColor: Colors.white,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -40,7 +41,7 @@ class _MeetingRoomPageState extends State<MeetingRoomPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('Please specify the number of people',
-                  style: GoogleFonts.poppins(color: Colors.white)),
+                  style: GoogleFonts.poppins(color: Colors.black)),
             ],
           ),
           const SizedBox(
@@ -63,7 +64,7 @@ class _MeetingRoomPageState extends State<MeetingRoomPage> {
                       children: [
                         Text(
                           "Guests",
-                          style: GoogleFonts.poppins(color: primary),
+                          style: GoogleFonts.poppins(color: Colors.black),
                         ),
                         Row(
                           children: [
@@ -86,7 +87,7 @@ class _MeetingRoomPageState extends State<MeetingRoomPage> {
                               ),
                             ),
                             Container(
-                              color: primary,
+                              
                               child: guests < 0
                                   ? const Text("0")
                                   : Text("$guests"),
@@ -127,7 +128,7 @@ class _MeetingRoomPageState extends State<MeetingRoomPage> {
                       children: [
                         Text(
                           'Maximum number of people in a \n meeting room is 10',
-                          style: GoogleFonts.poppins(color: Colors.white),
+                          style: GoogleFonts.poppins(color: Colors.black),
                           maxLines: 2,
                           textAlign: TextAlign.center,
                         ),
@@ -149,28 +150,39 @@ class _MeetingRoomPageState extends State<MeetingRoomPage> {
                           child: Text(
                             'Choose Conference Room ',
                             style: GoogleFonts.poppins(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w400),
                           ),
                         ),
-                        const Icon(Icons.arrow_forward, color: Colors.white),
+                        const Icon(Icons.arrow_forward, color: Colors.black),
                       ],
                     )
                   ],
                 )
               : const SizedBox(),
           const Spacer(),
-          Padding(
+         !isMoreThanTen? Padding(
             padding: const EdgeInsets.all(15.0),
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0)),
-                  primary: isMoreThanTen ? lightprimary : primary,
-                  padding: const EdgeInsets.all(15),
+               decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(50.0),
+                  gradient: const LinearGradient(
+                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                      begin: FractionalOffset.topLeft,
+                      end: FractionalOffset.bottomRight,
+                      stops: [0.1, 0.4],
+                      tileMode: TileMode.mirror),
                 ),
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0)),
+                     elevation: 0,
+                    primary: Colors.transparent,
+                    padding: const EdgeInsets.all(15),
+                  ),
                 onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
@@ -192,7 +204,7 @@ class _MeetingRoomPageState extends State<MeetingRoomPage> {
                 ),
               ),
             ),
-          ),
+          ):SizedBox(),
         ],
       ),
     );
