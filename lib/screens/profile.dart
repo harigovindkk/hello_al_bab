@@ -146,6 +146,13 @@ class _ProfilePageState extends State<ProfilePage> {
         isLoading = false;
       });
     });
+    if(isLoggedin==1)
+    {
+setState(() {
+        isLoading = false;
+      });
+    }
+    
   }
 
   @override
@@ -182,13 +189,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         user!.profilePicture == ''
-                            ? const CircleAvatar(
+                            ? const CircleAvatar(backgroundColor: primary,
                                 radius: 100,
                                 backgroundImage: AssetImage(
                                   'images/profilepic.JPG',
                                 ),
                               )
-                            : CircleAvatar(
+                            : CircleAvatar(backgroundColor: primary,
                                 radius: 100,
                                 backgroundImage: NetworkImage(
                                   user!.profilePicture,

@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/provider.dart';
-import 'package:hello_al_bab/screens/home.dart';
-import 'package:hello_al_bab/screens/login.dart';
-import 'package:hello_al_bab/screens/onboarding.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:hello_al_bab/screens/signup.dart';
 import 'package:hello_al_bab/screens/splash_screen.dart';
-import 'package:hello_al_bab/services/authentication.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {

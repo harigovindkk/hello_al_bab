@@ -65,7 +65,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: images/Dubai Desk Logo.png
+  image_path: images/Dubai Desk Logo.jpeg
   
 
   
@@ -90,7 +90,7 @@ flutter:
       - images/requested.png
       - images/profilepic.JPG
       - images/success.JPG
-      - images/Dubai Desk Logo.png
+      - images/Dubai Desk Logo.jpeg
       - images/search.jpg
       - images/book.jpg
       - images/workspace.jpg

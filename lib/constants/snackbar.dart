@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hello_al_bab/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 SnackBar customSnackBar(String customMessage, IconData customIcon) {

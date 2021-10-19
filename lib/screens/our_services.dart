@@ -30,6 +30,8 @@ class _OurServicesPageState extends State<OurServicesPage> {
     setState(() {
       isLoggedin = prefs.getInt('loggedin');
     });
+       if(isLoggedin==1)  getDetails();
+
   }
 
   bool isLoading = false;
@@ -105,8 +107,9 @@ class _OurServicesPageState extends State<OurServicesPage> {
   initState() {
     // TODO: implement initState
     super.initState();
-    getDetails();
+ 
     loginChecker();
+    
     //print(FirebaseAuth.instance.currentUser);
   }
 
@@ -156,7 +159,7 @@ class _OurServicesPageState extends State<OurServicesPage> {
                   isLoggedin == 1
                       ? Padding(
                         padding: const EdgeInsets.all(18.0),
-                        child: Text('Hi, ${user!.name}!',
+                        child: Text('Hi, ${user!.name.split(' ')[0]}!',
                             overflow: TextOverflow.fade,
                             softWrap: false,
                             style: GoogleFonts.poppins(
@@ -268,13 +271,13 @@ class _OurServicesPageState extends State<OurServicesPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 80),
+                    padding: EdgeInsets.only(top: 50),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'images/Dubai Desk Logo.png',
-                          width: MediaQuery.of(context).size.width * 0.25,
+                          'images/Dubai Desk Logo.jpeg',
+                          width: MediaQuery.of(context).size.width * 0.35,
                         ),
                       ],
                     ),

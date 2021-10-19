@@ -9,16 +9,10 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/user_model.dart';
-import 'package:hello_al_bab/provider.dart';
-import 'package:hello_al_bab/screens/home.dart';
-import 'package:hello_al_bab/screens/login.dart';
-import 'package:hello_al_bab/services/authentication.dart';
 import 'package:hello_al_bab/widgets/input_field.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class CompleteProfile extends StatefulWidget {
   const CompleteProfile({Key? key}) : super(key: key);
@@ -196,7 +190,7 @@ class _SignUpPageState extends State<CompleteProfile> {
         "dob": DateFormat('dd-MM-yyyy').format(selectedDate),
         "phone": countryCodeSelected
             ? code.toString() + " " + phonecontroller.text
-            : userDetail!.phone.substring(0, userDetail!.phone.indexOf(' ')) +
+            : userDetail!.phone.substring(0, userDetail!.phone.indexOf(' ')) +" "+
                 phonecontroller.text,
         'profilePicture': profilechanged
             ? (profileremoved ? "" : profileUrl)
@@ -366,10 +360,9 @@ class _SignUpPageState extends State<CompleteProfile> {
                       });
                     },
                     // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                    initialSelection: userDetail!.phone == null
-                        ? userDetail!.phone
-                            .substring(0, userDetail!.phone.indexOf(' '))
-                        : "",
+                    initialSelection: 
+                      userDetail!.phone.substring(0, userDetail!.phone.indexOf(' ')),
+                        
                     // optional. Shows only country name and flag
                     showCountryOnly: false,
                     // optional. Shows only country name and flag when popup is closed.

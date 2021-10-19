@@ -5,15 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/request_model.dart';
-import 'package:hello_al_bab/provider.dart';
-import 'package:hello_al_bab/screens/bookings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hello_al_bab/screens/login.dart';
-import 'package:hello_al_bab/screens/signup.dart';
-import 'package:hello_al_bab/services/login_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hello_al_bab/widgets/workspace_request_card.dart';
-import 'package:provider/provider.dart';
 
 class AddWorkspace extends StatefulWidget {
   const AddWorkspace({Key? key}) : super(key: key);
@@ -41,10 +36,11 @@ class _AddWorkspaceState extends State<AddWorkspace> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       isLoggedin = prefs.getInt('loggedin');
+      isLoading=false;
     });
     print("isLoggedin = $isLoggedin");
   }
-
+bool isLoading=true;
   Widget bookingConfirmation(BuildContext context) {
     return new AlertDialog(
       title: Text(
@@ -92,6 +88,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
   initState() {
     // TODO: implement initState
     super.initState();
+    isLoading=true;
     loginChecker();
   }
 
@@ -114,7 +111,10 @@ class _AddWorkspaceState extends State<AddWorkspace> {
         backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
-      body: isLoggedin == 1
+      body:isLoading? Center(
+              child: CircularProgressIndicator(
+              color: primary,
+            )): isLoggedin == 1
           ? SingleChildScrollView(
               child: Column(
               children: [
