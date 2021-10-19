@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/provider.dart';
+import 'package:hello_al_bab/screens/completeprofile.dart';
 import 'package:hello_al_bab/screens/forgot_password.dart';
 import 'package:hello_al_bab/screens/home.dart';
 import 'package:hello_al_bab/screens/office_booking.dart';
@@ -114,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => Home(),
+              builder: (context) => CompleteProfile(userDetail: user as User,),
             ),
           );
         });

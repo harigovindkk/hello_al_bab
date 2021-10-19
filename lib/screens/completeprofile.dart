@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:hello_al_bab/screens/home.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +15,15 @@ import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({Key? key}) : super(key: key);
+class CompleteProfile extends StatefulWidget {
+  final User? userDetail;
+  const CompleteProfile({Key? key, this.userDetail}) : super(key: key);
 
   @override
-  _EditProfileState createState() => _EditProfileState();
+  _SignUpPageState createState() => _SignUpPageState();
 }
 
-class _EditProfileState extends State<EditProfile> {
+class _SignUpPageState extends State<CompleteProfile> {
   Users? userDetail;
 
   Future<void> getDetails() async {
@@ -166,11 +168,10 @@ class _EditProfileState extends State<EditProfile> {
     // TODO: implement initState
     super.initState();
     getDetails().whenComplete(() {
-      namecontroller.text = userDetail!.name;
-      emailcontroller.text = userDetail!.email;
-      selectedDate = DateFormat('dd-mm-yyyy').parse(userDetail!.dob);
-      phonecontroller.text =
-          userDetail!.phone.substring(userDetail!.phone.indexOf(' ') + 1);
+      namecontroller.text = widget.userDetail!.displayName as String;
+      emailcontroller.text = widget.userDetail!.email as String;
+      //selectedDate = DateFormat('dd-mm-yyyy').parse(userDetail!.dob);
+      //phonecontroller.text =          userDetail!.phone.substring(userDetail!.phone.indexOf(' ') + 1);
     });
     // loginChecker();
     //print(FirebaseAuth.instance.currentUser);
@@ -190,21 +191,26 @@ class _EditProfileState extends State<EditProfile> {
         "dob": DateFormat('dd-MM-yyyy').format(selectedDate),
         "phone": countryCodeSelected
             ? code.toString() + " " + phonecontroller.text
-            : userDetail!.phone.substring(0, userDetail!.phone.indexOf(' ')) +" "+
+            : userDetail!.phone.substring(0, userDetail!.phone.indexOf(' ')) +
+                " " +
                 phonecontroller.text,
         'profilePicture': profilechanged
             ? (profileremoved ? "" : profileUrl)
             : userDetail!.profilePicture,
       }).whenComplete(() {
         ScaffoldMessenger.of(context).showSnackBar(
-            customSnackBar("Profile  Updated Successfully", Icons.check));
+            customSnackBar("Profile  Completed Successfully", Icons.check));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+        );
         setState(() {
           _isLoading = false;
         });
       }).catchError((error) =>
               //-------------------------------------------
               ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
-                  "Failed to update profile: ${error}",
+                  "Failed to complete profile: ${error}",
                   Icons.warning_amber_rounded)));
     } catch (e) {
       print("Error");
@@ -224,7 +230,7 @@ class _EditProfileState extends State<EditProfile> {
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
         ),
         centerTitle: true,
-        title: Text('Edit Profile',
+        title: Text('Complete Profile',
             style: GoogleFonts.poppins(
                 fontWeight: FontWeight.bold, color: Colors.black)),
         backgroundColor: Colors.white,
@@ -360,9 +366,9 @@ class _EditProfileState extends State<EditProfile> {
                       });
                     },
                     // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                    initialSelection: 
-                      userDetail!.phone.substring(0, userDetail!.phone.indexOf(' ')),
-                        
+                    initialSelection: userDetail!.phone
+                        .substring(0, userDetail!.phone.indexOf(' ')),
+
                     // optional. Shows only country name and flag
                     showCountryOnly: false,
                     // optional. Shows only country name and flag when popup is closed.
@@ -579,7 +585,7 @@ class _EditProfileState extends State<EditProfile> {
                           updateProfile();
                         },
                         child: Text(
-                          "Update Profile",
+                          "Complete Profile",
                           style: GoogleFonts.poppins(
                               color: Colors.black,
                               fontSize: 15,

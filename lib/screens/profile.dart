@@ -7,7 +7,7 @@ import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/user_model.dart';
 import 'package:hello_al_bab/screens/bookings.dart';
-import 'package:hello_al_bab/screens/complete_profile.dart';
+import 'package:hello_al_bab/screens/edit_profile.dart';
 import 'package:hello_al_bab/screens/login.dart';
 import 'package:hello_al_bab/screens/wishlist.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -322,7 +322,7 @@ setState(() {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CompleteProfile()),
+                                  builder: (context) => EditProfile()),
                             );
                           },
                           child: Text('Edit Profile',
