@@ -59,12 +59,11 @@ class _OurServicesPageState extends State<OurServicesPage> {
           onPressed: () async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setInt('loggedin', 0);
-            FirebaseAuth.instance.signOut().whenComplete(() {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
-            });
+            FirebaseAuth.instance.signOut();
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => LoginPage()),
+            );
           },
           textColor: Colors.black,
           child: Text("Yes", style: GoogleFonts.poppins()),

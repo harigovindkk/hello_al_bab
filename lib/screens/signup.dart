@@ -31,7 +31,6 @@ class _SignUpPageState extends State<SignUpPage> {
         .where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .get();
     result.then((value) {
-      print("value=${value.docs.length}");
       if (value.docs.length > 0) {
         // Navigator.pop(context);
         Future<SharedPreferences> prefs = SharedPreferences.getInstance();
@@ -132,7 +131,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        elevation:0,
+        elevation: 0,
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
@@ -142,7 +141,7 @@ class _SignUpPageState extends State<SignUpPage> {
         centerTitle: true,
         title: Text('Sign Up',
             style: GoogleFonts.poppins(
-                fontWeight: FontWeight.bold, color:  Colors.black)),
+                fontWeight: FontWeight.bold, color: Colors.black)),
         backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
@@ -177,7 +176,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: MediaQuery.of(context).size.height * 0.09,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color:  Colors.black,
+                    color: Colors.black,
                     width: 1,
                   ),
                   borderRadius: const BorderRadius.all(
@@ -198,7 +197,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       IconButton(
                         icon: const Icon(Icons.calendar_today),
-                        color:  Colors.black,
+                        color: Colors.black,
                         onPressed: () {
                           _selectDate(context);
                         },
@@ -249,7 +248,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       GoogleFonts.poppins(color: const Color(0xff181818)),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color:  Colors.black,
+                      color: Colors.black,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.only(
@@ -261,7 +260,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color:  Colors.black,
+                      color: Colors.black,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.only(
@@ -287,7 +286,7 @@ class _SignUpPageState extends State<SignUpPage> {
               child: TextFormField(
                 style: GoogleFonts.poppins(
                     color: Colors.black, fontWeight: FontWeight.w600),
-                cursorColor:  Colors.black,
+                cursorColor: Colors.black,
                 validator: (text) {
                   if (text == null || text.isEmpty) {
                     return "Password field can't be empty";
@@ -302,7 +301,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       GoogleFonts.poppins(color: const Color(0xff181818)),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color:  Colors.black,
+                      color: Colors.black,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.only(
@@ -314,7 +313,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                      color:  Colors.black,
+                      color: Colors.black,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.only(
@@ -336,7 +335,7 @@ class _SignUpPageState extends State<SignUpPage> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(
-               decoration: BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(50.0),
                   gradient: const LinearGradient(
@@ -412,7 +411,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         Provider.of<HelloAlbabProvider>(context, listen: false);
                     user = await albabprovider.googleLogin(context);
 
-                    print(user!.displayName.toString());
+                    print(user!.email.toString());
                     if (user != null) {
                       isUserExist();
                     }
