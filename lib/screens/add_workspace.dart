@@ -48,7 +48,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
   Widget bookingConfirmation(BuildContext context) {
     return new AlertDialog(
       title: Text(
-        "Confirm booking",
+        "Confirm listing request",
         style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w700),
       ),
       content: new Column(
@@ -69,7 +69,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
           ),
           onPressed: () {
             ScaffoldMessenger.of(context)
-                .showSnackBar(customSnackBar("Request failed", Icons.check));
+                .showSnackBar(customSnackBar("Request cancelled", Icons.check));
             Navigator.of(context).pop();
           },
           textColor: primary,

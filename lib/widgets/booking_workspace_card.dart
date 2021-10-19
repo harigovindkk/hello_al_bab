@@ -8,17 +8,18 @@ import 'package:hello_al_bab/model/workspace_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class BookedWorkSpaceCard extends StatefulWidget {
+class BookingWorkSpaceCard extends StatefulWidget {
   final Bookings? bookingDetail;
-  BookedWorkSpaceCard(this.bookingDetail);
+  String? status;
+  BookingWorkSpaceCard(this.bookingDetail, this.status);
   @override
   _BookedWorkSpaceCardState createState() => _BookedWorkSpaceCardState();
 }
 
-class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
+class _BookedWorkSpaceCardState extends State<BookingWorkSpaceCard> {
   Workspace? workspace;
-  //String? fromTime, toTime;
-  bool? isSingleDay = false;
+  String? fromTime, toTime;
+  bool? isSingleDate = false;
   bool isLoading = true;
   DocumentSnapshot<Map<String, dynamic>>? workspaceData;
   Future<void> getDetails() async {
@@ -34,15 +35,15 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
     });
   }
 
-  // _getDayType() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     isSingleDate = prefs.getBool('isSingle');
-  //     fromTime=prefs.getString('fromTime');
-  //     toTime=prefs.getString('toTime');
-  //   });
-  //   print(isSingleDate);
-  // }
+  _getDayType() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isSingleDate = prefs.getBool('isSingle');
+      fromTime = prefs.getString('fromTime');
+      toTime = prefs.getString('toTime');
+    });
+    print(isSingleDate);
+  }
 
   bool liked = true;
   @override
@@ -52,7 +53,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
     setState(() {
       isLoading = true;
     });
-   // _getDayType();
+    _getDayType();
     getDetails().whenComplete(() {
       setState(() {
         isLoading = false;
@@ -175,7 +176,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                   Column(
                                     children: [
                                       Text(
-                                        widget.bookingDetail!.isSingleDay == false
+                                          isSingleDate == false
                                               ? "From Date"
                                               : "Date",
                                           style: GoogleFonts.poppins(
@@ -195,7 +196,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                   )
                                 ],
                               ),
-                              widget.bookingDetail!.isSingleDay == false
+                              isSingleDate == false
                                   ? Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -220,7 +221,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                       ],
                                     )
                                   : Container(),
-                              widget.bookingDetail!.isSingleDay == true
+                              isSingleDate == true
                                   ? Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -234,9 +235,8 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                         ),
                                         Column(
                                           children: [
-                                            Text(
-                                             "${widget.bookingDetail!.fromTime}-${widget.bookingDetail!.toTime}",
-                                              //  "${DateFormat('hh:mm').format(widget.bookingDetail!.fromDate.toDate())} - ${DateFormat('hh:mm').format(widget.bookingDetail!.toDate.toDate())}",
+                                            Text("$fromTime-$toTime",
+                                                // "${DateFormat('hh:mm').format(widget.bookingDetail!.fromDate.toDate())} - ${DateFormat('hh:mm').format(widget.bookingDetail!.toDate.toDate())}",
                                                 style: GoogleFonts.poppins(
                                                     color: Colors.black))
                                           ],
@@ -346,7 +346,35 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                                     )
                                                   ],
                                                 )
-                                              : Row()
+                                              : Row(),
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Column(
+                                                      children: [
+                                                        Text(
+                                                            "Status",
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                                    color: Colors
+                                                                        .black))
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        Text(
+                                                            widget
+                                                                .status as String,
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                                    color:widget.status=="Available" ?Colors
+                                                                        .green:Colors.red))
+                                                      ],
+                                                    )
+                                                  ],
+                                                )
                             ],
                           )
                         ],
@@ -359,10 +387,20 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                         top: 10,
                         right: 10,
                         child: Container(
+                          height: 40,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            border: Border.all(color: Colors.white),
-                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                           
+                            gradient: const LinearGradient(
+                            colors: <Color>[
+                              Color(0xffF9DB39),
+                              Color(0xffFFEF62)
+                            ],
+                            begin: FractionalOffset.topLeft,
+                            end: FractionalOffset.bottomRight,
+                            stops: [0.1, 0.4],
+                            tileMode: TileMode.mirror),
+                      
                             boxShadow: [
                               const BoxShadow(
                                 color: Colors.black12,
@@ -381,7 +419,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                               ), //BoxShadow
                             ],
                           ),
-                          child: IconButton(
+                          child: TextButton(
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -389,10 +427,9 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                     builder: (context) => SearchCriteria()),
                               );
                             },
-                            icon: Icon(
-                              Icons.edit,
-                              color: primary,
-                            ),
+                            child: Text('Check another availability',
+                                style:
+                                    GoogleFonts.poppins(color: Colors.black)),
                           ),
                         ),
                       )

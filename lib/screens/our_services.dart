@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/model/user_model.dart';
 import 'package:hello_al_bab/provider.dart';
 import 'package:hello_al_bab/screens/add_workspace.dart';
 import 'package:hello_al_bab/screens/ejari_service.dart';
@@ -9,6 +10,8 @@ import 'package:hello_al_bab/screens/login.dart';
 import 'package:hello_al_bab/screens/office_booking.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:provider/provider.dart';
 
 class OurServicesPage extends StatefulWidget {
@@ -27,6 +30,30 @@ class _OurServicesPageState extends State<OurServicesPage> {
       isLoggedin = prefs.getInt('loggedin');
     });
   }
+  bool isLoading=false;
+    Users? user = null;
+  //TextEditingController otpcontroller = TextEditingController();
+
+  Future<void> getDetails() async {
+    setState(() {
+      isLoading=true;
+    });
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      setState(() {
+        user = Users.fromJson(value.data() as Map<String, dynamic>);
+      });
+    }).whenComplete((){
+       setState(() {
+      isLoading=false;
+    });
+    });
+  }
+  
+
 
   Widget ensureLogout(BuildContext context) {
     return new AlertDialog(
@@ -77,8 +104,9 @@ class _OurServicesPageState extends State<OurServicesPage> {
   initState() {
     // TODO: implement initState
     super.initState();
+    getDetails();
     loginChecker();
-    print(FirebaseAuth.instance.currentUser);
+    //print(FirebaseAuth.instance.currentUser);
   }
 
   @override
@@ -115,7 +143,7 @@ class _OurServicesPageState extends State<OurServicesPage> {
         backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+      body: isLoading?Center(child: CircularProgressIndicator(color: primary,)):   SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -125,7 +153,7 @@ class _OurServicesPageState extends State<OurServicesPage> {
                       Padding(
                         padding: const EdgeInsets.all(18.0),
                         child: Text(
-                            'Hi,\n${FirebaseAuth.instance.currentUser!.displayName}',
+                            'Hi, ${user!.name}!',
                             style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 30,
@@ -226,6 +254,18 @@ class _OurServicesPageState extends State<OurServicesPage> {
                 ),
               ),
             ),
+             Padding( padding: EdgeInsets.only( top: 80),
+               child: Row(
+                 
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+                   Image.asset(
+                       'images/Dubai Desk Logo.png',
+                       width: MediaQuery.of(context).size.width * 0.25,
+                     ),
+                 ],
+               ),
+             ),
           ],
         ),
       ),

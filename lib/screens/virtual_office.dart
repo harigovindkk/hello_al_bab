@@ -34,7 +34,7 @@ class _VirtualOfficePageState extends State<VirtualOfficePage> {
   Widget bookingConfirmation(BuildContext context) {
     return new AlertDialog(
       title: Text(
-        "Confirm booking",
+        "Confirm Virtual Office Booking Request",
         style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w700),
       ),
       content: new Column(
@@ -42,7 +42,7 @@ class _VirtualOfficePageState extends State<VirtualOfficePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "Thank you for your workspace request. Our Admin will contact you through email or phone.",
+            "Thank you for your virtual office request. Our Admin will contact you through email or phone.",
             style: GoogleFonts.poppins(),
           ),
         ],
@@ -55,7 +55,7 @@ class _VirtualOfficePageState extends State<VirtualOfficePage> {
           ),
           onPressed: () {
             ScaffoldMessenger.of(context)
-                .showSnackBar(customSnackBar("Request failed", Icons.check));
+                .showSnackBar(customSnackBar("Request cancelled", Icons.check));
             Navigator.of(context).pop();
           },
           textColor: primary,
