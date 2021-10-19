@@ -410,60 +410,61 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(50.0),
-                  gradient: const LinearGradient(
-                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
-                      begin: FractionalOffset.topLeft,
-                      end: FractionalOffset.bottomRight,
-                      stops: [0.1, 0.4],
-                      tileMode: TileMode.mirror),
-                ),
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0)),
-                    elevation: 0,
-                    primary: Colors.transparent,
-                    padding: const EdgeInsets.all(15),
-                  ),
-                  onPressed: () async {
-                    final albabprovider =
-                        Provider.of<HelloAlbabProvider>(context, listen: false);
-                    user = await albabprovider.googleLogin(context);
+            // Padding(
+            //   padding: const EdgeInsets.all(15.0),
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //       shape: BoxShape.rectangle,
+            //       borderRadius: BorderRadius.circular(50.0),
+            //       gradient: const LinearGradient(
+            //           colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+            //           begin: FractionalOffset.topLeft,
+            //           end: FractionalOffset.bottomRight,
+            //           stops: [0.1, 0.4],
+            //           tileMode: TileMode.mirror),
+            //     ),
+            //     width: MediaQuery.of(context).size.width * 0.9,
+            //     child: ElevatedButton(
+            //       style: ElevatedButton.styleFrom(
+            //         shape: RoundedRectangleBorder(
+            //             borderRadius: BorderRadius.circular(50.0)),
+            //         elevation: 0,
+            //         primary: Colors.transparent,
+            //         padding: const EdgeInsets.all(15),
+            //       ),
+            //       onPressed: () async {
+            //         final albabprovider =
+            //             Provider.of<HelloAlbabProvider>(context, listen: false);
+            //         user = await albabprovider.googleLogin(context);
 
-                    print(user!.email.toString());
-                    if (user != null) {
-                      isUserExist();
-                    }
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        Icons.mail,
-                        color: Colors.black,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "Continue with Gmail",
-                        style: GoogleFonts.poppins(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            //         print(user!.email.toString());
+            //         if (user != null) {
+            //           isUserExist();
+            //         }
+            //       },
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.center,
+            //         children: [
+            //           const Icon(
+            //             Icons.mail,
+            //             color: Colors.black,
+            //           ),
+            //           const SizedBox(
+            //             width: 5,
+            //           ),
+            //           Text(
+            //             "Continue with Gmail",
+            //             style: GoogleFonts.poppins(
+            //                 color: Colors.black,
+            //                 fontSize: 15,
+            //                 fontWeight: FontWeight.w600),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
+          
           ],
         ),
       ),

@@ -27,13 +27,18 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   Widget _buildSignUpPop(BuildContext context) {
     return new AlertDialog(
-      title: Text("Account doesn't exist",style: GoogleFonts.poppins(fontSize: 15,fontWeight: FontWeight.w700),),
+      title: Text(
+        "Account doesn't exist",
+        style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w700),
+      ),
       content: new Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-              "There is no account exist with this email id. Please sign up for new account.",style: GoogleFonts.poppins(),),
+            "There is no account exist with this email id. Please sign up for new account.",
+            style: GoogleFonts.poppins(),
+          ),
         ],
       ),
       actions: <Widget>[
@@ -42,8 +47,10 @@ class _LoginPageState extends State<LoginPage> {
             Navigator.of(context).pop();
           },
           textColor: primary,
-          
-          child: Text("Close",style: GoogleFonts.poppins(),),
+          child: Text(
+            "Close",
+            style: GoogleFonts.poppins(),
+          ),
         ),
         new FlatButton(
           onPressed: () {
@@ -55,13 +62,13 @@ class _LoginPageState extends State<LoginPage> {
             );
           },
           textColor: primary,
-          child: Text("Goto sign up",style: GoogleFonts.poppins()),
+          child: Text("Goto sign up", style: GoogleFonts.poppins()),
         ),
       ],
     );
   }
 
-    void setLoggedIn() async{
+  void setLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('loggedin', 1);
   }
@@ -73,27 +80,46 @@ class _LoginPageState extends State<LoginPage> {
     Future<QuerySnapshot<Map<String, dynamic>>> result = FirebaseFirestore
         .instance
         .collection('users')
-        .where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .where("email", isEqualTo: FirebaseAuth.instance.currentUser!.email)
         .get();
     result.then((value) async {
-      print(value.docs.length);
       if (value.docs.length > 0) {
         // Navigator.pop(context);
+        print("account exists");
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setInt('loggedin', 1);
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => Home(),
           ),
         );
       } else {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) => _buildSignUpPop(context),
-        );
+        //  Navigator.pop(context);
+        print("account doesnot exist");
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .set({
+          "createdTime": Timestamp.now(),
+          "dob": "",
+          "email": user!.email,
+          "phone": user!.phoneNumber == null ? "" : user!.phoneNumber,
+          "profilePicture": user!.photoURL,
+          "uid": FirebaseAuth.instance.currentUser!.uid,
+          "name": user!.displayName
+        }).whenComplete(() async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setInt('loggedin', 1);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Home(),
+            ),
+          );
+        });
       }
-    }).whenComplete(() => null);
+    });
   }
 
   @override
@@ -228,7 +254,7 @@ class _LoginPageState extends State<LoginPage> {
                         if (result == null) {
                           if (FirebaseAuth
                               .instance.currentUser!.emailVerified) {
-                                setLoggedIn();
+                            setLoggedIn();
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -272,7 +298,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(
-              decoration: BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(50.0),
                   gradient: const LinearGradient(
@@ -295,9 +321,8 @@ class _LoginPageState extends State<LoginPage> {
                     final albabprovider =
                         Provider.of<HelloAlbabProvider>(context, listen: false);
                     user = await albabprovider.googleLogin(context);
-
-                    print(user!.email.toString());
                     if (user != null) {
+                      print(123);
                       isUserExist();
                     }
                   },
@@ -354,8 +379,8 @@ class _LoginPageState extends State<LoginPage> {
                   child: RichText(
                     text: TextSpan(
                         text: 'Don\'t have an account ? ',
-                        style:
-                            GoogleFonts.poppins(fontSize: 15, color: Colors.black),
+                        style: GoogleFonts.poppins(
+                            fontSize: 15, color: Colors.black),
                         children: [
                           TextSpan(
                             text: 'Sign Up',
@@ -387,8 +412,7 @@ class _LoginPageState extends State<LoginPage> {
                   onTap: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => Home()),
+                      MaterialPageRoute(builder: (context) => Home()),
                     );
                   },
                   child: Text(

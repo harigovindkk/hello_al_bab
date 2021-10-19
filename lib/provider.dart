@@ -10,7 +10,6 @@ class HelloAlbabProvider<context> extends ChangeNotifier {
 
   Future<User?> googleLogin(BuildContext context) async {
     final googleUser = await googleSignIn.signIn();
-    print(googleUser!.email);
     if (googleUser == null) return null;
     user = googleUser;
     googleAuth = await googleUser.authentication;
