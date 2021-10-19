@@ -44,7 +44,7 @@ class _EjariServicePageState extends State<EjariServicePage> {
   Widget bookingConfirmation(BuildContext context) {
     return new AlertDialog(
       title: Text(
-        "Confirm booking",
+        "Confirm Ejari Service Request",
         style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w700),
       ),
       content: new Column(
@@ -52,7 +52,7 @@ class _EjariServicePageState extends State<EjariServicePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "Thank you for your workspace request. Our Admin will contact you through email or phone.",
+            "Thank you for your ejari request. Our Admin will contact you through email or phone.",
             style: GoogleFonts.poppins(),
           ),
         ],
@@ -65,7 +65,7 @@ class _EjariServicePageState extends State<EjariServicePage> {
           ),
           onPressed: () {
             ScaffoldMessenger.of(context)
-                .showSnackBar(customSnackBar("Request failed", Icons.check));
+                .showSnackBar(customSnackBar("Request cancelled", Icons.check));
             Navigator.of(context).pop();
           },
           textColor: primary,

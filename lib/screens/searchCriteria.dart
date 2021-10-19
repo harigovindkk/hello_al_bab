@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/screens/search_result.dart';
-import 'package:hello_al_bab/screens/locationAvailable.dart';
+import 'package:hello_al_bab/screens/location_available.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -55,6 +55,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
     if (result != null) {
       setState(() {
         _selectedFromTime = result.format(context);
+        print("selected from time"+_selectedFromTime.toString());
       });
     }
   }

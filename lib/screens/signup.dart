@@ -10,6 +10,7 @@ import 'package:hello_al_bab/screens/login.dart';
 import 'package:hello_al_bab/services/authentication.dart';
 import 'package:hello_al_bab/widgets/input_field.dart';
 import 'package:intl/intl.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
@@ -105,7 +106,7 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+CountryCode? code;
   Future<void> createUserDoc() async {
     await FirebaseFirestore.instance
         .collection('users')
@@ -116,7 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
       "name": namecontroller.text,
       "email": emailcontroller.text,
       "dob": DateFormat(isSelected ? 'dd-MM-yyyy' : '').format(selectedDate),
-      "phone": phonecontroller.text,
+      "phone": code.toString()+" "+phonecontroller.text,
       "profilePicture": '',
       "createdTime": Timestamp.now(),
     }).onError((error, stackTrace) => print(error));
@@ -223,52 +224,77 @@ class _SignUpPageState extends State<SignUpPage> {
             Padding(
               padding: const EdgeInsets.only(left: 15.0, top: 15.0),
               child: Text(
-                "Phone",
+                "Country Code",
+                style: GoogleFonts.poppins(color: Colors.black),
+              ),
+            ),
+            CountryCodePicker(padding: const EdgeInsets.only(left: 15.0) ,
+         onChanged: (value){
+           setState(() {
+             code=value;
+           });
+         },
+         // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+         initialSelection: 'IT',
+         // optional. Shows only country name and flag
+         showCountryOnly: false,
+         // optional. Shows only country name and flag when popup is closed.
+         showOnlyCountryWhenClosed: false,
+         // optional. aligns the flag and the Text left
+         alignLeft: false,
+       ),
+           
+        Padding(
+              padding: const EdgeInsets.only(left: 15.0, top: 15.0),
+              child: Text(
+                "Phone Number(Without Country Code)",
                 style: GoogleFonts.poppins(color: Colors.black),
               ),
             ),
             Padding(
               //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                style: GoogleFonts.poppins(
-                    color: Colors.black, fontWeight: FontWeight.w600),
-                cursorColor: Colors.black87,
-                validator: (text) {
-                  if (text == null || text.isEmpty) {
-                    return "Phone Number can't be empty";
-                  }
-                  return null;
-                },
-                obscureText: false,
-                controller: phonecontroller,
-                decoration: InputDecoration(
-                  labelText: '',
-                  labelStyle:
-                      GoogleFonts.poppins(color: const Color(0xff181818)),
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color:  Colors.black,
-                      width: 1,
+              child: Container(
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  style: GoogleFonts.poppins(
+                      color: Colors.black, fontWeight: FontWeight.w600),
+                  cursorColor: Colors.black87,
+                  validator: (text) {
+                    if (text == null || text.isEmpty) {
+                      return "Phone Number can't be empty";
+                    }
+                    return null;
+                  },
+                  obscureText: false,
+                  controller: phonecontroller,
+                  decoration: InputDecoration(
+                    labelText: '',
+                    labelStyle:
+                        GoogleFonts.poppins(color: const Color(0xff181818)),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color:  Colors.black,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                        bottomLeft: Radius.circular(4.0),
+                        bottomRight: Radius.circular(4.0),
+                      ),
                     ),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
-                      bottomLeft: Radius.circular(4.0),
-                      bottomRight: Radius.circular(4.0),
-                    ),
-                  ),
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color:  Colors.black,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
-                      bottomLeft: Radius.circular(4.0),
-                      bottomRight: Radius.circular(4.0),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color:  Colors.black,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                        bottomLeft: Radius.circular(4.0),
+                        bottomRight: Radius.circular(4.0),
+                      ),
                     ),
                   ),
                 ),

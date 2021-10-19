@@ -3,10 +3,11 @@ import 'package:hello_al_bab/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/workspace_model.dart';
-import 'package:hello_al_bab/screens/locationAvailable.dart';
+import 'package:hello_al_bab/screens/location_available.dart';
 import 'package:hello_al_bab/screens/workspace_detail.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WorkSpaceCard extends StatefulWidget {
   // final Workspace workspace;
@@ -66,6 +67,14 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
       // print(workspace!.addedBy);
     });
   }
+    int? isLoggedin = null;
+
+  loginChecker() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isLoggedin = prefs.getInt('loggedin');
+    });
+  }
 
   @override
   void initState() {
@@ -77,7 +86,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
       setState(() {
         isLoading = false;
       });
-      likeChecker();
+    if(isLoggedin==1) likeChecker();
     });
   }
 
