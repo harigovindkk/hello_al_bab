@@ -12,8 +12,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hello_al_bab/services/authentication.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:provider/provider.dart';
+import 'package:restart_app/restart_app.dart';
+
 
 class OurServicesPage extends StatefulWidget {
   const OurServicesPage({Key? key}) : super(key: key);
@@ -36,6 +37,7 @@ class _OurServicesPageState extends State<OurServicesPage> {
 
   bool isLoading = false;
   Users? user = null;
+  String loginMethod = "";
   //TextEditingController otpcontroller = TextEditingController();
 
   Future<void> getDetails() async {
@@ -89,7 +91,18 @@ class _OurServicesPageState extends State<OurServicesPage> {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setInt('loggedin', 0);
             // FirebaseAuth.instance.signOut();
-            AuthenticationHelper().signOut();
+            if (user!.loginMethod == "GoogleSignIn") {
+              print(user!.loginMethod);
+              FirebaseAuth.instance.signOut();
+              Restart.restartApp();
+
+              // final helloAlBabProvider =
+              //     Provider.of<HelloAlbabProvider>(context, listen: false);
+              // helloAlBabProvider.logout(context);
+            } else {
+              AuthenticationHelper().signOut();
+            }
+
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => LoginPage()),

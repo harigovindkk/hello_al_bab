@@ -61,6 +61,8 @@ dev_dependencies:
   firebase_storage: ^9.0.0
   image_picker: ^0.8.4
   country_code_picker: ^2.0.2
+  restart_app: ^1.1.0
+  
 
 flutter_icons:
   android: true
