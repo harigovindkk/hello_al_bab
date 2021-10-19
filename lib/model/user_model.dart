@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Users {
-  Users({
-    required this.uid,
-    required this.name,
-    required this.email,
-    required this.dob,
-    required this.phone,
-    required this.profilePicture,
-    required this.createdTime,
-  });
+  Users(
+      {required this.uid,
+      required this.name,
+      required this.email,
+      required this.dob,
+      required this.phone,
+      required this.profilePicture,
+      required this.createdTime,
+      required this.loginMethod});
 
   String uid;
   String name;
@@ -18,6 +18,7 @@ class Users {
   String phone;
   String profilePicture;
   Timestamp createdTime;
+  String loginMethod;
 
   factory Users.fromJson(Map<String, dynamic> json) => Users(
         uid: json["uid"] ?? '',
@@ -27,6 +28,7 @@ class Users {
         phone: json["phone"] ?? '',
         profilePicture: json["profilePicture"] ?? "",
         createdTime: json["createdTime"] ?? "",
+        loginMethod: json["loginMethod"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,5 +39,6 @@ class Users {
         "phone": phone,
         "profilePicture": profilePicture,
         "createdTime": createdTime,
+        "loginMethod": loginMethod,
       };
 }

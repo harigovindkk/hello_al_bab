@@ -107,7 +107,8 @@ class _LoginPageState extends State<LoginPage> {
           "phone": user!.phoneNumber == null ? "" : user!.phoneNumber,
           "profilePicture": user!.photoURL,
           "uid": FirebaseAuth.instance.currentUser!.uid,
-          "name": user!.displayName
+          "name": user!.displayName,
+          "loginMethod":"GoogleSignIn"
         }).whenComplete(() async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setInt('loggedin', 1);
@@ -320,8 +321,8 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () async {
                     final albabprovider =
                         Provider.of<HelloAlbabProvider>(context, listen: false);
-                    user = await albabprovider.googleLogin(context);
-                    if (user != null) {
+                   User? user1 = await albabprovider.googleLogin(context);
+                    if (user1 != null) {
                       print(123);
                       isUserExist();
                     }

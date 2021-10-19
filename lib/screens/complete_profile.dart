@@ -366,10 +366,8 @@ class _SignUpPageState extends State<CompleteProfile> {
                       });
                     },
                     // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                    initialSelection: userDetail!.phone == null
-                        ? userDetail!.phone
-                            .substring(0, userDetail!.phone.indexOf(' '))
-                        : "",
+                    initialSelection: userDetail?.phone
+                        .substring(0, userDetail?.phone.indexOf(' ')) ,
                     // optional. Shows only country name and flag
                     showCountryOnly: false,
                     // optional. Shows only country name and flag when popup is closed.
