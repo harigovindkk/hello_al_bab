@@ -366,8 +366,8 @@ class _SignUpPageState extends State<CompleteProfile> {
                       });
                     },
                     // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                    initialSelection: userDetail!.phone
-                        .substring(0, userDetail!.phone.indexOf(' ')),
+                    // initialSelection: userDetail!.phone
+                    //     .substring(0, userDetail!.phone.indexOf(' ')),
 
                     // optional. Shows only country name and flag
                     showCountryOnly: false,
@@ -582,7 +582,13 @@ class _SignUpPageState extends State<CompleteProfile> {
                           padding: const EdgeInsets.all(15),
                         ),
                         onPressed: () {
-                          updateProfile();
+                          if (phonecontroller.text == "") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                customSnackBar("Please fill the phone number",
+                                    Icons.warning));
+                          } else {
+                            updateProfile();
+                          }
                         },
                         child: Text(
                           "Complete Profile",

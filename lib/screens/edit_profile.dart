@@ -576,7 +576,13 @@ class _EditProfileState extends State<EditProfile> {
                           padding: const EdgeInsets.all(15),
                         ),
                         onPressed: () {
-                          updateProfile();
+                           if (phonecontroller.text == "") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                customSnackBar("Please fill the phone number",
+                                    Icons.warning));
+                          } else {
+                            updateProfile();
+                          }
                         },
                         child: Text(
                           "Update Profile",

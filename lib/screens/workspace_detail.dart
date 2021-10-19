@@ -417,22 +417,30 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    gradient: const LinearGradient(
+                                        colors: <Color>[
+                                          Color(0xffF9DB39),
+                                          Color(0xffFFEF62)
+                                        ],
+                                        begin: FractionalOffset.topLeft,
+                                        end: FractionalOffset.bottomRight,
+                                        stops: [0.1, 0.4],
+                                        tileMode: TileMode.mirror),
+                                  ),
                                   width:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  margin: EdgeInsets.all(10),
+                                      MediaQuery.of(context).size.width * 0.85,
                                   child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(primary),
-                                        foregroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.black),
-                                        shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(18.0),
-                                        ))),
+                                              BorderRadius.circular(50.0)),
+                                      elevation: 0,
+                                      primary: Colors.transparent,
+                                      padding: const EdgeInsets.all(15),
+                                    ),
                                     child: Text(
                                       "Book Now",
                                       style: GoogleFonts.poppins(
@@ -507,6 +515,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                 ),
                               ],
                             ),
+                            SizedBox(height: 20,)
                           ],
                         ),
                       ),

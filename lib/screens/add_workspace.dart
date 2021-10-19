@@ -139,7 +139,7 @@ bool isLoading=true;
                         child: Text(
                           "No requests to show!",
                           style: GoogleFonts.poppins(
-                              color: Colors.white, fontSize: 15),
+                              color: Colors.black, fontSize: 15),
                         ),
                       );
                     }
