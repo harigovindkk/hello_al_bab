@@ -20,15 +20,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CompleteProfile extends StatefulWidget {
-  final String pageType;
-  const CompleteProfile({Key? key, required this.pageType}) : super(key: key);
+class EditProfile extends StatefulWidget {
+  const EditProfile({Key? key}) : super(key: key);
 
   @override
-  CompleteProfileState createState() => CompleteProfileState();
+  _EditProfileState createState() => _EditProfileState();
 }
 
-class CompleteProfileState extends State<CompleteProfile> {
+class _EditProfileState extends State<EditProfile> {
   Users? userDetail;
 
   Future<void> getDetails() async {
@@ -231,7 +230,7 @@ class CompleteProfileState extends State<CompleteProfile> {
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
         ),
         centerTitle: true,
-        title: Text('Complete Profile',
+        title: Text('Edit Profile',
             style: GoogleFonts.poppins(
                 fontWeight: FontWeight.bold, color: Colors.black)),
         backgroundColor: Colors.white,
@@ -367,8 +366,8 @@ class CompleteProfileState extends State<CompleteProfile> {
                       });
                     },
                     // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                    initialSelection: userDetail?.phone
-                        .substring(0, userDetail?.phone.indexOf(' ')),
+                    initialSelection: userDetail!.phone
+                        .substring(0, userDetail!.phone.indexOf(' ')),
                     // optional. Shows only country name and flag
                     showCountryOnly: false,
                     // optional. Shows only country name and flag when popup is closed.
