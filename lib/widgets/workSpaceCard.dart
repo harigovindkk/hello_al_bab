@@ -67,7 +67,8 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
       // print(workspace!.addedBy);
     });
   }
-    int? isLoggedin = null;
+
+  int? isLoggedin = null;
 
   loginChecker() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -86,7 +87,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
       setState(() {
         isLoading = false;
       });
-    if(isLoggedin==1) likeChecker();
+      if (isLoggedin == 1) likeChecker();
     });
   }
 
@@ -233,51 +234,58 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                           size: 24,
                         ),
                         onPressed: () {
-                          setState(() {
-                            liked = !liked!;
-                          });
-                          if (liked!) {
-                            //item added to wishlist
-                            print("liked");
-                            FirebaseFirestore.instance
-                                .collection('wishlist')
-                                .doc(FirebaseAuth.instance.currentUser!.uid +
-                                    '_' +
-                                    workspace!.spaceId)
-                                .set(
-                              {
-                                'ownerId': workspace!.ownerId,
-                                'userId':
-                                    FirebaseAuth.instance.currentUser!.uid,
-                                'spaceId': workspace!.spaceId,
-                                'photoUrl': workspace!.photoUrl,
-                                'name': workspace!.name,
-                                'address': workspace!.address,
-                                'timeStamp': Timestamp.now(),
-                              },
-                              SetOptions(
-                                merge: true,
-                              ),
-                            ).whenComplete(() => {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(customSnackBar(
-                                              "Added to wishlist",
-                                              Icons.check))
-                                    });
-                          } else {
-                            //item removed from wishlist
-                            FirebaseFirestore.instance
-                                .collection('wishlist')
-                                .doc(FirebaseAuth.instance.currentUser!.uid +
-                                    '_' +
-                                    workspace!.spaceId)
-                                .delete()
-                                .whenComplete(() => {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(customSnackBar(
-                                              "Removed from wishlist",
-                                              Icons.check))
-                                    });
+                          if (isLoggedin == 1) {
+                            setState(() {
+                              liked = !liked!;
+                            });
+                            if (liked!) {
+                              //item added to wishlist
+                              print("liked");
+                              FirebaseFirestore.instance
+                                  .collection('wishlist')
+                                  .doc(FirebaseAuth.instance.currentUser!.uid +
+                                      '_' +
+                                      workspace!.spaceId)
+                                  .set(
+                                {
+                                  'ownerId': workspace!.ownerId,
+                                  'userId':
+                                      FirebaseAuth.instance.currentUser!.uid,
+                                  'spaceId': workspace!.spaceId,
+                                  'photoUrl': workspace!.photoUrl,
+                                  'name': workspace!.name,
+                                  'address': workspace!.address,
+                                  'timeStamp': Timestamp.now(),
+                                },
+                                SetOptions(
+                                  merge: true,
+                                ),
+                              ).whenComplete(() => {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(customSnackBar(
+                                                "Added to wishlist",
+                                                Icons.check))
+                                      });
+                            } else {
+                              //item removed from wishlist
+                              FirebaseFirestore.instance
+                                  .collection('wishlist')
+                                  .doc(FirebaseAuth.instance.currentUser!.uid +
+                                      '_' +
+                                      workspace!.spaceId)
+                                  .delete()
+                                  .whenComplete(() => {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(customSnackBar(
+                                                "Removed from wishlist",
+                                                Icons.check))
+                                      });
+                            }
+                          }else{
+                            ScaffoldMessenger.of(context)
+                                            .showSnackBar(customSnackBar(
+                                                "Please login to add workspace to wishlist.",
+                                                Icons.warning));
                           }
                         },
                       ),

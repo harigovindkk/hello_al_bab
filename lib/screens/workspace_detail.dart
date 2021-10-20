@@ -8,6 +8,7 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/workspace_model.dart';
+import 'package:hello_al_bab/screens/gotoLogin.dart';
 import 'package:hello_al_bab/screens/home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -103,8 +104,10 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: isLoading
-          ? CircularProgressIndicator(
-              color: primary,
+          ? Center(
+              child: CircularProgressIndicator(
+                color: primary,
+              ),
             )
           : Stack(
               children: [
@@ -417,96 +420,104 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.rectangle,
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    gradient: const LinearGradient(
+                                        colors: <Color>[
+                                          Color(0xffF9DB39),
+                                          Color(0xffFFEF62)
+                                        ],
+                                        begin: FractionalOffset.topLeft,
+                                        end: FractionalOffset.bottomRight,
+                                        stops: [0.1, 0.4],
+                                        tileMode: TileMode.mirror),
+                                  ),
                                   width:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  margin: EdgeInsets.all(10),
+                                      MediaQuery.of(context).size.width * 0.85,
                                   child: ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(primary),
-                                        foregroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.black),
-                                        shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(18.0),
-                                        ))),
+                                              BorderRadius.circular(50.0)),
+                                      elevation: 0,
+                                      primary: Colors.transparent,
+                                      padding: const EdgeInsets.all(15),
+                                    ),
                                     child: Text(
                                       "Book Now",
                                       style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w600),
+                                          fontWeight: FontWeight.w600,color: Colors.black)
                                     ),
                                     onPressed: () async {
-                                      if (projectCheck) {
-                                        additionalFacilities.add("Projector");
-                                      }
-                                      if (receptionCheck) {
-                                        additionalFacilities.add("Reception");
-                                      }
-                                      if (foodCheck) {
-                                        additionalFacilities
-                                            .add("Food and drinks");
-                                      }
-                                      if (pickCheck) {
-                                        additionalFacilities
-                                            .add("Pick and drop");
-                                      }
-                                      FirebaseFirestore.instance
-                                          .collection('bookings')
-                                          .doc()
-                                          .set({
-                                        "fromDate": fromDate,
-                                        "fromTime": selectedFromTime,
-                                        "isSingleDay": isSingleDay,
-                                        "spaceId": workspace!.spaceId,
-                                        "status": "booked",
-                                        "timeStamp": Timestamp.now(),
-                                        "toDate": toDate,
-                                        "toTime": selectedToTime,
-                                        "transactionId": "1231",
-                                        "userId": FirebaseAuth
-                                            .instance.currentUser!.uid,
-                                        "spec": spec,
-                                        "type": type,
-                                        "facilities": [
-                                          "Wifi",
-                                          "Electricity",
-                                          "Water",
-                                          "Coffee"
-                                        ],
-                                        "additionalFacilities":
-                                            additionalFacilities,
-                                        "specialRequests": specialRequest.text
-                                      }).whenComplete(() {
-                                        print(123);
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(customSnackBar(
-                                                "Booking is completed successfully",
-                                                Icons.check));
+                                      if (isLoggedIn == 1) {
+                                        if (projectCheck) {
+                                          additionalFacilities.add("Projector");
+                                        }
+                                        if (receptionCheck) {
+                                          additionalFacilities.add("Reception");
+                                        }
+                                        if (foodCheck) {
+                                          additionalFacilities
+                                              .add("Food and drinks");
+                                        }
+                                        if (pickCheck) {
+                                          additionalFacilities
+                                              .add("Pick and drop");
+                                        }
+                                        FirebaseFirestore.instance
+                                            .collection('bookings')
+                                            .doc()
+                                            .set({
+                                          "fromDate": fromDate,
+                                          "fromTime": selectedFromTime,
+                                          "isSingleDay": isSingleDay,
+                                          "spaceId": workspace!.spaceId,
+                                          "status": "booked",
+                                          "timeStamp": Timestamp.now(),
+                                          "toDate": toDate,
+                                          "toTime": selectedToTime,
+                                          "transactionId": "1231",
+                                          "userId": FirebaseAuth
+                                              .instance.currentUser!.uid,
+                                          "spec": spec,
+                                          "type": type,
+                                          "facilities": [
+                                            "Wifi",
+                                            "Electricity",
+                                            "Water",
+                                            "Coffee"
+                                          ],
+                                          "additionalFacilities":
+                                              additionalFacilities,
+                                          "specialRequests": specialRequest.text
+                                        }).whenComplete(() {
+                                          print(123);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(customSnackBar(
+                                                  "Booking is completed successfully",
+                                                  Icons.check));
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => Home()),
+                                          );
+                                        });
+                                      } else {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Home()),
+                                              builder: (context) => GotoSignIn()),
                                         );
-                                      });
-
-                                      SharedPreferences prefs =
-                                          await SharedPreferences.getInstance();
-                                      isLoggedIn =
-                                          await prefs.getInt('loggedin')!;
-                                      print(isLoggedIn);
-                                      if (isLoggedIn == 0) {
-                                        print("please login");
-                                      } else {
-                                        print("loggein");
                                       }
                                     },
                                   ),
                                 ),
                               ],
                             ),
+                            SizedBox(
+                              height: 20,
+                            )
                           ],
                         ),
                       ),

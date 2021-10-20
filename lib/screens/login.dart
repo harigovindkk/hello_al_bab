@@ -77,11 +77,11 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailcontroller = TextEditingController(),
       passwordcontroller = TextEditingController();
   User? user;
-  Future isUserExist() async {
+  Future isUserExist(User? user) async {
     Future<QuerySnapshot<Map<String, dynamic>>> result = FirebaseFirestore
         .instance
         .collection('users')
-        .where("email", isEqualTo: FirebaseAuth.instance.currentUser!.email)
+        .where("email", isEqualTo: user!.email)
         .get();
     result.then((value) async {
       if (value.docs.length > 0) {
@@ -97,26 +97,32 @@ class _LoginPageState extends State<LoginPage> {
         );
       } else {
         //  Navigator.pop(context);
+        print(user!.email);
         print("account doesnot exist");
+        setState(() {
+          user = user;
+        });
         FirebaseFirestore.instance
             .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .doc(user!.uid)
             .set({
           "createdTime": Timestamp.now(),
           "dob": "",
-          "email": user!.email,
-          "phone": user!.phoneNumber == null ? "" : user!.phoneNumber,
-          "profilePicture": user!.photoURL,
-          "uid": FirebaseAuth.instance.currentUser!.uid,
-          "name": user!.displayName,
-          "loginMethod":"GoogleSignIn"
+          "email": user?.email,
+          "phone": "",
+          "profilePicture": user?.photoURL,
+          "uid": user?.uid,
+          "name": user?.displayName,
+          "loginMethod": "GoogleSignIn"
         }).whenComplete(() async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setInt('loggedin', 1);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => CompleteProfile(userDetail: user as User,),
+              builder: (context) => CompleteProfile(
+                userDetail: user,
+              ),
             ),
           );
         });
@@ -322,10 +328,11 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () async {
                     final albabprovider =
                         Provider.of<HelloAlbabProvider>(context, listen: false);
-                   User? user1 = await albabprovider.googleLogin(context);
+                    User? user1 = await albabprovider.googleLogin(context);
+                    // user = await albabprovider.googleLogin(context);
                     if (user1 != null) {
                       print(123);
-                      isUserExist();
+                      isUserExist(user1);
                     }
                   },
                   child: Row(
