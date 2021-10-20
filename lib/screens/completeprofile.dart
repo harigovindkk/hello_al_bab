@@ -506,19 +506,19 @@ class _SignUpPageState extends State<CompleteProfile> {
                                                           .pop();
                                                     },
                                                   ),
-                                                  TextButton(
-                                                    child: Text(
-                                                        'Take a Picture',
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                                color: Colors
-                                                                    .black)),
-                                                    onPressed: () {
-                                                      _fromCamera();
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                  ),
+                                                  // TextButton(
+                                                  //   child: Text(
+                                                  //       'Take a Picture',
+                                                  //       style:
+                                                  //           GoogleFonts.poppins(
+                                                  //               color: Colors
+                                                  //                   .black)),
+                                                  //   onPressed: () {
+                                                  //     _fromCamera();
+                                                  //     Navigator.of(context)
+                                                  //         .pop();
+                                                  //   },
+                                                  // ),
                                                 ],
                                               );
                                             },

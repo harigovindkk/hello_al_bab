@@ -198,6 +198,7 @@ class _EditProfileState extends State<EditProfile> {
       }).whenComplete(() {
         ScaffoldMessenger.of(context).showSnackBar(
             customSnackBar("Profile  Updated Successfully", Icons.check));
+              Navigator.pop(context);
         setState(() {
           _isLoading = false;
         });
@@ -500,19 +501,19 @@ class _EditProfileState extends State<EditProfile> {
                                                           .pop();
                                                     },
                                                   ),
-                                                  TextButton(
-                                                    child: Text(
-                                                        'Take a Picture',
-                                                        style:
-                                                            GoogleFonts.poppins(
-                                                                color: Colors
-                                                                    .black)),
-                                                    onPressed: () {
-                                                      _fromCamera();
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                  ),
+                                                  // TextButton(
+                                                  //   child: Text(
+                                                  //       'Take a Picture',
+                                                  //       style:
+                                                  //           GoogleFonts.poppins(
+                                                  //               color: Colors
+                                                  //                   .black)),
+                                                  //   onPressed: () {
+                                                  //     _fromCamera();
+                                                  //     Navigator.of(context)
+                                                  //         .pop();
+                                                  //   },
+                                                  // ),
                                                 ],
                                               );
                                             },
