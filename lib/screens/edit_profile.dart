@@ -190,7 +190,8 @@ class _EditProfileState extends State<EditProfile> {
         "dob": DateFormat('dd-MM-yyyy').format(selectedDate),
         "phone": countryCodeSelected
             ? code.toString() + " " + phonecontroller.text
-            : userDetail!.phone.substring(0, userDetail!.phone.indexOf(' ')) +" "+
+            : userDetail!.phone.substring(0, userDetail!.phone.indexOf(' ')) +
+                " " +
                 phonecontroller.text,
         'profilePicture': profilechanged
             ? (profileremoved ? "" : profileUrl)
@@ -201,6 +202,7 @@ class _EditProfileState extends State<EditProfile> {
         setState(() {
           _isLoading = false;
         });
+        Navigator.pop(context);
       }).catchError((error) =>
               //-------------------------------------------
               ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
@@ -360,9 +362,9 @@ class _EditProfileState extends State<EditProfile> {
                       });
                     },
                     // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                    initialSelection: 
-                      userDetail!.phone.substring(0, userDetail!.phone.indexOf(' ')),
-                        
+                    initialSelection: userDetail!.phone
+                        .substring(0, userDetail!.phone.indexOf(' ')),
+
                     // optional. Shows only country name and flag
                     showCountryOnly: false,
                     // optional. Shows only country name and flag when popup is closed.
@@ -576,7 +578,7 @@ class _EditProfileState extends State<EditProfile> {
                           padding: const EdgeInsets.all(15),
                         ),
                         onPressed: () {
-                           if (phonecontroller.text == "") {
+                          if (phonecontroller.text == "") {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 customSnackBar("Please fill the phone number",
                                     Icons.warning));
