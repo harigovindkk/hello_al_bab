@@ -45,6 +45,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
         .then((value) {
       setState(() {
         workspace = Workspace.fromDoc(value.data() as Map<String, dynamic>);
+        print(value.data());
         //workspaceData= value;
       });
     });
@@ -79,6 +80,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
 
   @override
   void initState() {
+    print("initstate keri");
     super.initState();
     setState(() {
       isLoading = true;

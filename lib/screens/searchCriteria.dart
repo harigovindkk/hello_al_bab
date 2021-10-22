@@ -549,7 +549,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                       color: Colors.black, fontWeight: FontWeight.w600),
                 ),
                 onPressed: () async {
-                  print(_selectedFromTime);
+                  //print(_selectedFromTime);
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
                   prefs.setBool('isSingle', isSingleDay);

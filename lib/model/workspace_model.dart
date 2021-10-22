@@ -10,6 +10,7 @@ class Workspace {
   String ownerId;
   Timestamp lastUpdated;
   String addedBy;
+  String workspaceType;
 
   Workspace({
     required this.spaceId,
@@ -17,6 +18,7 @@ class Workspace {
     required this.address,
     required this.description,
     required this.photoUrl,
+    required this.workspaceType,
     required this.time,
     required this.ownerId,
     required this.lastUpdated,
@@ -24,15 +26,16 @@ class Workspace {
   });
 
   factory Workspace.fromDoc(Map<String, dynamic> json) => Workspace(
-        spaceId: json["spaceId"],
-        name: json["name"],
-        address: json["address"],
-        description: json["description"],
-        photoUrl: json["photoUrl"],
-        time: json["time"],
-        ownerId: json["ownerId"],
-        lastUpdated: json["lastUpdated"],
-        addedBy: json["addedBy"],
+        spaceId: json["spaceId"],//
+        name: json["name"],//
+        address: json["address"],//
+        description: json["description"],//
+        photoUrl: json["photoUrl"],//
+        time: json["time"],//
+        workspaceType: json["workspaceType"],
+        ownerId: json["ownerId"],//
+        lastUpdated: json["lastUpdated"],//
+        addedBy: json["addedBy"],//
       );
 
   Map<String, dynamic> toJson() => {

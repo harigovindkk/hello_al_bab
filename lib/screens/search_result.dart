@@ -25,6 +25,7 @@ class _SearchResultsState extends State<SearchResults> {
       spec = prefs.getString('spec').toString();
     });
     print(type);
+    print(spec);
   }
 
   @override
@@ -56,85 +57,61 @@ class _SearchResultsState extends State<SearchResults> {
       ),
       body: Container(
         color: Colors.white,
-        child: Column(
-          children: [
-           
-            Column(
-              children: [
-                StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('workspace')
-                      .where('workspaceType', isEqualTo: type)
-                      // .orderBy("date", descending: true)
-                      .snapshots(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                          child: CircularProgressIndicator(
-                        color: primary,
-                      ));
-                    }
-                    if (snapshot.data!.docs.isEmpty) {
-                      return Center(
-                        child: Text(
-                          "No Workspace to show!",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black, fontSize: 15),
-                        ),
-                      );
-                    }
-                    if (snapshot.hasData) {
-                      return ListView(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        children: snapshot.data!.docs.map((doc) {
-                          workspace = Workspace.fromDoc(
-                              doc.data() as Map<String, dynamic>);
-                              // print();
-                          return WorkSpaceCard(
-                            spaceId: workspace!.spaceId,
-                          );
-                        }).toList(),
-                      );
-                    } else {
-                      return Center(
-                        child: Text(
-                          "Unknown Error Occured!",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black, fontSize: 15),
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ],
-            ),
-            // const Spacer(),
-            // Container(
-            //   width: MediaQuery.of(context).size.width * 0.8,
-            //   margin: const EdgeInsets.all(10),
-            //   child: ElevatedButton(
-            //     style: ElevatedButton.styleFrom(
-            //         primary: primary,
-            //         padding: const EdgeInsets.all(10),
-            //         shape: (RoundedRectangleBorder(
-            //           borderRadius: BorderRadius.circular(20),
-            //         ))),
-            //     child: Text(
-            //       "Your Search Criteria",
-            //       style: GoogleFonts.poppins(
-            //           color: Colors.black, fontWeight: FontWeight.w600),
-            //     ),
-            //     onPressed: () {
-            //       Navigator.push(
-            //         context,
-            //         MaterialPageRoute(builder: (context) => SearchCriteria()),
-            //       );
-            //     },
-            //   ),
-            // ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('workspace')
+                    .where('workspaceType', isEqualTo: type)
+                    // .orderBy("date", descending: true)
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                        child: CircularProgressIndicator(
+                      color: primary,
+                    ));
+                  }
+                  if (snapshot.data!.docs.isEmpty) {
+                    return Center(
+                      child: Text(
+                        "No Workspace to show!",
+                        style: GoogleFonts.poppins(
+                            color: Colors.black, fontSize: 15),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                      print("Length "+snapshot.data!.docs.length.toString());
+                    return ListView(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children: snapshot.data!.docs.map((doc) {
+                        //print(doc['ownerId']);
+                        workspace = Workspace.fromDoc(
+                            doc.data() as Map<String, dynamic>);
+                           
+                             //print(workspace!.spaceId);
+                        return WorkSpaceCard(
+                          spaceId: workspace!.spaceId,
+                        );
+                      }).toList(),
+                    );
+                  } else {
+                    return Center(
+                      child: Text(
+                        "Unknown Error Occured!",
+                        style: GoogleFonts.poppins(
+                            color: Colors.black, fontSize: 15),
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

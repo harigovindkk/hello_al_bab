@@ -203,7 +203,7 @@ class _EditProfileState extends State<EditProfile> {
         setState(() {
           _isLoading = false;
         });
-        Navigator.pop(context);
+       // Navigator.pop(context);
       }).catchError((error) =>
               //-------------------------------------------
               ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
