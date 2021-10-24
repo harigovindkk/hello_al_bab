@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/request_model.dart';
+import 'package:hello_al_bab/model/user_model.dart';
 import 'package:hello_al_bab/screens/bookings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hello_al_bab/screens/login.dart';
@@ -19,12 +20,42 @@ class EjariServicePage extends StatefulWidget {
 }
 
 class _EjariServicePageState extends State<EjariServicePage> {
+  bool _isLoading = true;
+  Users? userDetail;
+
+  Future<void> getDetails() async {
+    setState(() {
+      _isLoading = true;
+    });
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      setState(() {
+        userDetail =
+            Users.fromJson(value.data() as Map<String, dynamic>) as Users;
+      });
+    }).whenComplete(() => setState(() {
+              // print(userDetail!.profilePicture);
+              _isLoading = false;
+            }));
+  }
+
   TextEditingController otpcontroller = TextEditingController();
   Requests? myRequest;
   String recentstatus = "";
   Future<void> createRequestDoc() async {
-    await FirebaseFirestore.instance.collection('addRequests').doc().set({
+    String requestId =
+        FirebaseFirestore.instance.collection('addRequests').doc().id;
+    await FirebaseFirestore.instance
+        .collection('addRequests')
+        .doc(requestId)
+        .set({
       'type': "ejari",
+      'requestId': requestId,
+      'clientPhone': userDetail!.phone,
+      'clientEmail': userDetail!.email,
       'status': 'requested',
       'time': Timestamp.now(),
       'userId': FirebaseAuth.instance.currentUser!.uid
@@ -88,6 +119,7 @@ class _EjariServicePageState extends State<EjariServicePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getDetails();
     loginChecker();
   }
 
@@ -110,145 +142,152 @@ class _EjariServicePageState extends State<EjariServicePage> {
       ),
       backgroundColor: Colors.white,
       body: isLoggedin == 1
-          ? SingleChildScrollView(
-              child: Column(
-              children: [
-                StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('addRequests')
-                      .where('userId',
-                          isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-                      .where('type', isEqualTo: 'ejari')
-
-                      //  .orderBy("date", descending: true)
-                      .snapshots(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                          child: CircularProgressIndicator(
-                        color: primary,
-                      ));
-                    }
-                    if (snapshot.data!.docs.isEmpty) {
-                      return Center(
-                        child: Text(
-                          "No requests to show!",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black, fontSize: 15),
-                        ),
-                      );
-                    }
-                    if (snapshot.hasData) {
-                      recentstatus = snapshot.data!.docs.last['status'];
-                      return ListView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        children: snapshot.data!.docs.map((doc) {
-                          myRequest = Requests.fromDoc(doc.data() as Map);
-                          return WorkSpaceRequestCard(myRequest as Requests);
-                        }).toList(),
-                      );
-                    } else {
-                      return Center(
-                        child: Text(
-                          "Unknown Error Occured!",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black, fontSize: 15),
-                        ),
-                      );
-                    }
-                  },
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(50.0),
-                      gradient: const LinearGradient(
-                          colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
-                          begin: FractionalOffset.topLeft,
-                          end: FractionalOffset.bottomRight,
-                          stops: [0.1, 0.4],
-                          tileMode: TileMode.mirror),
-                    ),
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50.0)),
-                        elevation: 0,
-                        primary: Colors.transparent,
-                        padding: const EdgeInsets.all(15),
-                      ),
-                      onPressed: () {
-                        if (recentstatus == "requested" ||
-                            (recentstatus == "processsing")) {
-                          ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
-                              "You cannot place a new request if your latest request is not reviewed",
-                              Icons.warning_amber_rounded));
+          ? _isLoading
+              ? CircularProgressIndicator(color: primary)
+              : SingleChildScrollView(
+                  child: Column(
+                  children: [
+                    StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('addRequests')
+                          .where('userId',
+                              isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                          .where('type', isEqualTo: 'ejari')
+                          //.orderBy("date", descending: true)
+                          .snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator(
+                            color: primary,
+                          ));
+                        }
+                        if (snapshot.data!.docs.isEmpty) {
+                          return Center(
+                            child: Text(
+                              "No requests to show!",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black, fontSize: 15),
+                            ),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          recentstatus = snapshot.data!.docs.last['status'];
+                          return ListView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            children: snapshot.data!.docs.map((doc) {
+                              myRequest = Requests.fromDoc(doc.data() as Map);
+                              return WorkSpaceRequestCard(
+                                  myRequest as Requests);
+                            }).toList(),
+                          );
                         } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                bookingConfirmation(context),
+                          return Center(
+                            child: Text(
+                              "Unknown Error Occured!",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black, fontSize: 15),
+                            ),
                           );
                         }
                       },
-                      child: Text(
-                        "Place New Request",
-                        style: GoogleFonts.poppins(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(50.0),
+                          gradient: const LinearGradient(
+                              colors: <Color>[
+                                Color(0xffF9DB39),
+                                Color(0xffFFEF62)
+                              ],
+                              begin: FractionalOffset.topLeft,
+                              end: FractionalOffset.bottomRight,
+                              stops: [0.1, 0.4],
+                              tileMode: TileMode.mirror),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50.0)),
+                            elevation: 0,
+                            primary: Colors.transparent,
+                            padding: const EdgeInsets.all(15),
+                          ),
+                          onPressed: () {
+                            if (recentstatus == "requested" ||
+                                (recentstatus == "processsing")) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  customSnackBar(
+                                      "You cannot place a new request if your latest request is not reviewed",
+                                      Icons.warning_amber_rounded));
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    bookingConfirmation(context),
+                              );
+                            }
+                          },
+                          child: Text(
+                            "Place New Request",
+                            style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                //   Padding(
-                //     padding: const EdgeInsets.all(15.0),
-                //     child: Container(
-                //      decoration: BoxDecoration(
-                //           shape: BoxShape.rectangle,
-                //           borderRadius: BorderRadius.circular(50.0),
-                //           gradient: const LinearGradient(
-                //               colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
-                //               begin: FractionalOffset.topLeft,
-                //               end: FractionalOffset.bottomRight,
-                //               stops: [0.1, 0.4],
-                //               tileMode: TileMode.mirror),
-                //         ),
-                //         width: MediaQuery.of(context).size.width * 0.9,
-                //         child: ElevatedButton(
-                //           style: ElevatedButton.styleFrom(
-                //             shape: RoundedRectangleBorder(
-                //                 borderRadius: BorderRadius.circular(50.0)),
-                //              elevation: 0,
-                //             primary: Colors.transparent,
-                //             padding: const EdgeInsets.all(15),
-                //           ),
-                //         onPressed: () {
-                //           Navigator.push(
-                //             context,
-                //             MaterialPageRoute(builder: (context) => MyBookings()),
-                //           );
-                //         },
-                //         child: Text(
-                //           "Continue to Bookings",
-                //           style: GoogleFonts.poppins(
-                //               color: Colors.black,
-                //               fontSize: 15,
-                //               fontWeight: FontWeight.w600),
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-              ],
-            ))
+                    //   Padding(
+                    //     padding: const EdgeInsets.all(15.0),
+                    //     child: Container(
+                    //      decoration: BoxDecoration(
+                    //           shape: BoxShape.rectangle,
+                    //           borderRadius: BorderRadius.circular(50.0),
+                    //           gradient: const LinearGradient(
+                    //               colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                    //               begin: FractionalOffset.topLeft,
+                    //               end: FractionalOffset.bottomRight,
+                    //               stops: [0.1, 0.4],
+                    //               tileMode: TileMode.mirror),
+                    //         ),
+                    //         width: MediaQuery.of(context).size.width * 0.9,
+                    //         child: ElevatedButton(
+                    //           style: ElevatedButton.styleFrom(
+                    //             shape: RoundedRectangleBorder(
+                    //                 borderRadius: BorderRadius.circular(50.0)),
+                    //              elevation: 0,
+                    //             primary: Colors.transparent,
+                    //             padding: const EdgeInsets.all(15),
+                    //           ),
+                    //         onPressed: () {
+                    //           Navigator.push(
+                    //             context,
+                    //             MaterialPageRoute(builder: (context) => MyBookings()),
+                    //           );
+                    //         },
+                    //         child: Text(
+                    //           "Continue to Bookings",
+                    //           style: GoogleFonts.poppins(
+                    //               color: Colors.black,
+                    //               fontSize: 15,
+                    //               fontWeight: FontWeight.w600),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                  ],
+                ))
           : Container(
               child: Center(
                 child: Column(

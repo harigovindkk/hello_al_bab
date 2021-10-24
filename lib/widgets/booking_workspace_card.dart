@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hello_al_bab/constants/resources.dart';
 import 'package:hello_al_bab/screens/searchCriteria.dart';
 import 'package:intl/intl.dart';
 import 'package:hello_al_bab/model/bookings_model.dart';
@@ -88,7 +89,7 @@ class _BookedWorkSpaceCardState extends State<BookingWorkSpaceCard> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: Image.network(
-                      workspace!.photoUrl,
+                      workspace!.photoUrl==""? dummyImage: workspace!.photoUrl,
                       fit: BoxFit.fill,
                       height: MediaQuery.of(context).size.width * 0.25,
                     ),
@@ -325,7 +326,7 @@ class _BookedWorkSpaceCardState extends State<BookingWorkSpaceCard> {
                                                     Column(
                                                       children: [
                                                         Text(
-                                                            "Number of companies",
+                                                            "Companies",
                                                             style: GoogleFonts
                                                                 .poppins(
                                                                     color: Colors

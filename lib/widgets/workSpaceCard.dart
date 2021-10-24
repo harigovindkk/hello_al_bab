@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hello_al_bab/constants/resources.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/workspace_model.dart';
 import 'package:hello_al_bab/screens/location_available.dart';
@@ -103,8 +104,8 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.only(bottom: 10),
-      // height:MediaQuery.of(context).size.height*0.3 ,
+      //padding: const EdgeInsets.only(bottom: 10),
+       height:MediaQuery.of(context).size.height*0.3 ,
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -133,7 +134,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: Image.network(
-                        workspace!.photoUrl,
+                      workspace!.photoUrl==""? dummyImage: workspace!.photoUrl,
                         fit: BoxFit.fill,
                         height: MediaQuery.of(context).size.width * 0.3,
                       ),

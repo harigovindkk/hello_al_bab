@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,7 +74,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
           )
         : Container(
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.only(bottom: 70),
+            padding: const EdgeInsets.only(bottom: 35),
             // height:MediaQuery.of(context).size.height*0.3 ,
             child: Stack(
               overflow: Overflow.visible,
@@ -325,7 +326,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                                                     Column(
                                                       children: [
                                                         Text(
-                                                            "Number of companies",
+                                                            "Companies",
                                                             style: GoogleFonts
                                                                 .poppins(
                                                                     color: Colors

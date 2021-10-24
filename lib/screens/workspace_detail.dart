@@ -6,6 +6,7 @@ import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/constants/resources.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/workspace_model.dart';
 import 'package:hello_al_bab/screens/gotoLogin.dart';
@@ -24,7 +25,7 @@ class WorkSpaceDetail extends StatefulWidget {
 
 class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
   Workspace? workspace;
-  int isLoggedIn = 0;
+  int? isLoggedIn = null;
   bool isLoading = true;
 
   bool projectCheck = false;
@@ -72,6 +73,14 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
     }
   }
 
+    loginChecker() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isLoggedIn = prefs.getInt('loggedin');
+    });
+    print("isLoggedIn = $isLoggedIn");
+  }
+
   Future<void> getDetails() async {
     return FirebaseFirestore.instance
         .collection('workspace')
@@ -91,6 +100,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
     setState(() {
       isLoading = true;
     });
+    loginChecker();
     getDetails().whenComplete(() {
       setState(() {
         isLoading = false;
@@ -118,7 +128,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                     color: primary,
                   ),
                   child: Image.network(
-                    workspace!.photoUrl,
+                     workspace!.photoUrl==""? dummyImage: workspace!.photoUrl,
                     width: 100,
                     height: 100,
                     fit: BoxFit.cover,
@@ -477,6 +487,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                           "timeStamp": Timestamp.now(),
                                           "toDate": toDate,
                                           "toTime": selectedToTime,
+                                          "clientEmail" : FirebaseAuth.instance.currentUser!.email,
                                           "transactionId": "1231",
                                           "userId": FirebaseAuth
                                               .instance.currentUser!.uid,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/model/bookings_model.dart';
-import 'package:hello_al_bab/widgets/bookedWorkspace.dart';
+import 'package:hello_al_bab/widgets/booked_workspace.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -49,55 +49,54 @@ class _MyBookingsState extends State<MyBookings> {
           color: Colors.white,
           child: Column(
             children: [
-              Column(
-                children: [
-                  StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection('bookings')
-                        .where('userId',
-                            isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('bookings')
+                    .where('userId',
+                        isEqualTo: FirebaseAuth.instance.currentUser!.uid)
 
-                        // .orderBy("date", descending: true)
-                        .snapshots(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                            child: CircularProgressIndicator(
-                          color: primary,
-                        ));
-                      }
-                      if (snapshot.data!.docs.isEmpty) {
-                        return Center(
-                          child: Text(
-                            "No bookings to show!",
-                            style: GoogleFonts.poppins(
-                                color: Colors.black, fontSize: 15),
-                          ),
+                    // .orderBy("date", descending: true)
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                        child: CircularProgressIndicator(
+                      color: primary,
+                    ));
+                  }
+                  if (snapshot.data!.docs.isEmpty) {
+                    return Center(
+                      child: Text(
+                        "No bookings to show!",
+                        style: GoogleFonts.poppins(
+                            color: Colors.black, fontSize: 15),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasData) {
+                    return ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children: snapshot.data!.docs.map((doc) {
+                        booking = Bookings.fromJson(
+                            doc.data() as Map<String, dynamic>);
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom:35),
+                          child: BookedWorkSpaceCard(booking),
                         );
-                      }
-                      if (snapshot.hasData) {
-                        return ListView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          children: snapshot.data!.docs.map((doc) {
-                            booking = Bookings.fromJson(
-                                doc.data() as Map<String, dynamic>);
-                            return BookedWorkSpaceCard(booking);
-                          }).toList(),
-                        );
-                      } else {
-                        return Center(
-                          child: Text(
-                            "Unknown Error Occured!",
-                            style: GoogleFonts.poppins(
-                                color: Colors.black, fontSize: 15),
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                ],
+                      }).toList(),
+                    );
+                  } else {
+                    return Center(
+                      child: Text(
+                        "Unknown Error Occured!",
+                        style: GoogleFonts.poppins(
+                            color: Colors.black, fontSize: 15),
+                      ),
+                    );
+                  }
+                },
               ),
             ],
           ),

@@ -89,10 +89,10 @@ class _LoginPageState extends State<LoginPage> {
         print("account exists");
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setInt('loggedin', 1);
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => Home(),
+            builder: (context) =>value.docs.first['phone']==""? CompleteProfile(): Home(),
           ),
         );
       } else {

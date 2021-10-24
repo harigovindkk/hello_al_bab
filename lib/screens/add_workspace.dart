@@ -6,6 +6,7 @@ import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/request_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hello_al_bab/model/user_model.dart';
 import 'package:hello_al_bab/screens/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hello_al_bab/widgets/workspace_request_card.dart';
@@ -21,14 +22,44 @@ class _AddWorkspaceState extends State<AddWorkspace> {
   TextEditingController otpcontroller = TextEditingController();
   Requests? myRequest;
   String recentstatus = "";
+ //  bool _isLoading = true;
+    Users? userDetail;
+
+  Future<void> getDetails() async {
+    setState(() {
+      isLoading = true;
+    });
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      setState(() {
+        userDetail =
+            Users.fromJson(value.data() as Map<String, dynamic>) as Users;
+      });
+    }).whenComplete(() => setState(() {
+              // print(userDetail!.profilePicture);
+              isLoading = false;
+            }));
+  }
   Future<void> createRequestDoc() async {
-    await FirebaseFirestore.instance.collection('addRequests').doc().set({
+    String requestId =
+        FirebaseFirestore.instance.collection('addRequests').doc().id;
+    await FirebaseFirestore.instance
+        .collection('addRequests')
+        .doc(requestId)
+        .set({
       'type': "workspace",
+      'requestId': requestId,
+      'clientPhone': userDetail!.phone,
+      'clientEmail': userDetail!.email,
       'status': 'requested',
       'time': Timestamp.now(),
       'userId': FirebaseAuth.instance.currentUser!.uid
     }).onError((error, stackTrace) => print(error));
   }
+
 
   int? isLoggedin = null;
 
@@ -89,6 +120,7 @@ bool isLoading=true;
     // TODO: implement initState
     super.initState();
     isLoading=true;
+    getDetails();
     loginChecker();
   }
 
@@ -124,7 +156,7 @@ bool isLoading=true;
                       .where('userId',
                           isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                       .where('type', isEqualTo: 'workspace')
-                      //  .orderBy("date", descending: true)
+                     .orderBy("date", descending: true)
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {

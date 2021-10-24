@@ -4,7 +4,7 @@ import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/bookings_model.dart';
 import 'package:hello_al_bab/model/workspace_model.dart';
 import 'package:hello_al_bab/screens/workspace_detail.dart';
-import 'package:hello_al_bab/widgets/bookedWorkspace.dart';
+import 'package:hello_al_bab/widgets/booked_workspace.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/screens/home.dart';
@@ -211,7 +211,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
                         ),
                         status),
                     SizedBox(
-                      height: 35,
+                      height: 75,
                     ),
                     Row(
                       children: [

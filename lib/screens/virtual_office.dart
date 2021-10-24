@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/model/request_model.dart';
+import 'package:hello_al_bab/model/user_model.dart';
 import 'package:hello_al_bab/screens/bookings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hello_al_bab/screens/login.dart';
@@ -21,10 +22,39 @@ class VirtualOfficePage extends StatefulWidget {
 class _VirtualOfficePageState extends State<VirtualOfficePage> {
   TextEditingController otpcontroller = TextEditingController();
   Requests? myRequest;
+    bool _isLoading = true;
+  Users? userDetail;
+
+  Future<void> getDetails() async {
+    setState(() {
+      _isLoading = true;
+    });
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      setState(() {
+        userDetail =
+            Users.fromJson(value.data() as Map<String, dynamic>) as Users;
+      });
+    }).whenComplete(() => setState(() {
+              // print(userDetail!.profilePicture);
+              _isLoading = false;
+            }));
+  }
   String recentstatus = "";
   Future<void> createRequestDoc() async {
-    await FirebaseFirestore.instance.collection('addRequests').doc().set({
+    String requestId =
+        FirebaseFirestore.instance.collection('addRequests').doc().id;
+    await FirebaseFirestore.instance
+        .collection('addRequests')
+        .doc(requestId)
+        .set({
       'type': "virtual office",
+      'requestId': requestId,
+      'clientPhone': userDetail!.phone,
+      'clientEmail': userDetail!.email,
       'status': 'requested',
       'time': Timestamp.now(),
       'userId': FirebaseAuth.instance.currentUser!.uid
@@ -78,6 +108,7 @@ class _VirtualOfficePageState extends State<VirtualOfficePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getDetails();
     loginChecker();
   }
 
@@ -120,7 +151,7 @@ class _VirtualOfficePageState extends State<VirtualOfficePage> {
                           isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                       .where('type', isEqualTo: 'virtual office')
 
-                      //  .orderBy("date", descending: true)
+                        .orderBy("date", descending: true)
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -140,6 +171,7 @@ class _VirtualOfficePageState extends State<VirtualOfficePage> {
                       );
                     }
                     if (snapshot.hasData) {
+                     // print("last "+snapshot.data!.docs.last.toString());
                       recentstatus = snapshot.data!.docs.last['status'];
                       return ListView(
                         physics: const NeverScrollableScrollPhysics(),
