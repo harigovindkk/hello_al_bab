@@ -28,10 +28,21 @@ class _SearchResultsState extends State<SearchResults> {
     print(spec);
   }
 
+    int? isLoggedin = null;
+
+  loginChecker() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isLoggedin = prefs.getInt('loggedin');
+    });
+    print("isLoggedin = $isLoggedin");
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     _getSearchCriteria();
+    loginChecker();
     super.initState();
     //print(123);
   }

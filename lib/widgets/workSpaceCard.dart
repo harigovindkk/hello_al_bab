@@ -39,6 +39,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
   // }
 
   Future<void> getDetails() async {
+    loginChecker();
     return FirebaseFirestore.instance
         .collection('workspace')
         .doc(widget.spaceId)
@@ -237,6 +238,7 @@ class _WorkSpaceCardState extends State<WorkSpaceCard> {
                           size: 24,
                         ),
                         onPressed: () {
+                          print(" log "+isLoggedin.toString());
                           if (isLoggedin == 1) {
                             setState(() {
                               liked = !liked!;

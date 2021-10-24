@@ -83,7 +83,7 @@ class _BookedWorkSpaceCardState extends State<BookedWorkSpaceCard> {
                   margin: const EdgeInsets.all(25),
 
                   width: MediaQuery.of(context).size.width * 0.25,
-                  // height: MediaQuery.of(context).size.width * 0.35,
+                   height: MediaQuery.of(context).size.width * 0.35,
                   // decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),

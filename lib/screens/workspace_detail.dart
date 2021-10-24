@@ -8,6 +8,7 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:hello_al_bab/constants/colors.dart';
 import 'package:hello_al_bab/constants/resources.dart';
 import 'package:hello_al_bab/constants/snackbar.dart';
+import 'package:hello_al_bab/model/user_model.dart';
 import 'package:hello_al_bab/model/workspace_model.dart';
 import 'package:hello_al_bab/screens/gotoLogin.dart';
 import 'package:hello_al_bab/screens/home.dart';
@@ -47,6 +48,20 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
   List additionalFacilities = [];
   TextEditingController specialRequest = TextEditingController(text: "");
 
+ Users? userDetail = null;
+  //TextEditingController otpcontroller = TextEditingController();
+
+  Future<void> getUserDetails() async {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      setState(() {
+        userDetail = Users.fromJson(value.data() as Map<String, dynamic>);
+      });
+    });
+  }
   _getSearchCriteria() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -82,6 +97,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
   }
 
   Future<void> getDetails() async {
+    getUserDetails();
     return FirebaseFirestore.instance
         .collection('workspace')
         .doc(widget.workspace.spaceId)
@@ -488,6 +504,7 @@ class _WorkSpaceDetailState extends State<WorkSpaceDetail> {
                                           "toDate": toDate,
                                           "toTime": selectedToTime,
                                           "clientEmail" : FirebaseAuth.instance.currentUser!.email,
+                                            "clientPhone" : userDetail!.phone,
                                           "transactionId": "1231",
                                           "userId": FirebaseAuth
                                               .instance.currentUser!.uid,

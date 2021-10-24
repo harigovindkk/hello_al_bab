@@ -156,7 +156,7 @@ bool isLoading=true;
                       .where('userId',
                           isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                       .where('type', isEqualTo: 'workspace')
-                     .orderBy("date", descending: true)
+                     .orderBy("time", descending: true)
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -176,7 +176,7 @@ bool isLoading=true;
                       );
                     }
                     if (snapshot.hasData) {
-                      recentstatus = snapshot.data!.docs.last['status'];
+                      recentstatus = snapshot.data!.docs.first['status'];
                       return ListView(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,

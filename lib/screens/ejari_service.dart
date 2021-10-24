@@ -153,7 +153,7 @@ class _EjariServicePageState extends State<EjariServicePage> {
                           .where('userId',
                               isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                           .where('type', isEqualTo: 'ejari')
-                          //.orderBy("date", descending: true)
+                          .orderBy("time", descending: true)
                           .snapshots(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -174,7 +174,7 @@ class _EjariServicePageState extends State<EjariServicePage> {
                           );
                         }
                         if (snapshot.hasData) {
-                          recentstatus = snapshot.data!.docs.last['status'];
+                          recentstatus = snapshot.data!.docs.first['status'];
                           return ListView(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,

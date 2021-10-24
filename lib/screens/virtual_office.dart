@@ -151,7 +151,7 @@ class _VirtualOfficePageState extends State<VirtualOfficePage> {
                           isEqualTo: FirebaseAuth.instance.currentUser!.uid)
                       .where('type', isEqualTo: 'virtual office')
 
-                        .orderBy("date", descending: true)
+                        .orderBy("time", descending: true)
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -172,7 +172,7 @@ class _VirtualOfficePageState extends State<VirtualOfficePage> {
                     }
                     if (snapshot.hasData) {
                      // print("last "+snapshot.data!.docs.last.toString());
-                      recentstatus = snapshot.data!.docs.last['status'];
+                      recentstatus = snapshot.data!.docs.first['status'];
                       return ListView(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
