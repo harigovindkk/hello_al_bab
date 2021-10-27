@@ -91,7 +91,7 @@ class _SearchCriteriaState extends State<SearchCriteria> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedFromDate, // Refer step 1
-      firstDate: DateTime(2000),
+      firstDate: DateTime.now().subtract(Duration(days: 0)),
       lastDate: DateTime(2025),
       helpText: 'Select from date',
       builder: (context, child) {
@@ -119,8 +119,8 @@ class _SearchCriteriaState extends State<SearchCriteria> {
   _selectToDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: selectedToDate, // Refer step 1
-      firstDate: DateTime(2000),
+      initialDate: selectedFromDate.add(Duration(days: 1)), // Refer step 1
+      firstDate: selectedFromDate.add(Duration(days: 1)),
       lastDate: DateTime(2025),
       helpText: 'Select to date',
       builder: (context, child) {
