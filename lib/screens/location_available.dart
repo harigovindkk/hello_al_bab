@@ -400,13 +400,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
                       ),
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0)),
-                          elevation: 0,
-                          primary: Colors.transparent,
-                          padding: const EdgeInsets.all(15),
-                        ),
+                       style: customButtonStyle,
                         child: Text(
                           "Book for 22 AED",
                           style: GoogleFonts.poppins(

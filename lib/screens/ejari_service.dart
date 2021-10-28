@@ -201,28 +201,10 @@ class _EjariServicePageState extends State<EjariServicePage> {
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(50.0),
-                          gradient: const LinearGradient(
-                              colors: <Color>[
-                                Color(0xffF9DB39),
-                                Color(0xffFFEF62)
-                              ],
-                              begin: FractionalOffset.topLeft,
-                              end: FractionalOffset.bottomRight,
-                              stops: [0.1, 0.4],
-                              tileMode: TileMode.mirror),
-                        ),
+                        decoration: customDecoration,
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0)),
-                            elevation: 0,
-                            primary: Colors.transparent,
-                            padding: const EdgeInsets.all(15),
-                          ),
+                        style: customButtonStyle,
                           onPressed: () {
                             if (recentstatus == "requested" ||
                                 (recentstatus == "processsing")) {
@@ -299,30 +281,12 @@ class _EjariServicePageState extends State<EjariServicePage> {
                         style: GoogleFonts.poppins(color: Colors.black),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 20),
+                     const SizedBox(height: 20),
                       Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(50.0),
-                          gradient: const LinearGradient(
-                              colors: <Color>[
-                                Color(0xffF9DB39),
-                                Color(0xffFFEF62)
-                              ],
-                              begin: FractionalOffset.topLeft,
-                              end: FractionalOffset.bottomRight,
-                              stops: [0.1, 0.4],
-                              tileMode: TileMode.mirror),
-                        ),
+                        decoration: customDecoration,
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0)),
-                            elevation: 0,
-                            primary: Colors.transparent,
-                            padding: const EdgeInsets.all(15),
-                          ),
+                        style: customButtonStyle,
                           onPressed: () {
                             Navigator.push(
                               context,

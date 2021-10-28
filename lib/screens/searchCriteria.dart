@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hello_al_bab/constants/colors.dart';
+import 'package:hello_al_bab/constants/snackbar.dart';
 import 'package:hello_al_bab/screens/search_result.dart';
 import 'package:hello_al_bab/screens/location_available.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -524,32 +525,19 @@ class _SearchCriteriaState extends State<SearchCriteria> {
             // ),
             const Spacer(),
             Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(50.0),
-                gradient: const LinearGradient(
-                    colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
-                    begin: FractionalOffset.topLeft,
-                    end: FractionalOffset.bottomRight,
-                    stops: [0.1, 0.4],
-                    tileMode: TileMode.mirror),
-              ),
+              decoration: customDecoration,
               width: MediaQuery.of(context).size.width * 0.9,
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0)),
-                  elevation: 0,
-                  primary: Colors.transparent,
-                  padding: const EdgeInsets.all(15),
-                ),
+                style: customButtonStyle,
                 child: Text(
                   "Check Availability",
                   style: GoogleFonts.poppins(
                       color: Colors.black, fontWeight: FontWeight.w600),
                 ),
                 onPressed: () async {
-                  //print(_selectedFromTime);
+                  if((isSingleDay&&_selectedFromTime!=null&&_selectedToTime!=null)||(isMultipleDay&&selectedFromDate!=null&&selectedToDate!=null))
+                  {
+                     //print(_selectedFromTime);
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
                   prefs.setBool('isSingle', isSingleDay);
@@ -570,6 +558,14 @@ class _SearchCriteriaState extends State<SearchCriteria> {
                     context,
                     MaterialPageRoute(builder: (context) => SearchResults()),
                   );
+                  }
+                  else
+                  {
+                     ScaffoldMessenger.of(context).showSnackBar(
+                              customSnackBar(
+                                  "Please select the necessary fields", Icons.warning_amber_rounded));
+                  }
+                 
                 },
               ),
             ),

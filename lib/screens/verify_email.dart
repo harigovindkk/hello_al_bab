@@ -128,12 +128,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0)),
-                    primary: primary,
-                    padding: const EdgeInsets.all(15),
-                  ),
+                  style: customButtonStyle,
                   onPressed: () {
                     Navigator.push(
                       context,

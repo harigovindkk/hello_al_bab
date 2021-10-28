@@ -50,6 +50,7 @@ class _SearchResultsState extends State<SearchResults> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
      appBar: AppBar(
         elevation: 0,
         leading: IconButton(

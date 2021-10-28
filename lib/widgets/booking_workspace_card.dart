@@ -399,8 +399,8 @@ class _BookedWorkSpaceCardState extends State<BookingWorkSpaceCard> {
                             ],
                             begin: FractionalOffset.topLeft,
                             end: FractionalOffset.bottomRight,
-                            stops: [0.1, 0.4],
-                            tileMode: TileMode.mirror),
+                            //stops: [0.1, 0.4],
+                            tileMode: TileMode.repeated),
                       
                             boxShadow: [
                               const BoxShadow(

@@ -45,25 +45,10 @@ class _OfficeSpacePageState extends State<OfficeSpacePage> {
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15, top: 15),
               child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(50.0),
-                  gradient: const LinearGradient(
-                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
-                      begin: FractionalOffset.topLeft,
-                      end: FractionalOffset.bottomRight,
-                      stops: [0.1, 0.4],
-                      tileMode: TileMode.mirror),
-                ),
+                decoration: customDecoration,
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0)),
-                     elevation: 0,
-                    primary: Colors.transparent,
-                    padding: const EdgeInsets.all(15),
-                  ),
+                  style:customButtonStyle,
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
@@ -90,25 +75,10 @@ class _OfficeSpacePageState extends State<OfficeSpacePage> {
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15, top: 15),
               child: Container(
-                 decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(50.0),
-                  gradient: const LinearGradient(
-                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
-                      begin: FractionalOffset.topLeft,
-                      end: FractionalOffset.bottomRight,
-                      stops: [0.1, 0.4],
-                      tileMode: TileMode.mirror),
-                ),
+                 decoration: customDecoration,
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0)),
-                     elevation: 0,
-                    primary: Colors.transparent,
-                    padding: const EdgeInsets.all(15),
-                  ),
+                  style:customButtonStyle,
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
@@ -134,25 +104,10 @@ class _OfficeSpacePageState extends State<OfficeSpacePage> {
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15, top: 15),
               child: Container(
-                 decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(50.0),
-                  gradient: const LinearGradient(
-                      colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
-                      begin: FractionalOffset.topLeft,
-                      end: FractionalOffset.bottomRight,
-                      stops: [0.1, 0.4],
-                      tileMode: TileMode.mirror),
-                ),
+                 decoration: customDecoration,
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0)),
-                     elevation: 0,
-                    primary: Colors.transparent,
-                    padding: const EdgeInsets.all(15),
-                  ),
+                  style: customButtonStyle,
                   onPressed: () async {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();

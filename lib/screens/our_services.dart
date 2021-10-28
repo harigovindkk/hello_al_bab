@@ -15,7 +15,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:restart_app/restart_app.dart';
 
-
 class OurServicesPage extends StatefulWidget {
   const OurServicesPage({Key? key}) : super(key: key);
 
@@ -31,8 +30,7 @@ class _OurServicesPageState extends State<OurServicesPage> {
     setState(() {
       isLoggedin = prefs.getInt('loggedin');
     });
-       if(isLoggedin==1)  getDetails();
-
+    if (isLoggedin == 1) getDetails();
   }
 
   bool isLoading = false;
@@ -120,9 +118,9 @@ class _OurServicesPageState extends State<OurServicesPage> {
   initState() {
     // TODO: implement initState
     super.initState();
- 
+
     loginChecker();
-    
+
     //print(FirebaseAuth.instance.currentUser);
   }
 
@@ -171,15 +169,15 @@ class _OurServicesPageState extends State<OurServicesPage> {
                 children: <Widget>[
                   isLoggedin == 1
                       ? Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: Text('Hi, ${user!.name.split(' ')[0]}!',
-                            overflow: TextOverflow.fade,
-                            softWrap: false,
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30,
-                                color: Colors.black)),
-                      )
+                          padding: const EdgeInsets.all(18.0),
+                          child: Text('Hi, ${user!.name.split(' ')[0]}!',
+                              overflow: TextOverflow.fade,
+                              softWrap: false,
+                              style: GoogleFonts.poppins(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                  color: Colors.black)),
+                        )
                       : Row(
                           children: [
                             Padding(
@@ -196,28 +194,10 @@ class _OurServicesPageState extends State<OurServicesPage> {
                     padding:
                         const EdgeInsets.only(left: 15, right: 15, top: 15),
                     child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(50.0),
-                        gradient: const LinearGradient(
-                            colors: <Color>[
-                              Color(0xffF9DB39),
-                              Color(0xffFFEF62)
-                            ],
-                            begin: FractionalOffset.topLeft,
-                            end: FractionalOffset.bottomRight,
-                            stops: [0.1, 0.4],
-                            tileMode: TileMode.mirror),
-                      ),
+                      decoration: customDecoration,
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0)),
-                          elevation: 0,
-                          primary: Colors.transparent,
-                          padding: const EdgeInsets.all(15),
-                        ),
+                        style: customButtonStyle,
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -242,28 +222,10 @@ class _OurServicesPageState extends State<OurServicesPage> {
                     padding:
                         const EdgeInsets.only(left: 15, right: 15, top: 15),
                     child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(50.0),
-                        gradient: const LinearGradient(
-                            colors: <Color>[
-                              Color(0xffF9DB39),
-                              Color(0xffFFEF62)
-                            ],
-                            begin: FractionalOffset.topLeft,
-                            end: FractionalOffset.bottomRight,
-                            stops: [0.1, 0.4],
-                            tileMode: TileMode.mirror),
-                      ),
+                      decoration: customDecoration,
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0)),
-                          elevation: 0,
-                          primary: Colors.transparent,
-                          padding: const EdgeInsets.all(15),
-                        ),
+                        style: customButtonStyle,
                         onPressed: () {
                           print("value=$isLoggedin");
 
