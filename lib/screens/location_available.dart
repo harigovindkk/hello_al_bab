@@ -91,11 +91,11 @@ class _LocationAvailableState extends State<LocationAvailable> {
           bookedFromDate = f.toDate();
           Timestamp t = value.docs[i].data()['toDate'];
           bookedToDate = t.toDate();
-          // print("fromDate : ${fromDate}");
-          // print("toDate : ${toDate}");
-          // print("bookedFromDate : ${bookedFromDate}");
-          // print("bookedToDate : ${bookedToDate}");
-          // print(bookedToDate!.isAfter(fromDate!));
+          print("fromDate : ${fromDate}");
+          print("toDate : ${toDate}");
+          print("bookedFromDate : ${bookedFromDate}");
+          print("bookedToDate : ${bookedToDate}");
+          print(bookedToDate!.isAfter(fromDate!));
           if (!isSingleDay) {
             if (bookedToDate!.isAfter(fromDate!) &&
                     bookedFromDate!.isBefore(fromDate!) ||
@@ -140,7 +140,7 @@ class _LocationAvailableState extends State<LocationAvailable> {
             }
           }
         }
-        print(status);
+        print("status is "+status);
       } else {
         setState(() {
           status = "Available";
