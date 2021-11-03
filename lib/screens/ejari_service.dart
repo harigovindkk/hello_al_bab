@@ -73,12 +73,12 @@ class _EjariServicePageState extends State<EjariServicePage> {
   }
 
   Widget bookingConfirmation(BuildContext context) {
-    return new AlertDialog(
+    return AlertDialog(
       title: Text(
         "Confirm Ejari Service Request",
         style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w700),
       ),
-      content: new Column(
+      content:  Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -89,27 +89,30 @@ class _EjariServicePageState extends State<EjariServicePage> {
         ],
       ),
       actions: <Widget>[
-        new FlatButton(
+         TextButton(
           child: Text(
             "Cancel",
-            style: GoogleFonts.poppins(),
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w700, color: Colors.black,),
           ),
           onPressed: () {
             ScaffoldMessenger.of(context)
                 .showSnackBar(customSnackBar("Request cancelled", Icons.check));
             Navigator.of(context).pop();
           },
-          textColor: primary,
+         
         ),
-        new FlatButton(
+         TextButton(
           onPressed: () {
-            createRequestDoc().whenComplete(() => ScaffoldMessenger.of(context)
+             Navigator.of(context).pop();
+            createRequestDoc().whenComplete(() { 
+              
+              ScaffoldMessenger.of(context)
                 .showSnackBar(customSnackBar(
-                    "Request placed successfully", Icons.check)));
-            Navigator.of(context).pop();
+                    "Request placed successfully", Icons.check));});
+           
           },
-          textColor: primary,
-          child: Text("Okay", style: GoogleFonts.poppins()),
+          
+          child: Text("Ok", style: GoogleFonts.poppins(fontWeight: FontWeight.w700, color: Colors.black)),
         ),
       ],
     );

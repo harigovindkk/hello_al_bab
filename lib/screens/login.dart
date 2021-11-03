@@ -27,12 +27,12 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   Widget _buildSignUpPop(BuildContext context) {
-    return new AlertDialog(
+    return  AlertDialog(
       title: Text(
         "Account doesn't exist",
         style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w700),
       ),
-      content: new Column(
+      content:  Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -43,27 +43,27 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
       actions: <Widget>[
-        new FlatButton(
+         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          textColor: primary,
+          //textColor: Colors.black,
           child: Text(
             "Close",
-            style: GoogleFonts.poppins(),
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w700, color: Colors.black),
           ),
         ),
-        new FlatButton(
+         TextButton(
           onPressed: () {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => SignUpPage(),
+                builder: (context) => const SignUpPage(),
               ),
             );
           },
-          textColor: primary,
-          child: Text("Goto sign up", style: GoogleFonts.poppins()),
+          //textColor: Colors.black,
+          child: Text("Goto sign up", style: GoogleFonts.poppins(fontWeight: FontWeight.w700, color: Colors.black)),
         ),
       ],
     );

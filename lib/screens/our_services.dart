@@ -58,33 +58,33 @@ class _OurServicesPageState extends State<OurServicesPage> {
   }
 
   Widget ensureLogout(BuildContext context) {
-    return new AlertDialog(
+    return  AlertDialog(
       title: Text(
         "Confirm Logout",
         style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w700),
       ),
-      content: new Column(
+      content:  Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            "Are you sure to sign out?",
+            "Do you really wish to Sign Out?",
             style: GoogleFonts.poppins(),
           ),
         ],
       ),
       actions: <Widget>[
-        new FlatButton(
+         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          textColor: Colors.black,
+          
           child: Text(
             "No",
-            style: GoogleFonts.poppins(),
+            style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w700),
           ),
         ),
-        new FlatButton(
+        TextButton(
           onPressed: () async {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             prefs.setInt('loggedin', 0);
@@ -106,8 +106,8 @@ class _OurServicesPageState extends State<OurServicesPage> {
               MaterialPageRoute(builder: (context) => LoginPage()),
             );
           },
-          textColor: Colors.black,
-          child: Text("Yes", style: GoogleFonts.poppins()),
+          //textColor: Colors.black,
+          child: Text("Yes", style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w700)),
         ),
       ],
     );

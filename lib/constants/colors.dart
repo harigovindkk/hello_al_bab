@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const primary = Color(0xFFFFC700);
 const lightprimary = Color(0xFFFBE9B7);
 const boxColor = Color(0xFF292929);
+const backgroundColor = Color(0xffE5E5E5);
 
 BoxDecoration customDecoration = BoxDecoration(
   shape: BoxShape.rectangle,

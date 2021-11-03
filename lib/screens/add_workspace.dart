@@ -73,43 +73,45 @@ class _AddWorkspaceState extends State<AddWorkspace> {
   }
 bool isLoading=true;
   Widget bookingConfirmation(BuildContext context) {
-    return new AlertDialog(
+    return AlertDialog(
       title: Text(
-        "Confirm listing request",
+        "Confirm Listing Request",
         style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w700),
       ),
-      content: new Column(
+      content: Column(
+        
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          
           Text(
-            "Thank you for your workspace request. Our Admin will contact you through email or phone.",
+            "Thank you for your interest, our team will contact you via email or phone with instructions to add a listing",
             style: GoogleFonts.poppins(),
           ),
         ],
       ),
       actions: <Widget>[
-        new FlatButton(
+        TextButton(
           child: Text(
             "Cancel",
-            style: GoogleFonts.poppins(),
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w700, color: Colors.black,),
           ),
           onPressed: () {
             ScaffoldMessenger.of(context)
                 .showSnackBar(customSnackBar("Request cancelled", Icons.check));
             Navigator.of(context).pop();
           },
-          textColor: primary,
+         
         ),
-        new FlatButton(
+        TextButton(
           onPressed: () {
             createRequestDoc().whenComplete(() => ScaffoldMessenger.of(context)
                 .showSnackBar(customSnackBar(
                     "Request placed successfully", Icons.check)));
             Navigator.of(context).pop();
           },
-          textColor: primary,
-          child: Text("Okay", style: GoogleFonts.poppins()),
+         // textColor: Colors.black,
+          child: Text("Ok", style: GoogleFonts.poppins(fontWeight: FontWeight.w700, color: Colors.black,)),
         ),
       ],
     );

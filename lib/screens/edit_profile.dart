@@ -473,8 +473,8 @@ class _EditProfileState extends State<EditProfile> {
                                                   'Change Profile Picture',
                                                   style: GoogleFonts.poppins(
                                                       fontWeight:
-                                                          FontWeight.bold,
-                                                      color: primary),
+                                                          FontWeight.w700,
+                                                      color: Colors.black),
                                                   textAlign: TextAlign.left,
                                                 ),
                                                 content: SingleChildScrollView(
@@ -494,7 +494,7 @@ class _EditProfileState extends State<EditProfile> {
                                                     child: Text(
                                                         'Select from Gallery',
                                                         style:
-                                                            GoogleFonts.poppins(
+                                                            GoogleFonts.poppins(fontWeight: FontWeight.w700,
                                                                 color: Colors
                                                                     .black)),
                                                     onPressed: () {
@@ -503,19 +503,19 @@ class _EditProfileState extends State<EditProfile> {
                                                           .pop();
                                                     },
                                                   ),
-                                                  // TextButton(
-                                                  //   child: Text(
-                                                  //       'Take a Picture',
-                                                  //       style:
-                                                  //           GoogleFonts.poppins(
-                                                  //               color: Colors
-                                                  //                   .black)),
-                                                  //   onPressed: () {
-                                                  //     _fromCamera();
-                                                  //     Navigator.of(context)
-                                                  //         .pop();
-                                                  //   },
-                                                  // ),
+                                                  TextButton(
+                                                    child: Text(
+                                                        'Cancel',
+                                                        style:
+                                                            GoogleFonts.poppins(fontWeight: FontWeight.w700,
+                                                                color: Colors
+                                                                    .black)),
+                                                    onPressed: () {
+                                                     
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  ),
                                                 ],
                                               );
                                             },
