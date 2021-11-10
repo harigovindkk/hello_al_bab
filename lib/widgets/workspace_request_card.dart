@@ -16,46 +16,18 @@ class _WorkSpaceRequestCardState extends State<WorkSpaceRequestCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15.0, right: 15, top: 15),
+      padding: const EdgeInsets.only(left: 15.0, right: 15),
       child: Container(
-        height: 80,
+        height: 48,
         padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 1),borderRadius: BorderRadius.circular(15)
-        ),
+        // decoration: BoxDecoration(
+        //   border: Border.all(color: Colors.black, width: 1),borderRadius: BorderRadius.circular(15)
+        // ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Request Placed On : ',
-                        style: GoogleFonts.poppins(color: Colors.black)),
-                    Text(
-                        DateFormat('dd-MM-yyyy hh:mm')
-                            .format((widget.request.time).toDate()),
-                        style: GoogleFonts.poppins(color: Colors.black)),
-                  ],
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Request Status : ',
-                        style: GoogleFonts.poppins(color: Colors.black)),
-                    Text(widget.request.status,
-                        style: GoogleFonts.poppins(color: Colors.black)),
-                  ],
-                ),
-              ],
-            ),
             Icon(
-                  widget.request.status == "accepted"
+              widget.request.status == "accepted"
                   ? Icons.check
                   : widget.request.status == "rejected"
                       ? Icons.close
@@ -64,22 +36,39 @@ class _WorkSpaceRequestCardState extends State<WorkSpaceRequestCard> {
                           : widget.request.status == "requested"
                               ? Icons.add_task_outlined
                               : Icons.error,
-                              color: primary,
-                              size: 45,
-            )
-            // Image.asset(
-            //   widget.request.status == "accepted"
-            //       ? 'images/success.JPG'
-            //       : widget.request.status == "rejected"
-            //           ? 'images/failed.png'
-            //           : widget.request.status == "processing"
-            //               ? 'images/processing.png'
-            //               : widget.request.status == "requested"
-            //                   ? 'images/requested.png'
-            //                   : '',
-            //   fit: BoxFit.fill,
-            //   height: MediaQuery.of(context).size.width * 0.5,
-            // ),
+              color: primary,
+              //color: Colors.black,
+            ),
+            //const SizedBox(width: 5),
+            // Text('Request Placed On : ',
+            //     style: GoogleFonts.poppins(color: Colors.black)),
+            Text(
+                DateFormat('dd MMM yyyy, hh:mm')
+                    .format((widget.request.time).toDate()),
+                style: GoogleFonts.poppins(color: Colors.black)),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.30,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(50.0),
+                color: widget.request.status == "accepted"
+                    ? Colors.lightGreen
+                    : widget.request.status == "rejected"
+                        ? Colors.redAccent
+                        : widget.request.status == "processing"
+                            ? Colors.lightBlue
+                            : widget.request.status == "requested"
+                                ? Colors.black54
+                                : Colors.deepPurple,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(widget.request.status,
+                      style: GoogleFonts.poppins(color: Colors.white)),
+                ],
+              ),
+            ),
           ],
         ),
       ),

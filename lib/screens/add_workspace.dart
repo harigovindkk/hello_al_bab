@@ -22,8 +22,8 @@ class _AddWorkspaceState extends State<AddWorkspace> {
   TextEditingController otpcontroller = TextEditingController();
   Requests? myRequest;
   String recentstatus = "";
- //  bool _isLoading = true;
-    Users? userDetail;
+  //  bool _isLoading = true;
+  Users? userDetail;
 
   Future<void> getDetails() async {
     setState(() {
@@ -43,6 +43,7 @@ class _AddWorkspaceState extends State<AddWorkspace> {
               isLoading = false;
             }));
   }
+
   Future<void> createRequestDoc() async {
     String requestId =
         FirebaseFirestore.instance.collection('addRequests').doc().id;
@@ -60,18 +61,18 @@ class _AddWorkspaceState extends State<AddWorkspace> {
     }).onError((error, stackTrace) => print(error));
   }
 
-
   int? isLoggedin = null;
 
   loginChecker() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       isLoggedin = prefs.getInt('loggedin');
-      isLoading=false;
+      isLoading = false;
     });
     print("isLoggedin = $isLoggedin");
   }
-bool isLoading=true;
+
+  bool isLoading = true;
   Widget bookingConfirmation(BuildContext context) {
     return AlertDialog(
       title: Text(
@@ -79,11 +80,9 @@ bool isLoading=true;
         style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w700),
       ),
       content: Column(
-        
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          
           Text(
             "Thank you for your interest, our team will contact you via email or phone with instructions to add a listing",
             style: GoogleFonts.poppins(),
@@ -94,14 +93,16 @@ bool isLoading=true;
         TextButton(
           child: Text(
             "Cancel",
-            style: GoogleFonts.poppins(fontWeight: FontWeight.w700, color: Colors.black,),
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+            ),
           ),
           onPressed: () {
             ScaffoldMessenger.of(context)
                 .showSnackBar(customSnackBar("Request cancelled", Icons.check));
             Navigator.of(context).pop();
           },
-         
         ),
         TextButton(
           onPressed: () {
@@ -110,8 +111,12 @@ bool isLoading=true;
                     "Request placed successfully", Icons.check)));
             Navigator.of(context).pop();
           },
-         // textColor: Colors.black,
-          child: Text("Ok", style: GoogleFonts.poppins(fontWeight: FontWeight.w700, color: Colors.black,)),
+          // textColor: Colors.black,
+          child: Text("Ok",
+              style: GoogleFonts.poppins(
+                fontWeight: FontWeight.w700,
+                color: Colors.black,
+              )),
         ),
       ],
     );
@@ -121,7 +126,7 @@ bool isLoading=true;
   initState() {
     // TODO: implement initState
     super.initState();
-    isLoading=true;
+    isLoading = true;
     getDetails();
     loginChecker();
   }
@@ -145,170 +150,211 @@ bool isLoading=true;
         backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
-      body:isLoading? Center(
+      body: isLoading
+          ? Center(
               child: CircularProgressIndicator(
               color: primary,
-            )): isLoggedin == 1
-          ? SingleChildScrollView(
-              child: Column(
-              children: [
-                StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('addRequests')
-                      .where('userId',
-                          isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-                      .where('type', isEqualTo: 'workspace')
-                     .orderBy("time", descending: true)
-                      .snapshots(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                          child: CircularProgressIndicator(
-                        color: primary,
-                      ));
-                    }
-                    if (snapshot.data!.docs.isEmpty) {
-                      return Center(
-                        child: Text(
-                          "No requests to show!",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black, fontSize: 15),
-                        ),
-                      );
-                    }
-                    if (snapshot.hasData) {
-                      recentstatus = snapshot.data!.docs.first['status'];
-                      return ListView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        children: snapshot.data!.docs.map((doc) {
-                          myRequest = Requests.fromDoc(doc.data() as Map);
-                          return WorkSpaceRequestCard(myRequest as Requests);
-                        }).toList(),
-                      );
-                    } else {
-                      return Center(
-                        child: Text(
-                          "Unknown Error Occured!",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black, fontSize: 15),
-                        ),
-                      );
-                    }
-                  },
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                    decoration: customDecoration,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: ElevatedButton(
-                      style: customButtonStyle,
-                      onPressed: () {
-                        if (recentstatus == "requested" ||
-                            (recentstatus == "processsing")) {
-                          ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
-                              "You cannot place a new request if your latest request is not reviewed",
-                              Icons.warning_amber_rounded));
+            ))
+          : isLoggedin == 1
+              ? SingleChildScrollView(
+                  child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('addRequests')
+                          .where('userId',
+                              isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                          .where('type', isEqualTo: 'workspace')
+                          .orderBy("time", descending: true)
+                          .snapshots(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator(
+                            color: primary,
+                          ));
+                        }
+                        if (snapshot.data!.docs.isEmpty) {
+                          return Container(
+                            height: MediaQuery.of(context).size.height*0.60,
+                            child: Column(
+                              children: [
+                               SizedBox(height: MediaQuery.of(context).size.height*0.10 ),
+                                Image.asset('images/no-data.jpg', height: MediaQuery.of(context).size.height*0.40),
+                                 Center(
+                                  child: Text(
+                                    "No workspace requests to show!",
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black, fontSize: 15),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          recentstatus = snapshot.data!.docs.first['status'];
+                          return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.white60,
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  offset: Offset(
+                                    0.0,
+                                    0.0,
+                                  ),
+                                  blurRadius: 7.0,
+                                  spreadRadius: 2.0,
+                                ), //BoxShadow
+                                BoxShadow(
+                                  color: Colors.white,
+                                  offset: Offset(0.0, 0.0),
+                                  blurRadius: 0.0,
+                                  spreadRadius: 0.0,
+                                ), //BoxShadow
+                              ],
+                            ),
+                            margin: const EdgeInsets.only(top: 30, left: 30, right: 30),
+                            padding: const EdgeInsets.all(5),
+                            child: ListView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              children: snapshot.data!.docs.map((doc) {
+                                myRequest = Requests.fromDoc(doc.data() as Map);
+
+                                return WorkSpaceRequestCard(
+                                    myRequest as Requests);
+                              }).toList(),
+                            ),
+                          );
                         } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                bookingConfirmation(context),
+                          return Center(
+                            child: Text(
+                              "Unknown Error Occured!",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.black, fontSize: 15),
+                            ),
                           );
                         }
                       },
-                      child: Text(
-                        "Place New Request",
-                        style: GoogleFonts.poppins(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600),
-                      ),
                     ),
-                  ),
-                ),
-                //   Padding(
-                //     padding: const EdgeInsets.all(15.0),
-                //     child: Container(
-                //       decoration: BoxDecoration(
-                //         shape: BoxShape.rectangle,
-                //         borderRadius: BorderRadius.circular(50.0),
-                //         gradient: const LinearGradient(
-                //             colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
-                //             begin: FractionalOffset.topLeft,
-                //             end: FractionalOffset.bottomRight,
-                //             stops: [0.1, 0.4],
-                //             tileMode: TileMode.mirror),
-                //       ),
-                //       width: MediaQuery.of(context).size.width * 0.9,
-                //       child: ElevatedButton(
-                //         style: ElevatedButton.styleFrom(
-                //           shape: RoundedRectangleBorder(
-                //               borderRadius: BorderRadius.circular(50.0)),
-                //           elevation: 0,
-                //           primary: Colors.transparent,
-                //           padding: const EdgeInsets.all(15),
-                //         ),
-                //         onPressed: () {
-                //           Navigator.push(
-                //             context,
-                //             MaterialPageRoute(builder: (context) => MyBookings()),
-                //           );
-                //         },
-                //         child: Text(
-                //           "Continue to Bookings",
-                //           style: GoogleFonts.poppins(
-                //               color: Colors.black,
-                //               fontSize: 15,
-                //               fontWeight: FontWeight.w600),
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-              ],
-            ))
-          : Container(
-              child: Center(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Please Create an account to view your workspace requests",
-                        style: GoogleFonts.poppins(color: Colors.black),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 20),
-                      Container(
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Container(
                         decoration: customDecoration,
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: ElevatedButton(
-                       style: customButtonStyle,
+                          style: customButtonStyle,
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage()),
-                            );
+                            if (recentstatus == "requested" ||
+                                (recentstatus == "processsing")) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  customSnackBar(
+                                      "You cannot place a new request if your latest request is not reviewed",
+                                      Icons.warning_amber_rounded));
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    bookingConfirmation(context),
+                              );
+                            }
                           },
                           child: Text(
-                            "Go to sign in",
+                            "Place New Request",
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600),
-                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                    ]),
-              ),
-            ),
+                    ),
+                    //   Padding(
+                    //     padding: const EdgeInsets.all(15.0),
+                    //     child: Container(
+                    //       decoration: BoxDecoration(
+                    //         shape: BoxShape.rectangle,
+                    //         borderRadius: BorderRadius.circular(50.0),
+                    //         gradient: const LinearGradient(
+                    //             colors: <Color>[Color(0xffF9DB39), Color(0xffFFEF62)],
+                    //             begin: FractionalOffset.topLeft,
+                    //             end: FractionalOffset.bottomRight,
+                    //             stops: [0.1, 0.4],
+                    //             tileMode: TileMode.mirror),
+                    //       ),
+                    //       width: MediaQuery.of(context).size.width * 0.9,
+                    //       child: ElevatedButton(
+                    //         style: ElevatedButton.styleFrom(
+                    //           shape: RoundedRectangleBorder(
+                    //               borderRadius: BorderRadius.circular(50.0)),
+                    //           elevation: 0,
+                    //           primary: Colors.transparent,
+                    //           padding: const EdgeInsets.all(15),
+                    //         ),
+                    //         onPressed: () {
+                    //           Navigator.push(
+                    //             context,
+                    //             MaterialPageRoute(builder: (context) => MyBookings()),
+                    //           );
+                    //         },
+                    //         child: Text(
+                    //           "Continue to Bookings",
+                    //           style: GoogleFonts.poppins(
+                    //               color: Colors.black,
+                    //               fontSize: 15,
+                    //               fontWeight: FontWeight.w600),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                  ],
+                ))
+              : Container(
+                  child: Center(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Please Create an account to view your workspace requests",
+                            style: GoogleFonts.poppins(color: Colors.black),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 20),
+                          Container(
+                            decoration: customDecoration,
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: ElevatedButton(
+                              style: customButtonStyle,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LoginPage()),
+                                );
+                              },
+                              child: Text(
+                                "Go to sign in",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ]),
+                  ),
+                ),
     );
   }
 }

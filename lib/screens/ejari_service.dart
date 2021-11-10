@@ -168,24 +168,59 @@ class _EjariServicePageState extends State<EjariServicePage> {
                           ));
                         }
                         if (snapshot.data!.docs.isEmpty) {
-                          return Center(
-                            child: Text(
-                              "No requests to show!",
-                              style: GoogleFonts.poppins(
-                                  color: Colors.black, fontSize: 15),
+                          return Container(
+                            height: MediaQuery.of(context).size.height*0.60,
+                            child: Column(
+                              children: [
+                               SizedBox(height: MediaQuery.of(context).size.height*0.10 ),
+                                Image.asset('images/no-data.jpg', height: MediaQuery.of(context).size.height*0.40),
+                                 Center(
+                                  child: Text(
+                                    "No ejari requests to show!",
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black, fontSize: 15),
+                                  ),
+                                ),
+                              ],
                             ),
                           );
                         }
                         if (snapshot.hasData) {
                           recentstatus = snapshot.data!.docs.first['status'];
-                          return ListView(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            children: snapshot.data!.docs.map((doc) {
-                              myRequest = Requests.fromDoc(doc.data() as Map);
-                              return WorkSpaceRequestCard(
-                                  myRequest as Requests);
-                            }).toList(),
+                         return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.white60,
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  offset: Offset(
+                                    0.0,
+                                    0.0,
+                                  ),
+                                  blurRadius: 7.0,
+                                  spreadRadius: 2.0,
+                                ), //BoxShadow
+                                BoxShadow(
+                                  color: Colors.white,
+                                  offset: Offset(0.0, 0.0),
+                                  blurRadius: 0.0,
+                                  spreadRadius: 0.0,
+                                ), //BoxShadow
+                              ],
+                            ),
+                            margin: const EdgeInsets.only(top: 30, left: 30, right: 30),
+                            padding: const EdgeInsets.all(5),
+                            child: ListView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              children: snapshot.data!.docs.map((doc) {
+                                myRequest = Requests.fromDoc(doc.data() as Map);
+
+                                return WorkSpaceRequestCard(
+                                    myRequest as Requests);
+                              }).toList(),
+                            ),
                           );
                         } else {
                           return Center(

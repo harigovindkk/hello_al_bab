@@ -96,8 +96,8 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.white,
       body: Center(
         child: Image.asset(
-          'images/Dubai Desk Logo.jpeg',
-          width: MediaQuery.of(context).size.width * 0.25,
+          'images/Dubai Desk Logo Final.jpg',
+          width: MediaQuery.of(context).size.width * 0.35,
         ),
       ),
     );

@@ -58,12 +58,12 @@ class _OurServicesPageState extends State<OurServicesPage> {
   }
 
   Widget ensureLogout(BuildContext context) {
-    return  AlertDialog(
+    return AlertDialog(
       title: Text(
         "Confirm Logout",
         style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w700),
       ),
-      content:  Column(
+      content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -74,14 +74,14 @@ class _OurServicesPageState extends State<OurServicesPage> {
         ],
       ),
       actions: <Widget>[
-         TextButton(
+        TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          
           child: Text(
             "No",
-            style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w700),
+            style: GoogleFonts.poppins(
+                color: Colors.black, fontWeight: FontWeight.w700),
           ),
         ),
         TextButton(
@@ -107,7 +107,9 @@ class _OurServicesPageState extends State<OurServicesPage> {
             );
           },
           //textColor: Colors.black,
-          child: Text("Yes", style: GoogleFonts.poppins(color: Colors.black,fontWeight: FontWeight.w700)),
+          child: Text("Yes",
+              style: GoogleFonts.poppins(
+                  color: Colors.black, fontWeight: FontWeight.w700)),
         ),
       ],
     );
@@ -190,73 +192,99 @@ class _OurServicesPageState extends State<OurServicesPage> {
                             ),
                           ],
                         ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 15, right: 15, top: 15),
-                    child: Container(
-                      decoration: customDecoration,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: ElevatedButton(
-                        style: customButtonStyle,
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const EjariServicePage()));
-                        },
-                        child: Text(
-                          "Ejari Services",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 15, right: 15, top: 15),
-                    child: Container(
-                      decoration: customDecoration,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: ElevatedButton(
-                        style: customButtonStyle,
-                        onPressed: () {
-                          print("value=$isLoggedin");
-
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const OfficeBookingPage()));
-                        },
-                        child: Text(
-                          "Office Bookings",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 50),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'images/Dubai Desk Logo.jpeg',
-                          width: MediaQuery.of(context).size.width * 0.35,
-                        ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.white60,
+                      boxShadow: [
+                        const BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(
+                            0.0,
+                            0.0,
+                          ),
+                          blurRadius: 7.0,
+                          spreadRadius: 2.0,
+                        ), //BoxShadow
+                        const BoxShadow(
+                          color: Colors.white,
+                          offset: Offset(0.0, 0.0),
+                          blurRadius: 0.0,
+                          spreadRadius: 0.0,
+                        ), //BoxShadow
                       ],
                     ),
-                  ),
+                    margin: EdgeInsets.all(20),
+                    padding: EdgeInsets.all(10),
+                      child: Column(children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 15, right: 15, top: 15),
+                      child: Container(
+                        decoration: customDecoration,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: ElevatedButton(
+                          style: customButtonStyle,
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const EjariServicePage()));
+                          },
+                          child: Text(
+                            "Ejari Services",
+                            style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 15, right: 15, top: 15),
+                      child: Container(
+                        decoration: customDecoration,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: ElevatedButton(
+                          style: customButtonStyle,
+                          onPressed: () {
+                            print("value=$isLoggedin");
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const OfficeBookingPage()));
+                          },
+                          child: Text(
+                            "Office Bookings",
+                            style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 50, bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'images/Dubai Desk Logo Final.jpg',
+                            width: MediaQuery.of(context).size.width * 0.35,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ])),
                 ],
               ),
             ),
